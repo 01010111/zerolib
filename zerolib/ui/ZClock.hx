@@ -43,7 +43,17 @@ class ZClock extends FlxGroup
 		[1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,0,0,1,0,1,1,1,0,1,1,1,0,0,0,1,0,1,1,1,0,0,0,1,0]
 	];
 	
-	public function new(_p:FlxPoint, _min:Int = 5, _countdown:Bool = true, _text_color:Int = 0xffd3ffff, _bg_color:Int = 0xff111111, _big:Bool = false) 
+	/**
+	 * Creates a timer clock
+	 * NOTE: currently supports framerates up to 99!
+	 * @param	_p		FlxPoint	The position of the clock
+	 * @param	_min		Int		The Amount of minutes to count
+	 * @param	_countdown	Bool	Whether to count down or up
+	 * @param	_text_color	Int		Color of the text
+	 * @param	_bg_color	Int		Color of the BG
+	 * @param	_big		Bool	Built in graphics - big or small clock?
+	 */
+	public function new(_p:FlxPoint, _min:Int = 5, _countdown:Bool = true, _text_color:Int = 0xffd3ffff, _bg_color:Int = 0xff111111, _big:Bool = true) 
 	{
 		super();
 		
@@ -183,10 +193,26 @@ class ZClock extends FlxGroup
 		msc_text.text = msc < 10 ? "0" + msc : "" + msc;
 	}
 	
+	/**
+	 * Get the current timer minutes value
+	 * @return	Int
+	 */
 	public function get_minutes():Int { return min; }
+	/**
+	 * Get the current timer seconds value
+	 * @return	Int
+	 */
 	public function get_seconds():Int { return sec; }
+	/**
+	 * Get the current timer milliseconds value
+	 * NOTE: Not actually milliseconds, but Seconds / Framerate
+	 * @return	Int
+	 */
 	public function get_milisec():Int { return msc; }
-	
+	/**
+	 * Get the current timer values in a String
+	 * @return	String
+	 */
 	public function get_time_string():String { return "" + min + ":" + sec + ":" + msc; }
 	
 }
