@@ -71,10 +71,10 @@ class ZClock extends FlxGroup
 		colons.makeGraphic(Math.round(bg.width), Math.round(bg.height), 0x00ffffff);
 		if (_big)
 		{
-			FlxSpriteUtil.drawRect(colons, 14, 3, 1, 1, _text_color);
-			FlxSpriteUtil.drawRect(colons, 14, 6, 1, 1, _text_color);
-			FlxSpriteUtil.drawRect(colons, 28, 3, 1, 1, _text_color);
-			FlxSpriteUtil.drawRect(colons, 28, 6, 1, 1, _text_color);
+			FlxSpriteUtil.drawRect(colons, 14, 4, 1, 1, _text_color);
+			FlxSpriteUtil.drawRect(colons, 14, 8, 1, 1, _text_color);
+			FlxSpriteUtil.drawRect(colons, 28, 4, 1, 1, _text_color);
+			FlxSpriteUtil.drawRect(colons, 28, 8, 1, 1, _text_color);
 		}
 		else
 		{
