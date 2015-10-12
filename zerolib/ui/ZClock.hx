@@ -16,6 +16,8 @@ import zerolib.util.ZBitmapText;
 class ZClock extends FlxGroup
 {
 	
+	public var callback:Void->Void = function() { };
+	
 	var min:Int;
 	var sec:Int = 0;
 	var msc:Int = 0;
@@ -36,7 +38,7 @@ class ZClock extends FlxGroup
 	];
 	
 	var bitmap_data_array_sm:Array<Array<Int>> = [
-		[1,1,1,0,1,1,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,0,0,1,1,1,0,1,1,1,0,1,1,1,0],
+		[1,1,1,0,1,1,0,0,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,0,0,1,1,1,0,1,1,1,0,1,1,1,0],
 		[1,0,1,0,0,1,0,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0],
 		[1,0,1,0,0,1,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,0,0,1,0,1,1,1,0,1,1,1,0],
 		[1,0,1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0],
@@ -96,9 +98,9 @@ class ZClock extends FlxGroup
 				{
 					if (bitmap_data_array_big[y][x] == 1)
 					{
-						bitmap_data.setPixel(x, y, _text_color);
+						bitmap_data.setPixel32(x, y, _text_color);
 					}
-					else bitmap_data.setPixel(x, y, 0x00000000);
+					else bitmap_data.setPixel32(x, y, 0x00000000);
 				}
 			}
 			var _offset = 14;
@@ -118,9 +120,9 @@ class ZClock extends FlxGroup
 				{
 					if (bitmap_data_array_sm[y][x] == 1)
 					{
-						bitmap_data.setPixel(x, y, _text_color);
+						bitmap_data.setPixel32(x, y, _text_color);
 					}
-					else bitmap_data.setPixel(x, y, 0x00000000);
+					else bitmap_data.setPixel32(x, y, 0x00000000);
 				}
 			}
 			var _offset = 10;
@@ -139,6 +141,7 @@ class ZClock extends FlxGroup
 	}
 	
 	var counting:Bool = true;
+	var done:Bool = false;
 	
 	override public function update(elapsed:Float):Void 
 	{
@@ -162,7 +165,7 @@ class ZClock extends FlxGroup
 			}
 			else
 			{
-				if (msc > FlxG.drawFramerate - 1)
+				if (msc >= FlxG.drawFramerate)
 				{
 					msc = 0;
 					sec++;
@@ -177,8 +180,10 @@ class ZClock extends FlxGroup
 		}
 		else
 		{
+			if (!done) callback();
 			min = sec = msc = 0;
 			counting = false;
+			done = true;
 		}
 		
 		setText();
