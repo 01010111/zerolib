@@ -193,6 +193,8 @@ class ZMenu extends FlxTypedGroup<MenuItem>
 			}
 		}
 		
+		// TODO: create some kind of mouse/key listener to be able to swap between FOUR-WAY and MOUSE modes.
+		
 		super.update(elapsed);
 	}
 	
