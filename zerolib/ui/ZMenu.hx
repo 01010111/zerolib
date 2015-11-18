@@ -188,7 +188,15 @@ class ZMenu extends FlxTypedGroup<MenuItem>
 				var m_pos = FlxPoint.get(FlxG.mouse.x, FlxG.mouse.y);
 				cursor.setPosition(FlxG.mouse.x, FlxG.mouse.y);
 				forEach( function(m:MenuItem):Void { if (m != selected_item && m_pos.inFlxRect(FlxRect.get(m.p_x, m.p_y, m.size.x, m.size.y))) select_new_item(selected_item, m); } );
-				if (FlxG.mouse.justPressed) confirm_selection();
+				if (selected_item != null && !m_pos.inFlxRect(FlxRect.get(selected_item.p_x, selected_item.p_y, selected_item.size.x, selected_item.size.y))) 
+				{
+					selected_item.on_exit();
+					selected_item = null;
+				}
+				else if (FlxG.mouse.justPressed) 
+				{
+					confirm_selection();
+				}
 				if (FlxG.keys.anyJustPressed(KEYS_CANCEL)) cancel_callback();
 			}
 		}
@@ -202,7 +210,7 @@ class ZMenu extends FlxTypedGroup<MenuItem>
 	function select_item_down():Void { if (selected_item.item_down != null) select_new_item(selected_item, selected_item.item_down); }
 	function select_item_left():Void { if (selected_item.item_left != null) select_new_item(selected_item, selected_item.item_left); }
 	function select_item_right():Void { if (selected_item.item_right != null) select_new_item(selected_item, selected_item.item_right); }
-	function confirm_selection():Void { selected_item.callback(); }
+	function confirm_selection():Void { if (selected_item != null) selected_item.callback(); }
 	
 	function arrange_menu_item_sub_items():Void
 	{
@@ -211,7 +219,7 @@ class ZMenu extends FlxTypedGroup<MenuItem>
 	
 	function select_new_item(_old_item:MenuItem, _new_item:MenuItem):Void
 	{
-		if (_old_item.on_exit != null) _old_item.on_exit();
+		if (_old_item != null && _old_item.on_exit != null) _old_item.on_exit();
 		selected_item = _new_item;
 		if (_new_item.on_hover != null) _new_item.on_hover();
 	}
