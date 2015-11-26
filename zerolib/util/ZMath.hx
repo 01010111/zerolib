@@ -83,14 +83,14 @@ class ZMath
 	 * @param	y2	Y value of second Point
 	 * @return	Float The distance between the Two Points
 	 */
-	public static function distance(x1:Float, y1:Float, x2:Float, y2:Float):Float 
+	public static function distance(p1:FlxPoint, p2:FlxPoint):Float 
 	{ 
 		/*
 		 * Similar to finding vector velocity, uses Pythagorean theorem:
 		 * c (distance) = the square root of the difference of the two x
 		 * points squared plus the difference of the two y points squared.
 		 */
-		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)); 
+		return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)); 
 	}
 	
 	/**
@@ -184,9 +184,9 @@ class ZMath
 	 * @param	percent	(optional)
 	 * @return
 	 */
-	public static function getMidPoint(x1:Float, y1:Float, x2:Float, y2:Float, percent:Float = 50):FlxPoint 
+	public static function getMidPoint(p1:FlxPoint, p2:FlxPoint, percent:Float = 50):FlxPoint 
 	{ 
-		return FlxPoint.get(x1 + (x2 - x1) / (100 / percent), y1 + (y2 - y1) / (100 / percent)); 
+		return FlxPoint.get(p1.x + (p2.x - p1.x) / (100 / percent), p1.y + (p2.y - p1.y) / (100 / percent)); 
 	}
 	
 	/**
