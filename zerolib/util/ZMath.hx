@@ -117,14 +117,14 @@ class ZMath
 	 * @param	y2	Y value of second Point
 	 * @return	Float The angle between the Two Points
 	 */
-	public static function angleBetween(x1:Float, y1:Float, x2:Float, y2:Float):Float 
+	public static function angleBetween(p1:FlxPoint, p2:FlxPoint):Float 
 	{ 
 		/*
 		 * Similar to finding the angle from velocity;
 		 * Uses the arctangent function to find the angle between two points
 		 * Then converts the result from radians to degrees.
 		 */
-		return radToDeg(Math.atan2(y2 - y1, x2 - x1)); 
+		return radToDeg(Math.atan2(p2.y - p1.y, p2.x - p1.x)); 
 	}
 	
 	/**
@@ -169,10 +169,10 @@ class ZMath
 	 * @param	RADIUS	Radius/Distance from parent
 	 * @return	FlxPoint Position of child
 	 */
-	public static function placeOnCircle(CenterX:Float, CenterY:Float, ANGLE:Float, RADIUS:Float):FlxPoint
+	public static function placeOnCircle(CENTER:FlxPoint, ANGLE:Float, RADIUS:Float):FlxPoint
 	{
 		var a:Float = degToRad(ANGLE);
-		return FlxPoint.get(CenterX + RADIUS * Math.cos(a), CenterY + RADIUS * Math.sin(a));
+		return FlxPoint.get(CENTER.x + RADIUS * Math.cos(a), CENTER.y + RADIUS * Math.sin(a));
 	}
 	
 	/**
