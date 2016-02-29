@@ -17,4 +17,9 @@ class ZArrayUtils
 		return _b;
 	}
 	
+	public static function get_random(_array:Array<Dynamic>):Int
+	{
+		return ZMath.randomRangeInt(0, _array.length - 1);
+	}
+	
 }
