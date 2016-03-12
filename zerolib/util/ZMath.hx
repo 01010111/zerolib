@@ -286,4 +286,9 @@ class ZMath
 		return FlxPoint.get(quickTween(p.x, to.x, factor), quickTween(p.y, to.y, factor));
 	}
 	
+	public static function chanceRoll(_percentage:Float = 50):Bool
+	{
+		return Math.random() < _percentage / 100;
+	}
+	
 }
