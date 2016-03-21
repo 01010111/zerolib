@@ -97,8 +97,10 @@ class ZPlatformerDolly extends FlxObject
 			dolly_y_offset -= FlxG.width * 0.25;
 		
 		// Moving up or down...
-		if (target.wasTouching == FlxObject.FLOOR || !FlxG.overlap(this, target))
+		if (target.wasTouching == FlxObject.FLOOR)
 			y += ZMath.clamp((target.y + dolly_y_offset - cam_offset.y - y) * 0.1, -max_dolly_velocity, max_dolly_velocity);
+		if (!FlxG.overlap(this, target))
+			y += target.velocity.y / FlxG.updateFramerate;
 		
 		// Moving left or right...
 		if (facing == FlxObject.RIGHT)
