@@ -37,9 +37,9 @@ class ZPlatformerDolly extends FlxObject
 	 * @param	_starting_pos_offset	(optional) Starting position offset
 	 * @param	_camera_bounds			(optional) Set camera bounds to this FlxRect
 	 */
-	public function new(_target:FlxSprite, _width_percent:Float = 50, _height_percent:Float = 75, _max_dolly_velocity:Int = 5, ?_cam_offset:FlxPoint, ?_starting_pos_offset:FlxPoint, ?_camera_bounds:FlxRect ) 
+	public function new(_target:FlxSprite, _width_percent:Float = 50, _height_percent:Float = 75, _max_dolly_velocity:Int = 3, ?_cam_offset:FlxPoint, ?_starting_pos_offset:FlxPoint, ?_camera_bounds:FlxRect ) 
 	{
-		super(0, 0, FlxG.width * (_width_percent / 100) - _target.width * 2, FlxG.height * (_height_percent / 100) - _target.height * 2);
+		super();
 		
 		switch_target(_target);
 		
@@ -52,6 +52,8 @@ class ZPlatformerDolly extends FlxObject
 			setPosition(target.x - cam_offset.x + _starting_pos_offset.x, target.y - cam_offset.y + _starting_pos_offset.y);
 		else
 			setPosition(target.x - cam_offset.x, target.y - cam_offset.y);
+		
+		setSize(FlxG.width * (_width_percent / 100) - _target.width * 2, FlxG.height * (_height_percent / 100) - _target.height * 2);
 		
 		max_dolly_velocity = _max_dolly_velocity;
 		
