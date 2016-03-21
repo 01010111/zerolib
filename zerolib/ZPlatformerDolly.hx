@@ -44,9 +44,9 @@ class ZPlatformerDolly extends FlxObject
 		cam_offset = FlxPoint.get(target.width, FlxG.height * 0.3 + target.height);
 		
 		if (_starting_pos_offset != null)
-			setPosition(target.x - cam_offset.x + _starting_pos_offset.x, target.y + dolly_y_offset - cam_offset.y + _starting_pos_offset.y);
+			setPosition(target.x - cam_offset.x + _starting_pos_offset.x, target.y - cam_offset.y + _starting_pos_offset.y);
 		else
-			setPosition(target.x - cam_offset.x, target.y + dolly_y_offset - cam_offset.y);
+			setPosition(target.x - cam_offset.x, target.y - cam_offset.y);
 		
 		max_dolly_velocity = _max_dolly_velocity;
 		
