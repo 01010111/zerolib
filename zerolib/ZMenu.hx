@@ -9,7 +9,6 @@ import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-import zerolib.ui.ZMenu.MenuItem;
 import zerolib.util.ZMath;
 
 /**
@@ -20,6 +19,10 @@ class ZMenu extends FlxTypedGroup<MenuItem>
 {
 	// Currently selected Menu Item
 	var selected_item:MenuItem;
+	
+	// Internal checkers
+	var any_items_added:Bool = false;
+	var menu_initialized:Bool = false;
 	
 	// Cursor
 	public var cursor:FlxSprite;
@@ -55,10 +58,31 @@ class ZMenu extends FlxTypedGroup<MenuItem>
 	 */
 	public function init():Void
 	{
-		arrange_menu_item_sub_items();
-		assign_relationships();
-		selected_item = members[0];
-		selected_item.on_hover();
+		if (any_items_added)
+		{
+			arrange_menu_item_sub_items();
+			assign_relationships();
+			selected_item = members[0];
+			selected_item.on_hover();
+			menu_initialized = true;
+		}
+		else
+		{
+			FlxG.log.warn("NO ITEMS ADDED TO MENU! ADD ITEMS BEFORE INITIALIZING MENU.");
+		}
+	}
+	
+	override public function add(Object:MenuItem):MenuItem 
+	{
+		if (!menu_initialized)
+		{
+			any_items_added = true;
+			return super.add(Object);
+		}
+		else
+		{
+			FlxG.log.warn("MENU ALREADY INITIALIZED! ADD ITEMS BEFORE INITIALIZING MENU.");
+		}
 	}
 	
 	/**

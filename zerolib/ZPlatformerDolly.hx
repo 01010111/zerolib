@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxSpriteUtil;
 
 /**
  * I made this dolly to try and reflect the camera system in Super Mario World.
@@ -94,6 +95,41 @@ class ZPlatformerDolly extends FlxObject
 		if (_center_on_target) center_on_target();
 	}
 	
+	public function make_overlay():FlxSprite
+	{
+		var _overlay = new FlxSprite();
+		_overlay.makeGraphic(FlxG.width, FlxG.height, 0x00ffffff, true);
+		_overlay.scrollFactor.set();
+		
+		// Platform snapping
+		var _p = (FlxG.height - height) * 0.5 + cam_offset.y + target.height + 3;
+		FlxSpriteUtil.drawLine(_overlay, FlxG.width * 0.2, _p, FlxG.width * 0.8, _p);
+		
+		// Left bound
+		var _l_b = (FlxG.width - width) * 0.5 - target.width * 0.5;
+		for (i in 0...Std.int((FlxG.height - 128) / 8))
+			FlxSpriteUtil.drawLine(_overlay, _l_b, 64 + i * 8, _l_b, 64 + i * 8 + 4);
+		FlxSpriteUtil.drawPolygon(_overlay, [FlxPoint.get(_l_b, 64 - 8), FlxPoint.get(_l_b - 8, 64 - 4), FlxPoint.get(_l_b, 64)]);
+		
+		// Right bound
+		var _r_b = FlxG.width - (FlxG.width - width) * 0.5 + target.width * 0.5;
+		for (i in 0...Std.int((FlxG.height - 128) / 8))
+			FlxSpriteUtil.drawLine(_overlay, _r_b, 64 + i * 8, _r_b, 64 + i * 8 + 4);
+		FlxSpriteUtil.drawPolygon(_overlay, [FlxPoint.get(_r_b, 64 - 8), FlxPoint.get(_r_b + 8, 64 - 4), FlxPoint.get(_r_b, 64)]);
+		
+		// Left snap
+		var _l_s = _l_b + cam_offset.x + target.width * 0.5;
+		FlxSpriteUtil.drawLine(_overlay, _l_s, 48, _l_s, FlxG.height - 48);
+		FlxSpriteUtil.drawPolygon(_overlay, [FlxPoint.get(_l_s - 1, 48 - 8), FlxPoint.get(_l_s - 1 + 8, 48 - 4), FlxPoint.get(_l_s - 1, 48)]);
+		
+		// Right snap
+		var _r_s = _r_b - cam_offset.x - target.width * 0.5;
+		FlxSpriteUtil.drawLine(_overlay, _r_s, 48, _r_s, FlxG.height - 48);
+		FlxSpriteUtil.drawPolygon(_overlay, [FlxPoint.get(_r_s + 1, 48 - 8), FlxPoint.get(_r_s + 1 - 8, 48 - 4), FlxPoint.get(_r_s + 1, 48)]);
+		
+		return _overlay;
+	}
+	
 	override public function update(elapsed:Float):Void 
 	{
 		// Looking down or up...
@@ -107,20 +143,20 @@ class ZPlatformerDolly extends FlxObject
 		if (target.wasTouching == FlxObject.FLOOR)
 			y += ZMath.clamp((target.y + dolly_y_offset - cam_offset.y - y) * 0.1, -max_dolly_velocity, max_dolly_velocity);
 		if (!FlxG.overlap(this, target))
-			y += target.velocity.y / FlxG.updateFramerate;
+			y += target.velocity.y > 0 ? (target.velocity.y / FlxG.updateFramerate) : ZMath.clamp((target.y + dolly_y_offset - cam_offset.y - y) * 0.1, -max_dolly_velocity, max_dolly_velocity);
 		
 		// Moving left or right...
 		if (facing == FlxObject.RIGHT)
 		{
 			if (target.facing == FlxObject.RIGHT)
-				x += ZMath.clamp((target.x - cam_offset.x - x) * 0.1, -max_dolly_velocity, max_dolly_velocity);
+				x += ZMath.clamp((target.x + target.width * 0.5 - cam_offset.x - x) * 0.1, -max_dolly_velocity, max_dolly_velocity);
 			else if (!FlxG.overlap(this, target))
 				facing = FlxObject.LEFT;
 		}
 		else
 		{
 			if (target.facing == FlxObject.LEFT)
-				x += ZMath.clamp((target.x - (width - cam_offset.x) - x) * 0.1, -max_dolly_velocity, max_dolly_velocity);
+				x += ZMath.clamp((target.x + target.width * 0.5 - (width - cam_offset.x) - x) * 0.1, -max_dolly_velocity, max_dolly_velocity);
 			else if (!FlxG.overlap(this, target))
 				facing = FlxObject.RIGHT;
 		}
