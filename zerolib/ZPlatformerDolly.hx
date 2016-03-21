@@ -34,14 +34,20 @@ class ZPlatformerDolly extends FlxObject
 	 * @param	_width_percent			Horizontal deadzone
 	 * @param	_height_percent			Vertical deadzone
 	 * @param	_max_dolly_velocity		Max. velocity in pixels per frame
+	 * @param	_starting_pos_offset	(optional) Starting position offset
 	 * @param	_camera_bounds			(optional) Set camera bounds to this FlxRect
 	 */
-	public function new(_target:FlxSprite, _width_percent:Float = 50, _height_percent:Float = 75, _max_dolly_velocity:Int = 5, _camera_bounds:FlxRect ) 
+	public function new(_target:FlxSprite, _width_percent:Float = 50, _height_percent:Float = 75, _max_dolly_velocity:Int = 5, ?_starting_pos_offset:FlxPoint, ?_camera_bounds:FlxRect ) 
 	{
-		super(64, 400, FlxG.width * (_width_percent / 100) - _target.width * 2, FlxG.height * (_height_percent / 100) - _target.height * 2);
+		super(0, 0, FlxG.width * (_width_percent / 100) - _target.width * 2, FlxG.height * (_height_percent / 100) - _target.height * 2);
 		
 		switch_target(_target);
 		cam_offset = FlxPoint.get(target.width, FlxG.height * 0.3 + target.height);
+		
+		if (_starting_pos_offset != null)
+			setPosition(target.x - cam_offset.x + _starting_pos_offset.x, target.y + dolly_y_offset - cam_offset.y + _starting_pos_offset.y);
+		else
+			setPosition(target.x - cam_offset.x, target.y + dolly_y_offset - cam_offset.y);
 		
 		max_dolly_velocity = _max_dolly_velocity;
 		

@@ -1,4 +1,4 @@
-package;
+package zerolib;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -7,13 +7,12 @@ import flixel.math.FlxPoint;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxTimer;
 import openfl.display.BitmapData;
-import zerolib.util.ZBitmapText;
 
 /**
  * ...
  * @author x01010111
  */
-class ZClock extends FlxGroup
+class ZCountDown extends FlxGroup
 {
 	
 	public var callback:Void->Void = function() { };
@@ -46,16 +45,15 @@ class ZClock extends FlxGroup
 	];
 	
 	/**
-	 * Creates a timer clock
+	 * Creates a Countdown Timer
 	 * NOTE: currently supports framerates up to 99!
 	 * @param	_p		FlxPoint	The position of the clock
-	 * @param	_min		Int		The Amount of minutes to count
-	 * @param	_countdown	Bool	Whether to count down or up
+	 * @param	_min		Int		The Amount of minutes to count down
 	 * @param	_text_color	Int		Color of the text
 	 * @param	_bg_color	Int		Color of the BG
 	 * @param	_big		Bool	Built in graphics - big or small clock?
 	 */
-	public function new(_p:FlxPoint, _min:Int = 5, _countdown:Bool = true, _text_color:Int = 0xffd3ffff, _bg_color:Int = 0xff111111, _big:Bool = true) 
+	public function new(_p:FlxPoint, _min:Int = 5, _text_color:Int = 0xffd3ffff, _bg_color:Int = 0xff111111, _big:Bool = true) 
 	{
 		super();
 		
@@ -64,7 +62,7 @@ class ZClock extends FlxGroup
 		
 		//BG
 		var bg:FlxSprite = new FlxSprite(_p.x, _p.y);
-		_big ? bg.makeGraphic(43, 11, _bg_color) : bg.makeGraphic(31, 9, _bg_color);
+		_big ? bg.makeGraphic(43, 11, _bg_color) : bg.makeGraphic(32, 9, _bg_color);
 		bg.scrollFactor.set();
 		add(bg);
 		
