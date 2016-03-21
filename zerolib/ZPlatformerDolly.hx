@@ -38,7 +38,7 @@ class ZPlatformerDolly extends FlxObject
 	 * @param	_starting_pos_offset	(optional) Starting position offset
 	 * @param	_camera_bounds			(optional) Set camera bounds to this FlxRect
 	 */
-	public function new(_target:FlxSprite, _width_percent:Float = 50, _height_percent:Float = 75, _max_dolly_velocity:Int = 3, ?_cam_offset:FlxPoint, ?_starting_pos_offset:FlxPoint, ?_camera_bounds:FlxRect ) 
+	public function new(_target:FlxSprite, _width_percent:Float = 40, _height_percent:Float = 75, _max_dolly_velocity:Int = 3, ?_cam_offset:FlxPoint, ?_starting_pos_offset:FlxPoint, ?_camera_bounds:FlxRect ) 
 	{
 		super();
 		
@@ -102,7 +102,7 @@ class ZPlatformerDolly extends FlxObject
 		_overlay.scrollFactor.set();
 		
 		// Platform snapping
-		var _p = (FlxG.height - height) * 0.5 + cam_offset.y + target.height + 3;
+		var _p = Math.ceil((FlxG.height - height) * 0.5 + cam_offset.y + target.height) + 1;
 		FlxSpriteUtil.drawLine(_overlay, FlxG.width * 0.2, _p, FlxG.width * 0.8, _p);
 		
 		// Left bound
