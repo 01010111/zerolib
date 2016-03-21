@@ -57,8 +57,7 @@ class ZCountDown extends FlxGroup
 	{
 		super();
 		
-		countdown = _countdown;
-		countdown ? min = _min : min = 0;
+		min = _min;
 		
 		//BG
 		var bg:FlxSprite = new FlxSprite(_p.x, _p.y);
@@ -147,32 +146,15 @@ class ZCountDown extends FlxGroup
 		
 		if (min >= 0 && counting)
 		{
-			if (countdown)
+			if (msc < 0)
 			{
-				if (msc < 0)
+				msc = FlxG.drawFramerate - 1;
+				sec--;
+				
+				if (sec < 0)
 				{
-					msc = FlxG.drawFramerate - 1;
-					sec--;
-					
-					if (sec < 0)
-					{
-						sec = 59;
-						min--;
-					}
-				}
-			}
-			else
-			{
-				if (msc >= FlxG.drawFramerate)
-				{
-					msc = 0;
-					sec++;
-					
-					if (sec > 59)
-					{
-						sec = 0;
-						min++;
-					}
+					min--;
+					if (min >= 0) sec = 59;
 				}
 			}
 		}
