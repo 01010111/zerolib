@@ -1,4 +1,4 @@
-package zerolib.util;
+package zerolib;
 import flixel.graphics.frames.FlxBitmapFont;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets;

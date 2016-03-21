@@ -1,4 +1,4 @@
-package zerolib.util;
+package zerolib;
 
 import flixel.math.FlxPoint;
 
@@ -176,6 +176,20 @@ class ZMath
 	}
 	
 	/**
+	 * Places a child relative to a parent using degrees and angle from the center Point
+	 * @param	CenterX Horizontal value of parent
+	 * @param	CenterY Vertical value of parent
+	 * @param	ANGLE	Angle from parent
+	 * @param	RADIUS	Radius/Distance from parent
+	 * @return	FlxPoint Position of child
+	 */
+	public static function placeOnOval(CENTER:FlxPoint, ANGLE:Float, RADIUS:Float, YSCALE:Float = 1):FlxPoint
+	{
+		var a:Float = degToRad(ANGLE);
+		return FlxPoint.get(CENTER.x + RADIUS * Math.cos(a), CENTER.y + (RADIUS * Math.sin(a)) * YSCALE);
+	}
+	
+	/**
 	 * Returns a point half-way between two points
 	 * @param	x1 First horizontal value
 	 * @param	y1 First vertical value
@@ -276,16 +290,11 @@ class ZMath
 		return Math.round(n / gridSize) * gridSize;
 	}
 	
-	public static function quickTween(v:Float, to:Float, factor:Float = 0.1):Float
-	{
-		return v += (to - v) * factor;
-	}
-	
-	public static function quickTweenPoint(p:FlxPoint, to:FlxPoint, factor:Float = 0.1):FlxPoint
-	{
-		return FlxPoint.get(quickTween(p.x, to.x, factor), quickTween(p.y, to.y, factor));
-	}
-	
+	/**
+	 * Percentage chance to return true or false
+	 * @param	_percentage	the percentage chance that the result will be true
+	 * @return	Bool		true or false, based on percentage
+	 */
 	public static function chanceRoll(_percentage:Float = 50):Bool
 	{
 		return Math.random() < _percentage / 100;

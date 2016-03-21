@@ -1,4 +1,4 @@
-package zerolib.ui;
+package zerolib;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -9,7 +9,6 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import openfl.system.System;
-import zerolib.util.ZBitmapText;
 
 /**
  * ...
@@ -87,8 +86,8 @@ class ZSimpleMenu extends FlxSubState
 		
 		for (i in 0...items.members.length)
 		{
-			items.members[i].alpha = items.members[cur_item].selected ? 0 : 0.5;
-			if (i == cur_item) items.members[i].alpha = items.members[i].selected ? 0.5 : 1;
+			items.members[i].alpha = items.members[cur_item].selected ? 0 : 1;
+			//if (i == cur_item) items.members[i].alpha = items.members[i].selected ? 0.5 : 1;
 			items.members[i].x += items.members[cur_item].selected ? (FlxG.width * 0.25 - items.members[i].x) * 0.26 : (FlxG.width * 0.5 - items.members[i].x) * 0.26;
 			items.members[i].y += ((FlxG.height * 0.5 + i * 10 - cur_item * 10 + 1) - items.members[i].y) * 0.26;
 		}
@@ -105,7 +104,7 @@ class ZSimpleMenu extends FlxSubState
 		
 		if (!items.members[cur_item].selected)
 		{
-			return_text.alpha = 0.5;
+			//return_text.alpha = 0.5;
 			return_text.x += (0 - return_text.x) * 0.26;
 			if (choice_down) choice_select(1);
 			if (choice_up) choice_select( -1);
@@ -216,7 +215,7 @@ class MenuItem extends ZBitmapText
 	{
 		for (i in 0...choices.members.length)
 		{
-			choices.members[i].alpha = selected ? 0.5 : 0;
+			choices.members[i].alpha = selected ? 1 : 0;
 			if (selected && i == cur_choice) choices.members[i].alpha = 1;
 			
 			choices.members[i].x += selected ? (FlxG.width * 0.5 - choices.members[i].x) * 0.26 : (FlxG.width * 0.75 - choices.members[i].x) * 0.26;

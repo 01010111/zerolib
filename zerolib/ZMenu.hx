@@ -1,4 +1,4 @@
-package zerolib.ui;
+package zerolib;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject;
