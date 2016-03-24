@@ -96,3 +96,34 @@ write some documentation for, but if you're desperate, you can try to figure it 
 
 I just started this one, will probably add in a few more functions, like sorting stuff, shuffling stuff, but for now it's 
 pretty barren.
+
+###ZSpotLight###
+
+This uses info from TajamSoft - http://ludumdare.com/compo/2015/07/01/dungeon-of-ricochet-post-mortem-lighting/
+	
+It can create multiple "spotlights" so it feels like cool lighting :)
+
+__USAGE__
+
+in your FlxState:
+	
+```haxe
+var spotlights = new ZSpotLight();
+spotlights.add_to_state();
+```
+
+Note - don't add it to state normally. You gotta add the lights too, so just use the add_to_state() function!
+
+Then you add spotlights by setting targets:
+	
+```haxe
+spotlights.add_light_target(/* Your object for the spotlight to track */, /* the size of the spotlight's circle */);
+```
+
+You can also add entire groups at once!
+
+```haxe
+spotlights.add_light_targets(/* FlxGroup of objects for spotlights to track */, /* the size of each spotlight's circle */);
+```
+
+I wanna add graphics support, but it's a bit over my head at this point :P Might give it a shot later!
