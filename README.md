@@ -99,6 +99,8 @@ pretty barren.
 
 ###ZSpotLight###
 
+![picture alt](http://i.imgur.com/HlP6BV1.gif "it looks like you're a spy!")
+
 This uses info from TajamSoft - http://ludumdare.com/compo/2015/07/01/dungeon-of-ricochet-post-mortem-lighting/
 	
 It can create multiple "spotlights" so it feels like cool lighting :)
