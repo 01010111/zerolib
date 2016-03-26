@@ -11,7 +11,8 @@ import flixel.util.FlxSpriteUtil;
 import openfl.display.BlendMode;
 
 /**
- * ...
+ * Spotlight class based on TajamSoft's work here - http://ludumdare.com/compo/2015/07/01/dungeon-of-ricochet-post-mortem-lighting/
+ * @author TajamSoft
  * @author 01010111
  */
 class ZSpotLight extends FlxSprite
@@ -19,7 +20,13 @@ class ZSpotLight extends FlxSprite
 	
 	var lights:FlxTypedGroup<Light>;
 	var darkness_color:Int;
-
+	
+	/**
+	 * Adds a dark overlay with "spotlights" - 
+	 * use add_light_target() and add_light_targets() to add spotlights!
+	 * use add_to_state() to add this to your state!
+	 * @param	_darkness_color	The color of the overlay
+	 */
 	public function new(_darkness_color:Int = 0xd0000010) 
 	{
 		super();
@@ -32,11 +39,21 @@ class ZSpotLight extends FlxSprite
 		lights = new FlxTypedGroup();
 	}
 	
+	/**
+	 * Add an object to track with a spotlight
+	 * @param	_target	FlxObject to track
+	 * @param	_light_size	diameter of the spotlight
+	 */
 	public function add_light_target(_target:FlxObject, _light_size:Int):Void
 	{
 		lights.add(new Light(_target, _light_size));
 	}
 	
+	/**
+	 * Add a group of objects to track with spotlights
+	 * @param	_targets	group of objects to track
+	 * @param	_light_size	diameter of the spotlights
+	 */
 	public function add_light_targets(_targets:FlxTypedGroup<Dynamic>, _light_size:Int):Void
 	{
 		for (target in _targets)
@@ -45,6 +62,9 @@ class ZSpotLight extends FlxSprite
 		}
 	}
 	
+	/**
+	 * Use this function to add this to your state!
+	 */
 	public function add_to_state():Void
 	{
 		FlxG.state.add(this);
