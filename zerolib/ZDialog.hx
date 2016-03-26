@@ -82,7 +82,6 @@ class TextBox extends FlxTypedGroup<Letter>
 		max_rows = _style.max_rows != null ? _style.max_rows : 8;
 		
 		pages = parse_pages(split_pages(split_lines(split_words(_text))));
-		//FlxG.log.warn(pages[1]);
 		
 		var _leading = _style.leading != null ? _style.leading : 0;
 		var _kerning = _style.kerning != null ? _style.kerning : 0;
@@ -95,13 +94,15 @@ class TextBox extends FlxTypedGroup<Letter>
 		for (i in 0...pages[0].length)
 		{
 			var _p = FlxPoint.get(_x * _off.x + _origin.x, _y * _off.y + _origin.y);
-			add(new Letter(_style.graphic, _style.alphabet, _style.frame_size, pages[0].charAt(i), _p));
-			//FlxG.log.add(pages[0].charAt(i) + " / " + _x + " / " + _y);
-			_x++;
 			if (pages[0].charAt(i) == "\n")
 			{
 				_x = 0;
 				_y++;
+			}
+			else
+			{
+				add(new Letter(_style.graphic, _style.alphabet, _style.frame_size, pages[0].charAt(i), _p));
+				_x++;
 			}
 		}
 	}
@@ -113,7 +114,6 @@ class TextBox extends FlxTypedGroup<Letter>
 	
 	function split_lines(_words:Array<String>):Array<Array<String>>
 	{
-		//FIGURE IT OUT
 		var _lines:Array<Array<String>> = new Array();
 		_lines[0] = new Array();
 		var _char = 0;
@@ -129,7 +129,6 @@ class TextBox extends FlxTypedGroup<Letter>
 			}
 			_lines[_line].push(_words[i]);
 		}
-		//FlxG.log.add(_lines);
 		return _lines;
 	}
 	
@@ -153,7 +152,6 @@ class TextBox extends FlxTypedGroup<Letter>
 			}
 			_pages[_page].push(_lines[i]);
 		}
-		//FlxG.log.add(_pages);
 		return _pages;
 	}
 	
@@ -172,7 +170,7 @@ class TextBox extends FlxTypedGroup<Letter>
 				
 				_new_pages[page] += "\n";
 			}
-			_new_pages[page + 1] = "";
+			if (page <= _pages.length - 1) _new_pages[page + 1] = "";
 		}
 		return _new_pages;
 	}
@@ -202,6 +200,7 @@ class Letter extends FlxSprite
 			{
 				animation.frameIndex = i;
 				loaded = true;
+				break;
 			}
 		}
 		if (!loaded)
