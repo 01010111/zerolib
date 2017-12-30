@@ -1,4 +1,5 @@
-package zerolib;
+package zero.flxutil.camera;
+
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -7,6 +8,9 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxSpriteUtil;
+
+using zero.ext.FloatExt;
+using Math;
 
 /**
  * I made this dolly to try and reflect the camera system in Super Mario World.
@@ -141,22 +145,22 @@ class ZPlatformerDolly extends FlxObject
 		
 		// Moving up or down...
 		if (target.wasTouching == FlxObject.FLOOR)
-			y += ZMath.clamp((target.y + dolly_y_offset - cam_offset.y - y) * 0.1, -max_dolly_velocity, max_dolly_velocity);
+			y += ((target.y + dolly_y_offset - cam_offset.y - y) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
 		if (!FlxG.overlap(this, target))
-			y += target.velocity.y > 0 ? (target.velocity.y / FlxG.updateFramerate) : ZMath.clamp((target.y + dolly_y_offset - cam_offset.y - y) * 0.1, -max_dolly_velocity, max_dolly_velocity);
+			y += target.velocity.y > 0 ? (target.velocity.y / FlxG.updateFramerate) : ((target.y + dolly_y_offset - cam_offset.y - y) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
 		
 		// Moving left or right...
 		if (facing == FlxObject.RIGHT)
 		{
 			if (target.facing == FlxObject.RIGHT)
-				x += ZMath.clamp((target.x + target.width * 0.5 - cam_offset.x - x) * 0.1, -max_dolly_velocity, max_dolly_velocity);
+				x += ((target.x + target.width * 0.5 - cam_offset.x - x) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
 			else if (!FlxG.overlap(this, target))
 				facing = FlxObject.LEFT;
 		}
 		else
 		{
 			if (target.facing == FlxObject.LEFT)
-				x += ZMath.clamp((target.x + target.width * 0.5 - (width - cam_offset.x) - x) * 0.1, -max_dolly_velocity, max_dolly_velocity);
+				x += ((target.x + target.width * 0.5 - (width - cam_offset.x) - x) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
 			else if (!FlxG.overlap(this, target))
 				facing = FlxObject.RIGHT;
 		}
@@ -164,10 +168,10 @@ class ZPlatformerDolly extends FlxObject
 		// Centering Target...
 		if (should_center_target)
 		{
-			if (Math.abs(getMidpoint().x - target.getMidpoint().x) > 1)
+			if ((getMidpoint().x - target.getMidpoint().x).abs() > 1)
 				should_center_target = false;
 			else
-				x += ZMath.clamp((target.getMidpoint().x - getMidpoint().x) * 0.1, -max_dolly_velocity, max_dolly_velocity);
+				x += ((target.getMidpoint().x - getMidpoint().x) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
 		}
 		
 		super.update(elapsed);
