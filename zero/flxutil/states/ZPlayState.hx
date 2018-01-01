@@ -1,5 +1,7 @@
 package zero.flxutil.states;
 
+import flixel.FlxG;
+
 /**
  *  @author 01010111 
  */

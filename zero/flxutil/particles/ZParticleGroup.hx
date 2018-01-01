@@ -2,12 +2,11 @@ package zero.flxutil.particles;
 
 import flixel.math.FlxPoint;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import objects.particles.bases.Particle;
 
 /**
  *  
  */
-class ParticleGroup<T:Particle> extends FlxTypedGroup<T>
+class ParticleGroup<T:ZParticle> extends FlxTypedGroup<T>
 {
 
     public var add_obj:Void -> Void;
@@ -19,7 +18,7 @@ class ParticleGroup<T:Particle> extends FlxTypedGroup<T>
         add_obj();
     }
 
-    function get_obj():Particle
+    function get_obj():ZParticle
     {
         if (getFirstAvailable() != null) return getFirstAvailable();
         else 
