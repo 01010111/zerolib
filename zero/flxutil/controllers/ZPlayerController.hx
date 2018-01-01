@@ -92,7 +92,7 @@ class ZPlayerController extends ZBaseController
      *  Returns this controller's joypad
      *  @return  Joypad
      */
-    public function get_joypad():Joypad
+    public function get_joypad():ZJoypad
     {
         return joypad;
     }
