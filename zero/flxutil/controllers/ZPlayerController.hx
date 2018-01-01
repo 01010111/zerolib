@@ -30,59 +30,59 @@ class ZPlayerController extends ZBaseController
 
         // DPAD
 
-        state.dpad.u = (p1 && FlxG.keys.anyPressed([bindings.DPAD_UP])) || joypad.state.dpad.u;
-        state.dpad.d = (p1 && FlxG.keys.anyPressed([bindings.DPAD_DOWN])) || joypad.state.dpad.d;
-        state.dpad.l = (p1 && FlxG.keys.anyPressed([bindings.DPAD_LEFT])) || joypad.state.dpad.l;
-        state.dpad.r = (p1 && FlxG.keys.anyPressed([bindings.DPAD_RIGHT])) || joypad.state.dpad.r;
+        state.dpad.u = FlxG.keys.anyPressed(bindings.DPAD_U)        || joypad.state.dpad.u;
+        state.dpad.d = FlxG.keys.anyPressed(bindings.DPAD_D)        || joypad.state.dpad.d;
+        state.dpad.l = FlxG.keys.anyPressed(bindings.DPAD_L)        || joypad.state.dpad.l;
+        state.dpad.r = FlxG.keys.anyPressed(bindings.DPAD_R)        || joypad.state.dpad.r;
 
-        state.dpad.u_p = (p1 && FlxG.keys.anyJustPressed([bindings.DPAD_UP])) || joypad.state.dpad.u_p;
-        state.dpad.d_p = (p1 && FlxG.keys.anyJustPressed([bindings.DPAD_DOWN])) || joypad.state.dpad.d_p;
-        state.dpad.l_p = (p1 && FlxG.keys.anyJustPressed([bindings.DPAD_LEFT])) || joypad.state.dpad.l_p;
-        state.dpad.r_p = (p1 && FlxG.keys.anyJustPressed([bindings.DPAD_RIGHT])) || joypad.state.dpad.r_p;
+        state.dpad.u_p = FlxG.keys.anyJustPressed(bindings.DPAD_U)  || joypad.state.dpad.u_p;
+        state.dpad.d_p = FlxG.keys.anyJustPressed(bindings.DPAD_D)  || joypad.state.dpad.d_p;
+        state.dpad.l_p = FlxG.keys.anyJustPressed(bindings.DPAD_L)  || joypad.state.dpad.l_p;
+        state.dpad.r_p = FlxG.keys.anyJustPressed(bindings.DPAD_R)  || joypad.state.dpad.r_p;
 
-        state.dpad.u_r = (p1 && FlxG.keys.anyJustReleased([bindings.DPAD_UP])) || joypad.state.dpad.u_r;
-        state.dpad.d_r = (p1 && FlxG.keys.anyJustReleased([bindings.DPAD_DOWN])) || joypad.state.dpad.d_r;
-        state.dpad.l_r = (p1 && FlxG.keys.anyJustReleased([bindings.DPAD_LEFT])) || joypad.state.dpad.l_r;
-        state.dpad.r_r = (p1 && FlxG.keys.anyJustReleased([bindings.DPAD_RIGHT])) || joypad.state.dpad.r_r;
+        state.dpad.u_r = FlxG.keys.anyJustReleased(bindings.DPAD_U) || joypad.state.dpad.u_r;
+        state.dpad.d_r = FlxG.keys.anyJustReleased(bindings.DPAD_D) || joypad.state.dpad.d_r;
+        state.dpad.l_r = FlxG.keys.anyJustReleased(bindings.DPAD_L) || joypad.state.dpad.l_r;
+        state.dpad.r_r = FlxG.keys.anyJustReleased(bindings.DPAD_R) || joypad.state.dpad.r_r;
 
         // FACE BUTTONS
 
-        state.face.a = (p1 && FlxG.keys.anyPressed([bindings.FACE_A])) || joypad.state.face.a;
-        state.face.b = (p1 && FlxG.keys.anyPressed([bindings.FACE_B])) || joypad.state.face.b;
-        state.face.x = (p1 && FlxG.keys.anyPressed([bindings.FACE_X])) || joypad.state.face.x;
-        state.face.y = (p1 && FlxG.keys.anyPressed([bindings.FACE_Y])) || joypad.state.face.y;
+        state.face.a = FlxG.keys.anyPressed(bindings.FACE_A)        || joypad.state.face.a;
+        state.face.b = FlxG.keys.anyPressed(bindings.FACE_B)        || joypad.state.face.b;
+        state.face.x = FlxG.keys.anyPressed(bindings.FACE_X)        || joypad.state.face.x;
+        state.face.y = FlxG.keys.anyPressed(bindings.FACE_Y)        || joypad.state.face.y;
 
-        state.face.a_p = (p1 && FlxG.keys.anyJustPressed([bindings.FACE_A])) || joypad.state.face.a_p;
-        state.face.b_p = (p1 && FlxG.keys.anyJustPressed([bindings.FACE_B])) || joypad.state.face.b_p;
-        state.face.x_p = (p1 && FlxG.keys.anyJustPressed([bindings.FACE_X])) || joypad.state.face.x_p;
-        state.face.y_p = (p1 && FlxG.keys.anyJustPressed([bindings.FACE_Y])) || joypad.state.face.y_p;
+        state.face.a_p = FlxG.keys.anyJustPressed(bindings.FACE_A)  || joypad.state.face.a_p;
+        state.face.b_p = FlxG.keys.anyJustPressed(bindings.FACE_B)  || joypad.state.face.b_p;
+        state.face.x_p = FlxG.keys.anyJustPressed(bindings.FACE_X)  || joypad.state.face.x_p;
+        state.face.y_p = FlxG.keys.anyJustPressed(bindings.FACE_Y)  || joypad.state.face.y_p;
 
-        state.face.a_r = (p1 && FlxG.keys.anyJustReleased([bindings.FACE_A])) || joypad.state.face.a_r;
-        state.face.b_r = (p1 && FlxG.keys.anyJustReleased([bindings.FACE_B])) || joypad.state.face.b_r;
-        state.face.x_r = (p1 && FlxG.keys.anyJustReleased([bindings.FACE_X])) || joypad.state.face.x_r;
-        state.face.y_r = (p1 && FlxG.keys.anyJustReleased([bindings.FACE_Y])) || joypad.state.face.y_r;
+        state.face.a_r = FlxG.keys.anyJustReleased(bindings.FACE_A) || joypad.state.face.a_r;
+        state.face.b_r = FlxG.keys.anyJustReleased(bindings.FACE_B) || joypad.state.face.b_r;
+        state.face.x_r = FlxG.keys.anyJustReleased(bindings.FACE_X) || joypad.state.face.x_r;
+        state.face.y_r = FlxG.keys.anyJustReleased(bindings.FACE_Y) || joypad.state.face.y_r;
 
         // SHOULDER BUMPERS
 
-        state.bmpr.l = (p1 && FlxG.keys.anyPressed([bindings.BMPR_L])) || joypad.state.bmpr.l;
-        state.bmpr.r = (p1 && FlxG.keys.anyPressed([bindings.BMPR_R])) || joypad.state.bmpr.r;
+        state.bmpr.l = FlxG.keys.anyPressed(bindings.BMPR_L)        || joypad.state.bmpr.l;
+        state.bmpr.r = FlxG.keys.anyPressed(bindings.BMPR_R)        || joypad.state.bmpr.r;
 
-        state.bmpr.l_p = (p1 && FlxG.keys.anyJustPressed([bindings.BMPR_L])) || joypad.state.bmpr.l_p;
-        state.bmpr.r_p = (p1 && FlxG.keys.anyJustPressed([bindings.BMPR_R])) || joypad.state.bmpr.r_p;
+        state.bmpr.l_p = FlxG.keys.anyJustPressed(bindings.BMPR_L)  || joypad.state.bmpr.l_p;
+        state.bmpr.r_p = FlxG.keys.anyJustPressed(bindings.BMPR_R)  || joypad.state.bmpr.r_p;
 
-        state.bmpr.l_r = (p1 && FlxG.keys.anyJustReleased([bindings.BMPR_L])) || joypad.state.bmpr.l_r;
-        state.bmpr.r_r = (p1 && FlxG.keys.anyJustReleased([bindings.BMPR_R])) || joypad.state.bmpr.r_r;
+        state.bmpr.l_r = FlxG.keys.anyJustReleased(bindings.BMPR_L) || joypad.state.bmpr.l_r;
+        state.bmpr.r_r = FlxG.keys.anyJustReleased(bindings.BMPR_R) || joypad.state.bmpr.r_r;
 
         // UTILITY BUTTONS
 
-        state.util.p = (p1 && FlxG.keys.anyPressed([bindings.UTIL_P])) || joypad.state.util.p;
-        state.util.m = (p1 && FlxG.keys.anyPressed([bindings.UTIL_M])) || joypad.state.util.m;
+        state.util.p = FlxG.keys.anyPressed(bindings.UTIL_P)        || joypad.state.util.p;
+        state.util.m = FlxG.keys.anyPressed(bindings.UTIL_M)        || joypad.state.util.m;
 
-        state.util.p_p = (p1 && FlxG.keys.anyJustPressed([bindings.UTIL_P])) || joypad.state.util.p_p;
-        state.util.m_p = (p1 && FlxG.keys.anyJustPressed([bindings.UTIL_M])) || joypad.state.util.m_p;
+        state.util.p_p = FlxG.keys.anyJustPressed(bindings.UTIL_P)  || joypad.state.util.p_p;
+        state.util.m_p = FlxG.keys.anyJustPressed(bindings.UTIL_M)  || joypad.state.util.m_p;
 
-        state.util.p_r = (p1 && FlxG.keys.anyJustReleased([bindings.UTIL_P])) || joypad.state.util.p_r;
-        state.util.m_r = (p1 && FlxG.keys.anyJustReleased([bindings.UTIL_M])) || joypad.state.util.m_r;
+        state.util.p_r = FlxG.keys.anyJustReleased(bindings.UTIL_P) || joypad.state.util.p_r;
+        state.util.m_r = FlxG.keys.anyJustReleased(bindings.UTIL_M) || joypad.state.util.m_r;
     }
 
     /**
@@ -115,21 +115,34 @@ class ZPlayerController extends ZBaseController
 class KeyBindings
 {
 
-    public var DPAD_UP:FlxKey;
-    public var DPAD_DOWN:FlxKey;
-    public var DPAD_LEFT:FlxKey;
-    public var DPAD_RIGHT:FlxKey;
+    public static var BINDING_DPAD_U:String = 'DPAD_U';
+    public static var BINDING_DPAD_D:String = 'DPAD_D';
+    public static var BINDING_DPAD_L:String = 'DPAD_L';
+    public static var BINDING_DPAD_R:String = 'DPAD_R';
+    public static var BINDING_FACE_A:String = 'FACE_A';
+    public static var BINDING_FACE_B:String = 'FACE_B';
+    public static var BINDING_FACE_X:String = 'FACE_X';
+    public static var BINDING_FACE_Y:String = 'FACE_Y';
+    public static var BINDING_BMPR_L:String = 'BMPR_L';
+    public static var BINDING_BMPR_R:String = 'BMPR_R';
+    public static var BINDING_UTIL_P:String = 'UTIL_P';
+    public static var BINDING_UTIL_M:String = 'UTIL_M';
 
-    public var FACE_A:FlxKey;
-    public var FACE_B:FlxKey;
-    public var FACE_X:FlxKey;
-    public var FACE_Y:FlxKey;
+    public var DPAD_U:Array<FlxKey>;
+    public var DPAD_D:Array<FlxKey>;
+    public var DPAD_L:Array<FlxKey>;
+    public var DPAD_R:Array<FlxKey>;
 
-    public var BMPR_L:FlxKey;
-    public var BMPR_R:FlxKey;
+    public var FACE_A:Array<FlxKey>;
+    public var FACE_B:Array<FlxKey>;
+    public var FACE_X:Array<FlxKey>;
+    public var FACE_Y:Array<FlxKey>;
 
-    public var UTIL_P:FlxKey;
-    public var UTIL_M:FlxKey;
+    public var BMPR_L:Array<FlxKey>;
+    public var BMPR_R:Array<FlxKey>;
+
+    public var UTIL_P:Array<FlxKey>;
+    public var UTIL_M:Array<FlxKey>;
 
     /**
      *  Creates the keybindings to be used by the player on keyboard
@@ -137,7 +150,24 @@ class KeyBindings
      */
     public function new()
     {
+        reset_bindings();
         set_default_bindings_qwerty();
+    }
+
+    public function reset_bindings()
+    {
+        DPAD_U = [];
+        DPAD_D = [];
+        DPAD_L = [];
+        DPAD_R = [];
+        FACE_A = [];
+        FACE_B = [];
+        FACE_X = [];
+        FACE_Y = [];
+        BMPR_L = [];
+        BMPR_R = [];
+        UTIL_P = [];
+        UTIL_M = [];
     }
 
     /**
@@ -148,16 +178,16 @@ class KeyBindings
     {
         set_dpad_arrowkeys();
 
-        bind_key('FACE_A', FlxKey.Z);
-        bind_key('FACE_B', FlxKey.A);
-        bind_key('FACE_X', FlxKey.X);
-        bind_key('FACE_Y', FlxKey.S);
+        bind_key(BINDING_FACE_A, FlxKey.Z);
+        bind_key(BINDING_FACE_B, FlxKey.A);
+        bind_key(BINDING_FACE_X, FlxKey.X);
+        bind_key(BINDING_FACE_Y, FlxKey.S);
 
-        bind_key('BMPR_L', FlxKey.Q);
-        bind_key('BMPR_R', FlxKey.W);
+        bind_key(BINDING_BMPR_L, FlxKey.Q);
+        bind_key(BINDING_BMPR_R, FlxKey.W);
 
-        bind_key('UTIL_P', FlxKey.E);
-        bind_key('UTIL_M', FlxKey.TAB);
+        bind_key(BINDING_UTIL_P, FlxKey.E);
+        bind_key(BINDING_UTIL_M, FlxKey.TAB);
     }
 
     /**
@@ -166,10 +196,10 @@ class KeyBindings
      */
     public function set_dpad_arrowkeys()
     {
-        bind_key('DPAD_UP', FlxKey.UP);
-        bind_key('DPAD_DOWN', FlxKey.DOWN);
-        bind_key('DPAD_LEFT', FlxKey.LEFT);
-        bind_key('DPAD_RIGHT', FlxKey.RIGHT);
+        bind_key(BINDING_DPAD_U, FlxKey.UP);
+        bind_key(BINDING_DPAD_D, FlxKey.DOWN);
+        bind_key(BINDING_DPAD_L, FlxKey.LEFT);
+        bind_key(BINDING_DPAD_R, FlxKey.RIGHT);
     }
 
     /**
@@ -178,10 +208,10 @@ class KeyBindings
      */
     public function set_dpad_wasd()
     {
-        bind_key('DPAD_UP', FlxKey.W);
-        bind_key('DPAD_DOWN', FlxKey.A);
-        bind_key('DPAD_LEFT', FlxKey.S);
-        bind_key('DPAD_RIGHT', FlxKey.D);
+        bind_key(BINDING_DPAD_U, FlxKey.W);
+        bind_key(BINDING_DPAD_D, FlxKey.A);
+        bind_key(BINDING_DPAD_L, FlxKey.S);
+        bind_key(BINDING_DPAD_R, FlxKey.D);
     }
 
     /**
@@ -190,22 +220,22 @@ class KeyBindings
      *  @param   _button    The controller button to map
      *  @param   _key       The key to bind to the button
      */
-    public function bind_key(_button:String, _key)
+    public function bind_key(button:String, key)
     {
-        switch(_button)
+        switch(button)
         {
-            case 'DPAD_UP':     DPAD_UP = _key;
-            case 'DPAD_DOWN':   DPAD_DOWN = _key;
-            case 'DPAD_LEFT':   DPAD_LEFT = _key;
-            case 'DPAD_RIGHT':  DPAD_RIGHT = _key;
-            case 'FACE_A':      FACE_A = _key;
-            case 'FACE_B':      FACE_B = _key;
-            case 'FACE_X':      FACE_X = _key;
-            case 'FACE_Y':      FACE_Y = _key;
-            case 'BMPR_L':      BMPR_L = _key;
-            case 'BMPR_R':      BMPR_R = _key;
-            case 'UTIL_P':      UTIL_P = _key;
-            case 'UTIL_M':      UTIL_M = _key;
+            case 'DPAD_U': DPAD_U.push(key);
+            case 'DPAD_D': DPAD_D.push(key);
+            case 'DPAD_L': DPAD_L.push(key);
+            case 'DPAD_R': DPAD_R.push(key);
+            case 'FACE_A': FACE_A.push(key);
+            case 'FACE_B': FACE_B.push(key);
+            case 'FACE_X': FACE_X.push(key);
+            case 'FACE_Y': FACE_Y.push(key);
+            case 'BMPR_L': BMPR_L.push(key);
+            case 'BMPR_R': BMPR_R.push(key);
+            case 'UTIL_P': UTIL_P.push(key);
+            case 'UTIL_M': UTIL_M.push(key);
         }
     }
 
