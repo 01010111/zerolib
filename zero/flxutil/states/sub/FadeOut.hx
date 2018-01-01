@@ -10,12 +10,9 @@ import flixel.tweens.FlxTween;
 class FadeOut extends ZSubState
 {
 
-    public var on_complete:Void -> Void = function() { };
-
     public function new(on_complete:Void -> Void, time:Float = 0.5, ?sprite:FlxSprite, ?color:Int = 0xff000000)
     {
         super();
-        this.on_complete = on_complete;
         if (sprite == null) 
         {
             sprite = new FlxSprite();
