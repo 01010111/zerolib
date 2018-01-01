@@ -60,14 +60,12 @@ class ZJoypad extends ZBaseController
             pad = FlxG.gamepads.getActiveGamepads()[p];
         if (pad != null)
         {
-            //Reg.game.log_message('Controller connected!');
             alert_connected();
             connected = true;
             return;
         }
         else if (!already_alerted)
         {
-            //Reg.game.log_message("Controller not connected!");
             alert_not_connected();
             already_alerted = true;
         }
