@@ -16,9 +16,9 @@ class FlxPointExt
      *  @param p - input vector
      *  @return Float
      */
-    inline public static function vector_length(p:FlxPoint):Float
+    inline public static function vector_length(v:FlxPoint):Float
     {
-        return Math.sqrt(Math.pow(p.x, 2) + Math.pow(p.y, 2)); 
+        return Math.sqrt(Math.pow(v.x, 2) + Math.pow(v.y, 2)); 
     }
 
     /**
