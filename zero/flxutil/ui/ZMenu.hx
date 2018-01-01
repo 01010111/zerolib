@@ -62,8 +62,8 @@ class MenuItem
     public var selected_item:MenuItem;
     public var children:Array<MenuItem> = [];
     public var selection_index:Int = 0;
+    public var on_choose_callback:Void -> Void = function () { /* ᴗ */ };
     public var selection_callback:Int -> Void = function (idx:Int) { /* ᴗ */ };
-    public var on_choose_callback:Int -> Void = function (idx:Int) { /* ᴗ */ };
 
     public function new(title:String, type:Int = 0)
     {
