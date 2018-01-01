@@ -4,6 +4,9 @@ import flixel.math.FlxPoint;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import objects.particles.bases.Particle;
 
+/**
+ *  
+ */
 class ParticleGroup<T:Particle> extends FlxTypedGroup<T>
 {
 

@@ -3,6 +3,9 @@ package zero.flxutil.particles;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 
+/**
+ *  @author 01010111 
+ */
 class Particle extends FlxSprite
 {
 

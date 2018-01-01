@@ -3,6 +3,9 @@ package zero.ext.flx;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 
+/**
+ *  @author 01010111 
+ */
 class FlxObjectExt
 {
 

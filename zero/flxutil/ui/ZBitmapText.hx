@@ -9,6 +9,8 @@ import flixel.FlxG;
 /**
  * ...
  * @author x01010111
+ *  
+ *  TODO: Needs review / update
  */
 class ZBitmapText extends FlxBitmapText
 {

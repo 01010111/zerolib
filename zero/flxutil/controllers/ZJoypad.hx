@@ -5,6 +5,9 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxPoint;
 import flixel.util.FlxTimer;
 
+/**
+ *  @author 01010111 
+ */
 class ZJoypad extends ZBaseController
 {
 

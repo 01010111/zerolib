@@ -4,6 +4,9 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 
+/**
+ *  @author 01010111 
+ */
 class FlxSpriteExt
 {
 

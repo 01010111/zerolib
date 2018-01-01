@@ -17,6 +17,9 @@ using Math;
  * It features platform snapping, a camera window for deadzone, dual forward focus, and manual vertical control! 
  * thanks to Itay Keren and his amazing talk "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers"
  * for making me realize I needed this in my platformers :P
+ *  
+ *  TODO: Needs review / update
+ *  
  * @author 01010111
  */
 class ZPlatformerDolly extends FlxObject

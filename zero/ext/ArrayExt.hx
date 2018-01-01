@@ -1,5 +1,8 @@
 package zero.ext;
 
+/**
+ *  @author 01010111 
+ */
 class ArrayExt 
 {
 

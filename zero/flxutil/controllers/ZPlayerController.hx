@@ -4,6 +4,9 @@ import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxPoint;
 
+/**
+ *  @author 01010111 
+ */
 class ZPlayerController extends ZBaseController
 {
 

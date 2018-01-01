@@ -5,6 +5,9 @@ import flixel.math.FlxPoint;
 using zero.ext.FloatExt;
 using zero.ext.flx.FlxPointExt;
 
+/**
+ *  @author 01010111 
+ */
 class FlxPointExt
 {
 

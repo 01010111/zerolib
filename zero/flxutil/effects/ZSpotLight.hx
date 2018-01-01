@@ -12,8 +12,12 @@ import openfl.display.BlendMode;
 
 /**
  * Spotlight class based on TajamSoft's work here - http://ludumdare.com/compo/2015/07/01/dungeon-of-ricochet-post-mortem-lighting/
+ *  
  * @author TajamSoft
  * @author 01010111
+ *  
+ *  TODO: Needs review / update
+ *  
  */
 class ZSpotLight extends FlxSprite
 {

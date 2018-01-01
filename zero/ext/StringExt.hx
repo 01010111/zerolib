@@ -2,6 +2,9 @@ package zero.ext;
 
 using zero.ext.ArrayExt;
 
+/**
+ *  @author 01010111 
+ */
 class StringExt
 {
 

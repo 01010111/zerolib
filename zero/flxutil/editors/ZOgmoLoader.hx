@@ -4,6 +4,9 @@ import flixel.addons.editors.ogmo.FlxOgmoLoader;
 
 using zero.ext.StringExt;
 
+/**
+ *  @author 01010111 
+ */
 class ZOgmoLoader extends FlxOgmoLoader
 {
 
