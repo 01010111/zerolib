@@ -104,7 +104,7 @@ class ZPlayerController extends ZBaseController
     public function left_analog():FlxPoint
     {
         if (joypad.get_pad() == null) return FlxPoint.get();
-        return joypad.get_left_analog_state():
+        return joypad.get_left_analog_state();
     }
 
     override public function add()
