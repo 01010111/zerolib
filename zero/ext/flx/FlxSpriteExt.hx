@@ -18,7 +18,7 @@ class FlxSpriteExt
 
     inline public static function make_anchored_hitbox(sprite:FlxSprite, width:Float, height:Float):Void
 	{
-        sprite.offset.set(sprite.width * 0.5 - width, sprite.height - height);
+        sprite.offset.set(sprite.width * 0.5 - width * 0.5, sprite.height - height);
         sprite.setSize(width, height);
 	}
 
