@@ -6,12 +6,12 @@ import flixel.math.FlxPoint;
 /**
  *  @author 01010111 
  */
-class Particle extends FlxSprite
+class ZParticle extends FlxSprite
 {
 
     public function new()
     {
-        super(FlxPoint.get());
+        super();
         exists = false;
     }
 
