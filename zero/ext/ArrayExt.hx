@@ -13,4 +13,14 @@ class ArrayExt
         return a;
     }
 
+	inline public static function contains(array:Array<Dynamic>, value:Dynamic):Bool
+	{
+		var b = false;
+		for (i in 0...array.length)
+		{
+			if (value == array[i]) b = true;
+		}
+		return b;
+	}
+
 }
