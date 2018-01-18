@@ -54,7 +54,7 @@ class ZJoypad extends ZBaseController
                 #end
             } :
             this.alert_not_connected = alert_connected;
-        connect();
+        new FlxTimer().start(1, connect);
     }
 
     function connect(?t:FlxTimer)
