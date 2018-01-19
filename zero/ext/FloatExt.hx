@@ -150,6 +150,19 @@ class FloatExt
         return min + Math.random() * ((max == null ? def_max : max) - min);
     }
 
+	/**
+	 *  returns the sign (-1, 0, 1) of a number
+	 *  
+	 *  @param   n - input value
+	 *  @return  Int
+	 */
+	inline public static function sign_of(n:Float):Int
+	{
+		if (n > 0) return 1;
+		if (n < 0) return -1;
+		return 0;
+	}
+
     /**
      *  returns an Int in the place of a Float. ex. 10.1.to_int() = 10
      *  @param n - input Float
