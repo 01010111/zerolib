@@ -1,5 +1,7 @@
 package zero.ext;
 
+using zero.ext.FloatExt;
+
 /**
  *  @author 01010111 
  */
@@ -21,6 +23,11 @@ class ArrayExt
 			if (value == array[i]) b = true;
 		}
 		return b;
+	}
+
+	inline public static function get_random(array:Array<Dynamic>):Dynamic
+	{
+		return array[array.length.get_random().to_int()];
 	}
 
 }
