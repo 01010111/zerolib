@@ -24,7 +24,7 @@ class Component
 	 */
 	public function new(id:String = '', ?tags:Array<String>)
 	{
-		this.id = id.length == 0 ? id.get_random(64, 'component_') : id;
+		this.id = id.length == 0 ? id.get_random(64, 'C_${Type.getClassName(Type.getClass(this))}_') : id;
 		this.tags = tags == null ? [] : tags;
 	}
 

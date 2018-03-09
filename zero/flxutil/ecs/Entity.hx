@@ -37,7 +37,7 @@ class Entity extends FlxSprite
 	 */
 	public function new(id:String = '', ?options:EntityOptions)
 	{
-		this.id = id.length == 0 ? id.get_random(64, 'entity_') : id;
+		this.id = id.length == 0 ? id.get_random(64, 'E_${Type.getClassName(Type.getClass(this))}_') : id;
 		if (options == null) options = {};
 		update_position = update_pos;
 		super();
