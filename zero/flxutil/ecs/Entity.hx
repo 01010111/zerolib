@@ -7,6 +7,12 @@ import zero.flxutil.ecs.State;
 import zero.util.IntPoint;
 import zero.util.Vector;
 
+using zero.ext.StringExt;
+
+/**
+ *  @author 01010111
+ *  Update position with pos!
+ */
 class Entity extends FlxSprite
 {
 
@@ -14,12 +20,25 @@ class Entity extends FlxSprite
 	var tags:Array<String> = [];
 	var components:Array<Component> = [];
 	
+	/**
+	 *  use this to update position! pos.z is used for depth sorting!
+	 */
 	public var pos:Vector;
+
+	/**
+	 *  this sets x/y based on pos
+	 */
 	public var update_position:Void -> Void;
 
-	public function new(id:String, options:EntityOptions)
+	/**
+	 *  Creates a new Entity with id and options
+	 *  @param id - 
+	 *  @param options - 
+	 */
+	public function new(id:String = '', ?options:EntityOptions)
 	{
-		this.id = id;
+		this.id = id.length == 0 ? id.get_random(64, 'entity_') : id;
+		if (options == null) options = {};
 		update_position = update_pos;
 		super();
 		pos = options.position != null ? options.position : new Vector();
@@ -32,35 +51,68 @@ class Entity extends FlxSprite
 		State.i.add_entity(this);
 	}
 
+	/**
+	 *  returns the id of this entity
+	 *  @return String
+	 */
 	public function get_id():String
 	{
 		return id;
 	}
 
+	/**
+	 *  returns whether or not this entity has a tag
+	 *  
+	 *  @param   tag 
+	 *  @return  Bool
+	 */
 	public function has_tag(tag:String):Bool
 	{
 		for (t in tags) if (t == tag) return true;
 		return false;
 	}
 
+	/**
+	 *  Adds a component to this entity
+	 *  
+	 *  @param   component 
+	 */
 	public function add_component(component:Component)
 	{
 		components.push(component);
 		component.add_to(this);
 	}
 
+	/**
+	 *  removes a component from this entity
+	 *  
+	 *  @param   component 
+	 */
 	public function remove_component(component:Component)
 	{
+		if (component == null) return;
 		component.on_remove();
 		components.remove(component);
 	}
 
+	/**
+	 *  returns a component with an id
+	 *  
+	 *  @param   id 
+	 *  @return  Component
+	 */
 	public function get_component_by_id(id:String):Component
 	{
 		for (c in components) if (c.get_id() == id) return c;
 		return null;
 	}
 
+	/**
+	 *  returns an array of components with a tag
+	 *  
+	 *  @param   tag 
+	 *  @return  Array<Component>
+	 */
 	public function get_components_by_tag(tag:String):Array<Component>
 	{
 		return [for (c in components) if (c.has_tag(tag)) c];
@@ -76,6 +128,11 @@ class Entity extends FlxSprite
 	function update_pos()
 	{
 		setPosition(pos.x, pos.y);
+	}
+
+	public function on_added()
+	{
+
 	}
 
 }

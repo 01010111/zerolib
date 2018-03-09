@@ -3,6 +3,12 @@ package zero.flxutil.ecs;
 import flixel.math.FlxPoint;
 import zero.flxutil.ecs.Entity;
 
+using zero.ext.StringExt;
+
+/**
+ *  @author 01010111
+ *  changing transform changes the component's entity's transform as well!
+ */
 class Component
 {
 
@@ -11,23 +17,41 @@ class Component
 	var entity:Entity;
 	var transform:Transform;
 
+	/**
+	 *  Creates a new component with an id and tags. A random string will be created for a blank id.
+	 *  @param id - 
+	 *  @param tags - 
+	 */
+	public function new(id:String = '', ?tags:Array<String>)
+	{
+		this.id = id.length == 0 ? id.get_random(64, 'component_') : id;
+		this.tags = tags == null ? [] : tags;
+	}
+
+	/**
+	 *  returns the id of this component
+	 *  @return String
+	 */
 	public function get_id():String
 	{
 		return id;
 	}
 
+	/**
+	 *  returns whether or not this component contains a tag
+	 *  @param tag - 
+	 *  @return Bool
+	 */
 	public function has_tag(tag:String):Bool
 	{
 		for (t in tags) if (t == tag) return true;
 		return false;
 	}
 
-	public function new(id:String, ?tags:Array<String>)
-	{
-		this.id = id;
-		this.tags = tags == null ? [] : tags;
-	}
-
+	/**
+	 *  adds this component to an entity, automatically called in Entity.add_component()
+	 *  @param entity - 
+	 */
 	public function add_to(entity:Entity)
 	{
 		this.entity = entity;
@@ -35,16 +59,26 @@ class Component
 		on_added();
 	}
 
+	/**
+	 *  runs once a frame, override to use!
+	 *  @param e - 
+	 */
 	public function update(e:Float)
 	{
 		
 	}
 
+	/**
+	 *  automatically called in add_to()
+	 */
 	public function on_added()
 	{
 
 	}
 
+	/**
+	 *  automatically called in Entity.remove_component()
+	 */
 	public function on_remove()
 	{
 

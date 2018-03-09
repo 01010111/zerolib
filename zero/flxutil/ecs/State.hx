@@ -4,6 +4,10 @@ import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import zero.flxutil.ecs.Entity;
 
+/**
+ *  @author 01010111
+ *  make sure you run super.create()!
+ */
 class State extends FlxState
 {
 
@@ -14,17 +18,18 @@ class State extends FlxState
 	{
 		super();
 		i = this;
+		entities = new FlxTypedGroup();
 	}
 
 	override public function create()
 	{
-		entities = new FlxTypedGroup();
 		add(entities);
 	}
 
 	public function add_entity(e:Entity)
 	{
 		entities.add(e);
+		e.on_added();
 	}
 
 	override public function update(e:Float)
@@ -35,6 +40,17 @@ class State extends FlxState
 			return 0;
 		}, 1);
 		super.update(e);
+	}
+
+	public function get_entity_by_id(id:String):Entity
+	{
+		for (e in entities) if (e.id == id) return e;
+		return null;
+	}
+
+	public function get_entities_by_tag(tag:String):Array<Entity>
+	{
+		return [for (e in entities) if (e.has_tag(tag)) e];
 	}
 
 }
