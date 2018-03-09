@@ -1,6 +1,7 @@
 package zero.ext.flx;
 
 import flixel.math.FlxPoint;
+import zero.util.Vector;
 
 using zero.ext.FloatExt;
 using zero.ext.flx.FlxPointExt;
@@ -100,5 +101,10 @@ class FlxPointExt
     {
         return FlxPoint.get(p.x + tile_width * 0.5, p.y + (tile_height == null ? tile_width : tile_height) * 0.5);
     }
+
+	inline public static function to_vector(p:FlxPoint):Vector
+	{
+		return new Vector(p.x, p.y);
+	}
 
 }
