@@ -44,7 +44,7 @@ class State extends FlxState
 
 	public function get_entity_by_id(id:String):Entity
 	{
-		for (e in entities) if (e.id == id) return e;
+		for (e in entities) if (e.get_id() == id) return e;
 		return null;
 	}
 

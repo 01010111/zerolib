@@ -18,10 +18,6 @@ class HasParent extends Component
 	override public function on_added()
 	{
 		entity.update_position = update_pos;
-
-		flixel.FlxG.watch.add(entity.pos, 'x', 'e.pos.x:');
-		flixel.FlxG.watch.add(entity.pos, 'y', 'e.pos.y:');
-		flixel.FlxG.watch.add(parent.scale, 'x', 'p.scale.x:');
 	}
 
 	override public function update(e:Float)

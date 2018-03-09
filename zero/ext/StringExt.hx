@@ -26,7 +26,7 @@ class StringExt
 	{
 		var a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()_+-={}|[]:";<>?,./';
 		var s = '';
-		for (i in 0...length)s += a.charAt(a.length.get_random());
+		for (i in 0...length)s += a.charAt(a.length.get_random().to_int());
 		return '$prefix$s$postfix';
 	}
 

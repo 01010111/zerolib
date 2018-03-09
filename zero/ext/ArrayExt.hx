@@ -48,7 +48,7 @@ class ArrayExt
 	{
 		for (i in 0...array.length)
 		{
-			var j = array.length.get_random();
+			var j = array.length.get_random().to_int();
 			var a = array[i];
 			var b = array[j];
 			array[i] = b;
