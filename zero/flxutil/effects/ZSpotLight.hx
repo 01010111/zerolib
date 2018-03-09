@@ -1,4 +1,5 @@
-package zerolib;
+package zero.flxutil.effects;
+
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -10,10 +11,16 @@ import flixel.ui.FlxVirtualPad.FlxActionMode;
 import flixel.util.FlxSpriteUtil;
 import openfl.display.BlendMode;
 
+using zero.ext.flx.FlxPointExt;
+
 /**
  * Spotlight class based on TajamSoft's work here - http://ludumdare.com/compo/2015/07/01/dungeon-of-ricochet-post-mortem-lighting/
+ *  
  * @author TajamSoft
  * @author 01010111
+ *  
+ *  TODO: Needs review / update
+ *  
  */
 class ZSpotLight extends FlxSprite
 {
@@ -107,7 +114,7 @@ class Light extends FlxSprite
 	{
 		var _t = FlxPoint.get((target.getScreenPosition().x + target.width * 0.5) - width * 0.5, (target.getScreenPosition().y + target.height * 0.5) - height * 0.5);
 		
-		if (ZMath.distance(getMidpoint(), target.getMidpoint()) > 32)
+		if (getMidpoint().distance(target.getMidpoint()) > 32)
 			setPosition(_t.x, _t.y);
 		else
 		{

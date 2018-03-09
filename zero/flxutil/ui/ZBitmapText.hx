@@ -1,4 +1,5 @@
-package zerolib;
+package zero.flxutil.ui;
+
 import flixel.graphics.frames.FlxBitmapFont;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets;
@@ -9,6 +10,8 @@ import flixel.FlxG;
 /**
  * ...
  * @author x01010111
+ *  
+ *  TODO: Needs review / update
  */
 class ZBitmapText extends FlxBitmapText
 {
