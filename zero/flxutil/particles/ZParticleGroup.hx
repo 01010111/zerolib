@@ -4,7 +4,7 @@ import flixel.math.FlxPoint;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 /**
- *  
+ *  @author 01010111
  */
 class ParticleGroup<T:ZParticle> extends FlxTypedGroup<T>
 {

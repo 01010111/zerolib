@@ -9,21 +9,41 @@ import flixel.math.FlxPoint;
 class FlxObjectExt
 {
 
+    /**
+     *  Returns a bottom center point of a FlxObject
+     *  @param object - 
+     *  @return FlxPoint
+     */
     inline public static function get_anchor(object:FlxObject):FlxPoint
 	{
 		return FlxPoint.get(object.x + object.width * 0.5, object.y + object.height);
 	}
 
+    /**
+     *  Sets the position of a FlxObject using a FlxPoint
+     *  @param object - 
+     *  @param point - 
+     */
     inline public static function set_position(object:FlxObject, point:FlxPoint)
     {
         object.setPosition(point.x, point.y);
     }
 
+    /**
+     *  Sets the anchor (bottom center) position of a FlxObject using a FlxPoint
+     *  @param object - 
+     *  @param point - 
+     */
     inline public static function set_anchor_position(object:FlxObject, point:FlxPoint)
     {
         object.setPosition(point.x - object.width * 0.5, point.y - object.height);
     }
 
+    /**
+     *  Sets the midpoint position of a FlxObject using a FlxPoint
+     *  @param object - 
+     *  @param point - 
+     */
     inline public static function set_midpoint_position(object:FlxObject, point:FlxPoint)
     {
         object.setPosition(point.x - object.width * 0.5, point.y - object.height * 0.5);

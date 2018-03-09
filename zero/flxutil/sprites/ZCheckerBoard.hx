@@ -7,6 +7,9 @@ import flixel.util.FlxSpriteUtil;
 using zero.ext.FloatExt;
 using Math;
 
+/**
+ *  @author 01010111
+ */
 class ZCheckerBoard extends FlxSprite
 {
     public function new(width:Int, height:Int, color0:Int, color1:Int, tile_width:Int, tile_height:Int)

@@ -1,5 +1,8 @@
 package zero.util;
 
+/**
+ *  @author 01010111
+ */
 using zero.ext.FloatExt;
 
 class Range

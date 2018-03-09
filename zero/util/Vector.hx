@@ -5,6 +5,10 @@ import flixel.math.FlxPoint;
 using zero.ext.FloatExt;
 using zero.ext.flx.FlxPointExt;
 
+/**
+ *  @author 01010111
+ *  A 2D Vector (with z value for fun)
+ */
 class Vector
 {
 
@@ -47,6 +51,11 @@ class Vector
 		this.x = x;
 		this.y = y; 
 		this.z = z;
+	}
+
+	public function copy_from(v:Vector):Vector
+	{
+		return new Vector(v.x, v.y, v.z);
 	}
 
 	public function to_flx():FlxPoint
