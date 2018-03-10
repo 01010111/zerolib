@@ -3,7 +3,7 @@ package zero.flxutil.ecs.components;
 import zero.flxutil.ecs.Component;
 import zero.util.Vector;
 
-class IsOnCircle extends Component
+class CircleConstraint extends Component
 {
 
 	var p:Vector;
@@ -19,7 +19,7 @@ class IsOnCircle extends Component
 		this.radius = radius;
 		this.update_angle = update_angle;
 		this.p = new Vector().copy_from(center);
-		super('is on circle', ['transform']);
+		super('circle constraint', ['transform', 'constraint']);
 	}
 
 	override public function update(e:Float)

@@ -4,14 +4,14 @@ import zero.flxutil.ecs.Component;
 import zero.flxutil.ecs.Entity;
 import zero.util.Vector;
 
-class HasParent extends Component
+class ChildTransform extends Component
 {
 
 	var parent:Entity;
 
 	public function new(parent:Entity)
 	{
-		super('has parent', ['transform']);
+		super('child transform', ['child', 'transform']);
 		this.parent = parent;
 	}
 
