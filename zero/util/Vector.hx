@@ -82,4 +82,9 @@ class Vector
 		this.x = z;
 	}
 
+	public function get_inverse():Vector
+	{
+		return new Vector(-x, -y, -z);
+	}
+
 }
