@@ -85,4 +85,17 @@ class FlxSpriteExt
         sprite.setPosition(point.x - sprite.width * 0.5, point.y - sprite.height * 0.5);
     }
 
+	inline public static function add_animation(sprite:FlxSprite, animation:SpriteAnimation)
+	{
+		if (animation.looped == null) animation.looped = true;
+		sprite.animation.add(animation.name, animation.frames, animation.rate, animation.looped);
+	}
+
+}
+
+typedef SpriteAnimation = {
+	name:String,
+	frames: Array<Int>,
+	rate: Int,
+	?looped: Bool
 }
