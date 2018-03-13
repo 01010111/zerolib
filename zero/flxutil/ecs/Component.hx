@@ -127,11 +127,11 @@ class TVec
 {
 
 	var o:Dynamic;
-	@:isVar var x(get, set):Float;
+	@:isVar public var x(get, set):Float;
 	function get_x() { return o.x; }
 	function set_x(x) { return o.x = x; }
 
-	@:isVar var y(get, set):Float;
+	@:isVar public var y(get, set):Float;
 	function get_y() { return o.y; }
 	function set_y(y) { return o.y = y; }
 	

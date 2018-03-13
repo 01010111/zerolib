@@ -2,6 +2,7 @@ package zero.flxutil.ecs;
 
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
+import flixel.math.FlxVelocity;
 import zero.flxutil.ecs.Component;
 import zero.flxutil.ecs.State;
 import zero.util.IntPoint;
@@ -19,6 +20,19 @@ class Entity extends FlxSprite
 	var id:String;
 	var tags:Array<String> = [];
 	var components:Array<Component> = [];
+	var underride_position:Bool = false;
+
+	override function set_x(x:Float):Float
+	{
+		if (underride_position) return this.x = x;
+		else return pos.x = x;
+	}
+	
+	override function set_y(y:Float):Float
+	{
+		if (underride_position) return this.y = y;
+		else return pos.y = y;
+	}
 	
 	/**
 	 *  use this to update position! pos.z is used for depth sorting!
@@ -40,8 +54,8 @@ class Entity extends FlxSprite
 		this.id = id.length == 0 ? id.get_random(64, 'E_${Type.getClassName(Type.getClass(this))}_') : id;
 		if (options == null) options = {};
 		update_position = update_pos;
-		super();
 		pos = options.position != null ? options.position : new Vector();
+		super(pos.x, pos.y);
 		if (options.components != null) components = options.components.copy();
 		if (options.graphic != null)
 		{
@@ -120,9 +134,11 @@ class Entity extends FlxSprite
 
 	override public function update(e:Float)
 	{
-		for (component in components) component.update(e);
-		update_position();
 		super.update(e);
+		for (c in components) c.update(e);
+		underride_position = true;
+		update_position();
+		underride_position = false;
 	}
 
 	function update_pos()
@@ -135,6 +151,26 @@ class Entity extends FlxSprite
 
 	}
 
+	override private function updateMotion(elapsed:Float):Void
+	{
+		var velocityDelta = 0.5 * (FlxVelocity.computeVelocity(angularVelocity, angularAcceleration, angularDrag, maxAngular, elapsed) - angularVelocity);
+		angularVelocity += velocityDelta; 
+		angle += angularVelocity * elapsed;
+		angularVelocity += velocityDelta;
+		
+		velocityDelta = 0.5 * (FlxVelocity.computeVelocity(velocity.x, acceleration.x, drag.x, maxVelocity.x, elapsed) - velocity.x);
+		velocity.x += velocityDelta;
+		var delta = velocity.x * elapsed;
+		velocity.x += velocityDelta;
+		pos.x += delta;
+		
+		velocityDelta = 0.5 * (FlxVelocity.computeVelocity(velocity.y, acceleration.y, drag.y, maxVelocity.y, elapsed) - velocity.y);
+		velocity.y += velocityDelta;
+		delta = velocity.y * elapsed;
+		velocity.y += velocityDelta;
+		pos.y += delta;
+	}
+	
 }
 
 typedef EntityOptions = {
