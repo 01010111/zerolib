@@ -15,4 +15,9 @@ class ZOgmoLoader extends FlxOgmoLoader
         return _fastXml.node.resolve(tile_layer).innerData.csv_to_2d_int_array();
     }
 
+    public function get_tilemap_csv(tile_layer:String = 'tiles'):String
+    {
+        return _fastXml.node.resolve(tile_layer).innerData;
+    }
+
 }
