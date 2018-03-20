@@ -1,7 +1,7 @@
 package zero.flxutil.imgui;
 
-import flixel.FlxState
 import imgui.ImGui;
+import flixel.FlxState;
 
 class ImGuiState extends FlxState
 {

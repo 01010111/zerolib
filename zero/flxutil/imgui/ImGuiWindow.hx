@@ -3,7 +3,7 @@ package zero.flxutil.imgui;
 import imgui.ImGui;
 import flixel.FlxBasic;
 
-class Window extends FlxBasic
+class ImGuiWindow extends FlxBasic
 {
 
 	var window_title:String;
