@@ -18,11 +18,11 @@ class ImGuiWindow extends FlxBasic
 	{
 		super.update(dt);
 		ImGui.begin(window_title);
-		content();
+		window();
 		ImGui.end();
 	}
 
-	function content()
+	function window()
 	{
 		ImGui.text('no content!');
 	}
