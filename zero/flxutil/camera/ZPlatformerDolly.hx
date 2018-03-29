@@ -50,7 +50,7 @@ class ZPlatformerDolly extends FlxObject
 	 *  	},
 	 *  	forward_focus: ForwardFocusOptions (options object for forward focus) {
 	 *  		*offset: Float (target distance from center of dolly),
-	 *  		target_offset: Float (direction trigger distance from center of dolly),
+	 *  		trigger_offset: Float (direction trigger distance from center of dolly),
 	 *  		lerp: Float (rate of change in position on x axis),
 	 *  		max_delta: Float (maximum change in position)
 	 *  	},
