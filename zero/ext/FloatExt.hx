@@ -173,6 +173,16 @@ class FloatExt
         return Std.int(n);
     }
 
+	inline public static function half(n:Float):Float
+	{
+		return n * 0.5;
+	}
+
+	inline public static function quarter(n:Float):Float
+	{
+		return n * 0.25;
+	}
+
     /**
      *  returns a Vector describing a vector of given angle and length. ex. 270.vector_from_angle(100) == new Vector(0, -100) = true
      *  @param a - the angle in degrees of desired vector
