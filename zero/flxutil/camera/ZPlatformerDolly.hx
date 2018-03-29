@@ -38,7 +38,6 @@ class ZPlatformerDolly extends FlxObject
 
 		FlxG.camera.follow(this, FlxCameraFollowStyle.LOCKON);
 		FlxG.camera.deadzone.set((FlxG.width - width).half(), (FlxG.height - height).half(), width, height);
-		trace(FlxG.camera.deadzone);
 		FlxG.state.add(this);
 	}
 
