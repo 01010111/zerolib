@@ -18,17 +18,45 @@ using Math;
  */
 class ZPlatformerDolly extends FlxObject
 {
-	
+	// required vars
 	var target:FlxSprite;
 	var opt:DollyOptions;
-	var temp_pos:FlxPoint;
+
+	// platform snapping
+	var plat_y:Float;
+
+	// forward focus
 	var facing:Float;
+
+	// debug
+	var show_debug:Bool = false;
 	var debug_sprite:FlxSprite;
 	
+	/**
+	 *  Creates a dolly with configurable platforming specific behavior.
+	 *  @param   target the target to follow
+	 *  @param   options configuration for dolly
+	 *  
+	 *  options object (*required)
+	 *  {
+	 *  	*window_size: Float (size of the dolly),
+	 *  	lerp: FlxPoint (rate of change in position on two axes 0-1),
+	 *  	platform_snapping: PlatformSnapOptions (options object for platform snapping) {
+	 *  		*platform_offset: Float (target distance from center of dolly),
+	 *  		lerp: Float (rate of change in position on y axis),
+	 *  		max_delta: Float (maximum change in position)
+	 *  	},
+	 *  	forward_focus: ForwardFocusOptions (options object for forward focus) {
+	 *  		*offset: Float (target distance from center of dolly),
+	 *  		target_offset: Float (direction trigger distance from center of dolly),
+	 *  		lerp: Float (rate of change in position on x axis),
+	 *  		max_delta: Float (maximum change in position)
+	 *  	}
+	 *  }
+	 */
 	public function new(target:FlxSprite, options:DollyOptions) 
 	{
-		temp_pos = FlxPoint.get();
-
+		new FlxSprite()
 		if (options.lerp == null) options.lerp = FlxPoint.get(1, 1);
 
 		opt = options;
@@ -41,6 +69,11 @@ class ZPlatformerDolly extends FlxObject
 		FlxG.state.add(this);
 	}
 
+	/**
+	 *  Switches the camera target
+	 *  @param   target the target to follow
+	 *  @param   snap whether or not to snap to target immediately
+	 */
 	public function switch_target(target:FlxSprite, snap:Bool = false):Void
 	{
 		this.target = target;
@@ -48,7 +81,7 @@ class ZPlatformerDolly extends FlxObject
 		if (snap) focus(target.getPosition().add(target.width.half(), target.height));
 	}
 	
-	public function focus(position:FlxPoint)
+	function focus(position:FlxPoint)
 	{
 		x = position.x - width.half();
 		y = position.y - height.half();
@@ -56,7 +89,7 @@ class ZPlatformerDolly extends FlxObject
 		if (opt.platform_snapping != null) 
 		{
 			y -= (opt.platform_snapping.platform_offset - 1);
-			temp_pos.y = target.y + target.height;
+			plat_y = target.y + target.height;
 		}
 		if (opt.forward_focus != null) 
 		{
@@ -66,7 +99,7 @@ class ZPlatformerDolly extends FlxObject
 		}
 	}
 		
-	override public function update(elapsed:Float):Void 
+	override public function update(dt:Float):Void 
 	{
 		var update_pos = {
 			x: target.x < x || target.x + target.width > x + width,
@@ -89,16 +122,16 @@ class ZPlatformerDolly extends FlxObject
 			y += oy * opt.lerp.y;
 		}
 
-		if (debug_sprite != null) debug_sprite.setPosition(x, y);
+		if (show_debug) debug_sprite.setPosition(x, y);
 
-		super.update(elapsed);
+		super.update(dt);
 	}
 
 	function platform_snapping()
 	{
-		if (target.isTouching(FlxObject.FLOOR)) temp_pos.y = target.y + target.height;
+		if (target.isTouching(FlxObject.FLOOR)) plat_y = target.y + target.height;
 
-		var offset = temp_pos.y - (y + height * 0.5 + opt.platform_snapping.platform_offset);
+		var offset = plat_y - (y + height * 0.5 + opt.platform_snapping.platform_offset);
 
 		if (opt.platform_snapping.max_delta != null) 
 		{
@@ -131,8 +164,14 @@ class ZPlatformerDolly extends FlxObject
 		}
 	}
 
+	/**
+	 *  Creates and returns a debug sprite that visualizes the dolly's configuration
+	 *  @return  FlxSprite
+	 */
 	public function get_debug_sprite():FlxSprite
 	{
+		show_debug = true;
+
 		debug_sprite = new FlxSprite();
 		debug_sprite.makeGraphic(width.to_int(), height.to_int(), 0x00FFFFFF);
 
