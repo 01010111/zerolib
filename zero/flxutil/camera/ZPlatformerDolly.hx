@@ -5,6 +5,8 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
+import flixel.tile.FlxTilemap;
 import flixel.util.FlxSpriteUtil;
 
 using zero.ext.FloatExt;
@@ -51,6 +53,10 @@ class ZPlatformerDolly extends FlxObject
 	 *  		target_offset: Float (direction trigger distance from center of dolly),
 	 *  		lerp: Float (rate of change in position on x axis),
 	 *  		max_delta: Float (maximum change in position)
+	 *  	},
+	 *  	edge_snapping: EdgeSnapOptions (options object for edge snapping) {
+	 *  		tilemap: FlxTilemap (tilemap to constrain the camera),
+	 *  		rect: FlxRect (rectangle to constrain the camera)
 	 *  	}
 	 *  }
 	 */
@@ -62,10 +68,24 @@ class ZPlatformerDolly extends FlxObject
 		super(0, 0, options.window_size.x, options.window_size.y);
 
 		switch_target(target, true);
+		configure_camera();
 
+		FlxG.state.add(this);
+	}
+
+	function configure_camera()
+	{
 		FlxG.camera.follow(this, FlxCameraFollowStyle.LOCKON);
 		FlxG.camera.deadzone.set((FlxG.width - width).half(), (FlxG.height - height).half(), width, height);
-		FlxG.state.add(this);
+		if (opt.edge_snapping != null)
+		{
+			if (opt.edge_snapping.tilemap != null) opt.edge_snapping.tilemap.follow();
+			else if (opt.edge_snapping.rect != null)
+			{
+				var r = opt.edge_snapping.rect;
+				FlxG.camera.setScrollBoundsRect(r.x, r.y, r.width, r.height, true);
+			}
+		}
 	}
 
 	/**
@@ -261,7 +281,8 @@ typedef DollyOptions = {
 	window_size:FlxPoint,
 	?lerp:FlxPoint,
 	?platform_snapping:PlatformSnapOptions,
-	?forward_focus:ForwardFocusOptions
+	?forward_focus:ForwardFocusOptions,
+	?edge_snapping:EdgeSnapOptions
 }
 
 typedef PlatformSnapOptions = {
@@ -275,4 +296,9 @@ typedef ForwardFocusOptions = {
 	?trigger_offset:Float,
 	?lerp:Float,
 	?max_delta:Float
+}
+
+typedef EdgeSnapOptions = {
+	?tilemap:FlxTilemap,
+	?rect:FlxRect
 }
