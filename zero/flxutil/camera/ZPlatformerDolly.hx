@@ -33,7 +33,7 @@ class ZPlatformerDolly extends FlxObject
 	var debug_sprite:FlxSprite;
 	
 	/**
-	 *  Creates a dolly with configurable platforming specific behavior.
+	 *  Creates a dolly with configurable platforming specific behavior, and adds it to the current state.
 	 *  @param   target the target to follow
 	 *  @param   options configuration for dolly
 	 *  
@@ -56,10 +56,9 @@ class ZPlatformerDolly extends FlxObject
 	 */
 	public function new(target:FlxSprite, options:DollyOptions) 
 	{
-		new FlxSprite()
 		if (options.lerp == null) options.lerp = FlxPoint.get(1, 1);
-
 		opt = options;
+
 		super(0, 0, options.window_size.x, options.window_size.y);
 
 		switch_target(target, true);
