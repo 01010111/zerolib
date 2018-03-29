@@ -41,101 +41,31 @@ class ZPlatformerDolly extends FlxObject
 		FlxG.state.add(this);
 	}
 
-	public function get_debug_sprite():FlxSprite
-	{
-		var draw_dotted_line = function(sprite:FlxSprite, p1:FlxPoint, p2:FlxPoint, segments:Int, color:Int = 0xFFFFFFFF, thickness:Int = 1) {
-			segments = segments * 2 + 1;
-			var len = p1.distance(p2);
-			for (s in 0...segments)
-			{
-				if (s % 2 != 0) continue;
-				var tp1 = p1.get_point_between(p2, s / segments);
-				var tp2 = p1.get_point_between(p2, (s + 1) / segments);
-				FlxSpriteUtil.drawLine(sprite, tp1.x, tp1.y, tp2.x, tp2.y, { thickness: thickness, color: color }); 
-			}
-		}
-
-		debug_sprite = new FlxSprite();
-		debug_sprite.makeGraphic(width.to_int(), height.to_int(), 0x00FFFFFF);
-		draw_dotted_line(debug_sprite, FlxPoint.get(), FlxPoint.get(debug_sprite.width - 1, 0), 16, 0xFFFF0000, 2);
-		draw_dotted_line(debug_sprite, FlxPoint.get(debug_sprite.width - 1, 0), FlxPoint.get(debug_sprite.width, debug_sprite.height - 1), 16, 0xFFFF0000, 2);
-		draw_dotted_line(debug_sprite, FlxPoint.get(debug_sprite.width - 1, debug_sprite.height - 1), FlxPoint.get(0, debug_sprite.height - 1), 16, 0xFFFF0000, 2);
-		draw_dotted_line(debug_sprite, FlxPoint.get(0, debug_sprite.height - 1), FlxPoint.get(0, 0), 16, 0xFFFF0000, 2);
-
-		if (opt.platform_snapping != null)
-		{
-			var line_y = height.half() + opt.platform_snapping.platform_offset;
-			FlxSpriteUtil.drawLine(debug_sprite, 0, line_y, width, line_y, { thickness: 1, color: 0xFFFFFFFF });
-		}
-
-		if (opt.forward_focus != null)
-		{
-			var draw_triangle = function(sprite:FlxSprite, p:FlxPoint, d:Int, size:Float = 5) {
-				FlxSpriteUtil.drawPolygon(
-					sprite, 
-					[
-						FlxPoint.get(p.x, p.y),
-						FlxPoint.get(p.x + size * d, p.y + size.half()),
-						FlxPoint.get(p.x, p.y + size),
-					], 
-					0xFFFFFFFF
-				);
-			}
-
-			FlxSpriteUtil.drawLine(
-				debug_sprite, 
-				width.half() - opt.forward_focus.offset, 
-				16, 
-				width.half() - opt.forward_focus.offset, 
-				height, 
-				{ thickness: 1, color: 0xFFFFFFFF }
-			);
-			FlxSpriteUtil.drawLine(
-				debug_sprite, 
-				width.half() + opt.forward_focus.offset, 
-				16, 
-				width.half() + opt.forward_focus.offset, 
-				height, 
-				{ thickness: 1, color: 0xFFFFFFFF }
-			);
-			draw_triangle(debug_sprite, FlxPoint.get(width.half() - opt.forward_focus.offset, 16), 1);
-			draw_triangle(debug_sprite, FlxPoint.get(width.half() + opt.forward_focus.offset, 16), -1);
-
-			if (opt.forward_focus.trigger_offset > 0)
-			{
-				draw_dotted_line(
-					debug_sprite, 
-					FlxPoint.get(width.half() - opt.forward_focus.trigger_offset, 24), 
-					FlxPoint.get(width.half() - opt.forward_focus.trigger_offset, height - 16),
-					12 
-				);
-				draw_dotted_line(
-					debug_sprite, 
-					FlxPoint.get(width.half() + opt.forward_focus.trigger_offset, 24), 
-					FlxPoint.get(width.half() + opt.forward_focus.trigger_offset, height - 16),
-					12 
-				);
-				draw_triangle(debug_sprite, FlxPoint.get(width.half() - opt.forward_focus.trigger_offset, 24), -1);
-				draw_triangle(debug_sprite, FlxPoint.get(width.half() + opt.forward_focus.trigger_offset, 24), 1);
-			}
-		}
-
-		return debug_sprite;
-	}
-
-	public function focus(position:FlxPoint)
-	{
-		x = position.x - width.half();
-		y = position.y - height.half();
-	}
-		
 	public function switch_target(target:FlxSprite, snap:Bool = false):Void
 	{
 		this.target = target;
 		facing = target.facing;
-		if (snap) focus(target.getMidpoint());
+		if (snap) focus(target.getPosition().add(target.width.half(), target.height));
 	}
 	
+	public function focus(position:FlxPoint)
+	{
+		x = position.x - width.half();
+		y = position.y - height.half();
+
+		if (opt.platform_snapping != null) 
+		{
+			y -= (opt.platform_snapping.platform_offset - 1);
+			temp_pos.y = target.y + target.height;
+		}
+		if (opt.forward_focus != null) 
+		{
+			x += facing == FlxObject.LEFT 
+				? -opt.forward_focus.offset
+				: opt.forward_focus.offset;
+		}
+	}
+		
 	override public function update(elapsed:Float):Void 
 	{
 		var update_pos = {
@@ -199,6 +129,92 @@ class ZPlatformerDolly extends FlxObject
 			var max = opt.forward_focus.max_delta > 0 ? opt.forward_focus.max_delta : 999;
 			x += (offset * 0.1).clamp(-max, max);
 		}
+	}
+
+	public function get_debug_sprite():FlxSprite
+	{
+		debug_sprite = new FlxSprite();
+		debug_sprite.makeGraphic(width.to_int(), height.to_int(), 0x00FFFFFF);
+
+		var draw_dotted_line = function(sprite:FlxSprite, p1:FlxPoint, p2:FlxPoint, segments:Int, color:Int = 0xFFFFFFFF, thickness:Int = 1) {
+			segments = segments * 2 + 1;
+			var len = p1.distance(p2);
+			for (s in 0...segments)
+			{
+				if (s % 2 != 0) continue;
+				var tp1 = p1.get_point_between(p2, s / segments);
+				var tp2 = p1.get_point_between(p2, (s + 1) / segments);
+				FlxSpriteUtil.drawLine(sprite, tp1.x, tp1.y, tp2.x, tp2.y, { thickness: thickness, color: color }); 
+			}
+		}
+
+		draw_dotted_line(debug_sprite, FlxPoint.get(), FlxPoint.get(debug_sprite.width - 1, 0), 16, 0xFFFF0000, 2);
+		draw_dotted_line(debug_sprite, FlxPoint.get(debug_sprite.width - 1, 0), FlxPoint.get(debug_sprite.width, debug_sprite.height - 1), 16, 0xFFFF0000, 2);
+		draw_dotted_line(debug_sprite, FlxPoint.get(debug_sprite.width - 1, debug_sprite.height - 1), FlxPoint.get(0, debug_sprite.height - 1), 16, 0xFFFF0000, 2);
+		draw_dotted_line(debug_sprite, FlxPoint.get(0, debug_sprite.height - 1), FlxPoint.get(0, 0), 16, 0xFFFF0000, 2);
+		
+		FlxSpriteUtil.drawLine(debug_sprite, width.half() - 8, height.half(), width.half() + 8, height.half(), { thickness: 1, color: 0xFFFF0000 });
+		FlxSpriteUtil.drawLine(debug_sprite, width.half(), height.half() - 8, width.half(), height.half() + 8, { thickness: 1, color: 0xFFFF0000 });
+
+		if (opt.platform_snapping != null)
+		{
+			var line_y = height.half() + opt.platform_snapping.platform_offset;
+			FlxSpriteUtil.drawLine(debug_sprite, 0, line_y, width, line_y, { thickness: 1, color: 0xFFFFFFFF });
+		}
+
+		if (opt.forward_focus != null)
+		{
+			var draw_triangle = function(sprite:FlxSprite, p:FlxPoint, d:Int, size:Float = 5) {
+				FlxSpriteUtil.drawPolygon(
+					sprite, 
+					[
+						FlxPoint.get(p.x, p.y),
+						FlxPoint.get(p.x + size * d, p.y + size.half()),
+						FlxPoint.get(p.x, p.y + size),
+					], 
+					0xFFFFFFFF
+				);
+			}
+
+			FlxSpriteUtil.drawLine(
+				debug_sprite, 
+				width.half() - opt.forward_focus.offset, 
+				16, 
+				width.half() - opt.forward_focus.offset, 
+				height, 
+				{ thickness: 1, color: 0xFFFFFFFF }
+			);
+			FlxSpriteUtil.drawLine(
+				debug_sprite, 
+				width.half() + opt.forward_focus.offset, 
+				16, 
+				width.half() + opt.forward_focus.offset, 
+				height, 
+				{ thickness: 1, color: 0xFFFFFFFF }
+			);
+			draw_triangle(debug_sprite, FlxPoint.get(width.half() - opt.forward_focus.offset, 16), 1);
+			draw_triangle(debug_sprite, FlxPoint.get(width.half() + opt.forward_focus.offset, 16), -1);
+
+			if (opt.forward_focus.trigger_offset > 0)
+			{
+				draw_dotted_line(
+					debug_sprite, 
+					FlxPoint.get(width.half() - opt.forward_focus.trigger_offset, 24), 
+					FlxPoint.get(width.half() - opt.forward_focus.trigger_offset, height - 16),
+					12 
+				);
+				draw_dotted_line(
+					debug_sprite, 
+					FlxPoint.get(width.half() + opt.forward_focus.trigger_offset, 24), 
+					FlxPoint.get(width.half() + opt.forward_focus.trigger_offset, height - 16),
+					12 
+				);
+				draw_triangle(debug_sprite, FlxPoint.get(width.half() - opt.forward_focus.trigger_offset, 24), -1);
+				draw_triangle(debug_sprite, FlxPoint.get(width.half() + opt.forward_focus.trigger_offset, 24), 1);
+			}
+		}
+
+		return debug_sprite;
 	}
 	
 }
