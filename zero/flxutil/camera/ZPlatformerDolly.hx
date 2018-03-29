@@ -5,20 +5,14 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
-import flixel.math.FlxRect;
-import flixel.tweens.FlxTween;
 import flixel.util.FlxSpriteUtil;
 
 using zero.ext.FloatExt;
+using zero.ext.flx.FlxPointExt;
 using Math;
 
 /**
- * I made this dolly to try and reflect the camera system in Super Mario World.
- * It features platform snapping, a camera window for deadzone, dual forward focus, and manual vertical control! 
- * thanks to Itay Keren and his amazing talk "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers"
- * for making me realize I needed this in my platformers :P
- *  
- *  TODO: Needs review / update
+ * Thanks to Itay Keren and his amazing talk "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers"
  *  
  * @author 01010111
  */
@@ -26,158 +20,206 @@ class ZPlatformerDolly extends FlxObject
 {
 	
 	var target:FlxSprite;
-	var cam_offset:FlxPoint;
-	var facing:Int;
-	var should_move_y:Bool = false;
-	var max_dolly_velocity:Int;
-	var dolly_y_offset:Float;
-	var look_down:Bool;
-	var look_up:Bool;
-	var should_center_target:Bool = false;
+	var opt:DollyOptions;
+	var temp_pos:FlxPoint;
+	var facing:Float;
+	var debug_sprite:FlxSprite;
 	
-	/**
-	 * A quick and easy dolly for a platformer camera. 
-	 * @param	_target					FlxSprite to follow
-	 * @param	_width_percent			Horizontal deadzone
-	 * @param	_height_percent			Vertical deadzone
-	 * @param	_max_dolly_velocity		Max. velocity in pixels per frame, smooths movement
-	 * @param	_cam_offset				(optional) Leading offset (x) and vertical offset (y) 
-	 * @param	_starting_pos_offset	(optional) Starting position offset
-	 * @param	_camera_bounds			(optional) Set camera bounds to this FlxRect
-	 */
-	public function new(_target:FlxSprite, _width_percent:Float = 40, _height_percent:Float = 75, _max_dolly_velocity:Int = 3, ?_cam_offset:FlxPoint, ?_starting_pos_offset:FlxPoint, ?_camera_bounds:FlxRect ) 
+	public function new(target:FlxSprite, options:DollyOptions) 
 	{
-		super();
-		
-		switch_target(_target);
-		
-		if (_cam_offset != null)
-			cam_offset = _cam_offset;
-		else
-			cam_offset = FlxPoint.get(target.width * 2, FlxG.height * 0.3 + target.height);
-		
-		if (_starting_pos_offset != null)
-			setPosition(target.x - cam_offset.x + _starting_pos_offset.x, target.y - cam_offset.y + _starting_pos_offset.y);
-		else
-			setPosition(target.x - cam_offset.x, target.y - cam_offset.y);
-		
-		setSize(FlxG.width * (_width_percent / 100) - _target.width * 2, FlxG.height * (_height_percent / 100) - _target.height * 2);
-		
-		max_dolly_velocity = _max_dolly_velocity;
-		
-		FlxG.camera.targetOffset.y = -FlxG.height * 0.15;
+		temp_pos = FlxPoint.get();
+
+		if (options.lerp == null) options.lerp = FlxPoint.get(1, 1);
+
+		opt = options;
+		super(0, 0, options.window_size.x, options.window_size.y);
+
+		switch_target(target, true);
+
 		FlxG.camera.follow(this, FlxCameraFollowStyle.LOCKON);
-		if (_camera_bounds != null)
-			FlxG.camera.setScrollBoundsRect(_camera_bounds.x, _camera_bounds.y, _camera_bounds.width, _camera_bounds.height, true);
+		FlxG.camera.deadzone.set((FlxG.width - width).half(), (FlxG.height - height).half(), width, height);
+		trace(FlxG.camera.deadzone);
+		FlxG.state.add(this);
 	}
-	
-	/**
-	 * Manual vertical controls!
-	 * @param	_up		Whether to pan the camera up...
-	 * @param	_down	Whether to pan the camera down...
-	 */
-	public function vertical_look(_up:Bool = false, _down:Bool = false):Void
+
+	public function get_debug_sprite():FlxSprite
 	{
-		look_up = _up;
-		look_down = _down;
+		var draw_dotted_line = function(sprite:FlxSprite, p1:FlxPoint, p2:FlxPoint, segments:Int, color:Int = 0xFFFFFFFF, thickness:Int = 1) {
+			segments = segments * 2 + 1;
+			var len = p1.distance(p2);
+			for (s in 0...segments)
+			{
+				if (s % 2 != 0) continue;
+				var tp1 = p1.get_point_between(p2, s / segments);
+				var tp2 = p1.get_point_between(p2, (s + 1) / segments);
+				FlxSpriteUtil.drawLine(sprite, tp1.x, tp1.y, tp2.x, tp2.y, { thickness: thickness, color: color }); 
+			}
+		}
+
+		debug_sprite = new FlxSprite();
+		debug_sprite.makeGraphic(width.to_int(), height.to_int(), 0x00FFFFFF);
+		draw_dotted_line(debug_sprite, FlxPoint.get(), FlxPoint.get(debug_sprite.width - 1, 0), 16, 0xFFFF0000, 2);
+		draw_dotted_line(debug_sprite, FlxPoint.get(debug_sprite.width - 1, 0), FlxPoint.get(debug_sprite.width, debug_sprite.height - 1), 16, 0xFFFF0000, 2);
+		draw_dotted_line(debug_sprite, FlxPoint.get(debug_sprite.width - 1, debug_sprite.height - 1), FlxPoint.get(0, debug_sprite.height - 1), 16, 0xFFFF0000, 2);
+		draw_dotted_line(debug_sprite, FlxPoint.get(0, debug_sprite.height - 1), FlxPoint.get(0, 0), 16, 0xFFFF0000, 2);
+
+		if (opt.platform_snapping != null)
+		{
+			var line_y = height.half() + opt.platform_snapping.platform_offset;
+			FlxSpriteUtil.drawLine(debug_sprite, 0, line_y, width, line_y, { thickness: 1, color: 0xFFFFFFFF });
+		}
+
+		if (opt.forward_focus != null)
+		{
+			var draw_triangle = function(sprite:FlxSprite, p:FlxPoint, d:Int, size:Float = 5) {
+				FlxSpriteUtil.drawPolygon(
+					sprite, 
+					[
+						FlxPoint.get(p.x, p.y),
+						FlxPoint.get(p.x + size * d, p.y + size.half()),
+						FlxPoint.get(p.x, p.y + size),
+					], 
+					0xFFFFFFFF
+				);
+			}
+
+			FlxSpriteUtil.drawLine(
+				debug_sprite, 
+				width.half() - opt.forward_focus.offset, 
+				16, 
+				width.half() - opt.forward_focus.offset, 
+				height, 
+				{ thickness: 1, color: 0xFFFFFFFF }
+			);
+			FlxSpriteUtil.drawLine(
+				debug_sprite, 
+				width.half() + opt.forward_focus.offset, 
+				16, 
+				width.half() + opt.forward_focus.offset, 
+				height, 
+				{ thickness: 1, color: 0xFFFFFFFF }
+			);
+			draw_triangle(debug_sprite, FlxPoint.get(width.half() - opt.forward_focus.offset, 16), 1);
+			draw_triangle(debug_sprite, FlxPoint.get(width.half() + opt.forward_focus.offset, 16), -1);
+
+			if (opt.forward_focus.trigger_offset > 0)
+			{
+				draw_dotted_line(
+					debug_sprite, 
+					FlxPoint.get(width.half() - opt.forward_focus.trigger_offset, 24), 
+					FlxPoint.get(width.half() - opt.forward_focus.trigger_offset, height - 16),
+					12 
+				);
+				draw_dotted_line(
+					debug_sprite, 
+					FlxPoint.get(width.half() + opt.forward_focus.trigger_offset, 24), 
+					FlxPoint.get(width.half() + opt.forward_focus.trigger_offset, height - 16),
+					12 
+				);
+				draw_triangle(debug_sprite, FlxPoint.get(width.half() - opt.forward_focus.trigger_offset, 24), -1);
+				draw_triangle(debug_sprite, FlxPoint.get(width.half() + opt.forward_focus.trigger_offset, 24), 1);
+			}
+		}
+
+		return debug_sprite;
 	}
-	
-	/**
-	 * Center the camera on the target. Useful for cutscenes perhaps?
-	 */
-	public function center_on_target():Void
+
+	public function focus(position:FlxPoint)
 	{
-		should_center_target = true;
+		x = position.x - width.half();
+		y = position.y - height.half();
 	}
-	
-	/**
-	 * Switch the camera's target. Useful for cutscenes perhaps?
-	 * @param	_target				FlxSprite for the camera to follow
-	 * @param	_center_on_target	Whether or not to center the camera on target
-	 */
-	public function switch_target(_target:FlxSprite, _center_on_target:Bool = false):Void
+		
+	public function switch_target(target:FlxSprite, snap:Bool = false):Void
 	{
-		target = _target;
-		facing = _target.facing;
-		if (_center_on_target) center_on_target();
-	}
-	
-	public function make_overlay():FlxSprite
-	{
-		var _overlay = new FlxSprite();
-		_overlay.makeGraphic(FlxG.width, FlxG.height, 0x00ffffff, true);
-		_overlay.scrollFactor.set();
-		
-		// Platform snapping
-		var _p = Math.ceil((FlxG.height - height) * 0.5 + cam_offset.y + target.height) + 1;
-		FlxSpriteUtil.drawLine(_overlay, FlxG.width * 0.2, _p, FlxG.width * 0.8, _p);
-		
-		// Left bound
-		var _l_b = (FlxG.width - width) * 0.5 - target.width * 0.5;
-		for (i in 0...Std.int((FlxG.height - 128) / 8))
-			FlxSpriteUtil.drawLine(_overlay, _l_b, 64 + i * 8, _l_b, 64 + i * 8 + 4);
-		FlxSpriteUtil.drawPolygon(_overlay, [FlxPoint.get(_l_b, 64 - 8), FlxPoint.get(_l_b - 8, 64 - 4), FlxPoint.get(_l_b, 64)]);
-		
-		// Right bound
-		var _r_b = FlxG.width - (FlxG.width - width) * 0.5 + target.width * 0.5;
-		for (i in 0...Std.int((FlxG.height - 128) / 8))
-			FlxSpriteUtil.drawLine(_overlay, _r_b, 64 + i * 8, _r_b, 64 + i * 8 + 4);
-		FlxSpriteUtil.drawPolygon(_overlay, [FlxPoint.get(_r_b, 64 - 8), FlxPoint.get(_r_b + 8, 64 - 4), FlxPoint.get(_r_b, 64)]);
-		
-		// Left snap
-		var _l_s = _l_b + cam_offset.x + target.width * 0.5;
-		FlxSpriteUtil.drawLine(_overlay, _l_s, 48, _l_s, FlxG.height - 48);
-		FlxSpriteUtil.drawPolygon(_overlay, [FlxPoint.get(_l_s - 1, 48 - 8), FlxPoint.get(_l_s - 1 + 8, 48 - 4), FlxPoint.get(_l_s - 1, 48)]);
-		
-		// Right snap
-		var _r_s = _r_b - cam_offset.x - target.width * 0.5;
-		FlxSpriteUtil.drawLine(_overlay, _r_s, 48, _r_s, FlxG.height - 48);
-		FlxSpriteUtil.drawPolygon(_overlay, [FlxPoint.get(_r_s + 1, 48 - 8), FlxPoint.get(_r_s + 1 - 8, 48 - 4), FlxPoint.get(_r_s + 1, 48)]);
-		
-		return _overlay;
+		this.target = target;
+		facing = target.facing;
+		if (snap) focus(target.getMidpoint());
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
-		// Looking down or up...
-		dolly_y_offset = 0;
-		if (look_down) 
-			dolly_y_offset += FlxG.width * 0.25;
-		if (look_up) 
-			dolly_y_offset -= FlxG.width * 0.25;
-		
-		// Moving up or down...
-		if (target.wasTouching == FlxObject.FLOOR)
-			y += ((target.y + dolly_y_offset - cam_offset.y - y) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
-		if (!FlxG.overlap(this, target))
-			y += target.velocity.y > 0 ? (target.velocity.y / FlxG.updateFramerate) : ((target.y + dolly_y_offset - cam_offset.y - y) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
-		
-		// Moving left or right...
-		if (facing == FlxObject.RIGHT)
+		var update_pos = {
+			x: target.x < x || target.x + target.width > x + width,
+			y: target.y < y || target.y + target.height > y + height
+		};
+
+		if (opt.platform_snapping != null) platform_snapping();
+		if (opt.forward_focus != null) forward_focus(target.getMidpoint().x - getMidpoint().x);
+
+		if (update_pos.x)
 		{
-			if (target.facing == FlxObject.RIGHT)
-				x += ((target.x + target.width * 0.5 - cam_offset.x - x) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
-			else if (!FlxG.overlap(this, target))
-				facing = FlxObject.LEFT;
+			var ox = target.x < x ? target.x - x : (target.x + target.width) - (x + width);
+			ox *= 1.5;
+			x += ox * opt.lerp.x;
+		}
+		if (update_pos.y)
+		{
+			var oy = target.y < y ? target.y - y : (target.y + target.height) - (y + height);
+			oy *= 1.5;
+			y += oy * opt.lerp.y;
+		}
+
+		if (debug_sprite != null) debug_sprite.setPosition(x, y);
+
+		super.update(elapsed);
+	}
+
+	function platform_snapping()
+	{
+		if (target.isTouching(FlxObject.FLOOR)) temp_pos.y = target.y + target.height;
+
+		var offset = temp_pos.y - (y + height * 0.5 + opt.platform_snapping.platform_offset);
+
+		if (opt.platform_snapping.max_delta != null) 
+		{
+			offset.clamp(-opt.platform_snapping.max_delta, opt.platform_snapping.max_delta);
+		}
+
+		var lerp = 1.0;
+		if (opt.platform_snapping.lerp > 0) lerp = opt.platform_snapping.lerp;
+		else if (opt.lerp != null) lerp = opt.lerp.y;
+		var max = opt.platform_snapping.max_delta > 0 ? opt.platform_snapping.max_delta : 999;
+		y += (offset * lerp).clamp(-max, max);
+	}
+
+	function forward_focus(offset:Float)
+	{
+		if (facing != target.facing)
+		{
+			if (opt.forward_focus.trigger_offset != null)
+			{
+				if (offset.abs() > opt.forward_focus.trigger_offset) facing = target.facing;
+			}
+			else facing = target.facing;
 		}
 		else
 		{
-			if (target.facing == FlxObject.LEFT)
-				x += ((target.x + target.width * 0.5 - (width - cam_offset.x) - x) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
-			else if (!FlxG.overlap(this, target))
-				facing = FlxObject.RIGHT;
+			var d = facing == FlxObject.LEFT ? 1 : -1;
+			offset -= opt.forward_focus.offset * d;
+			var max = opt.forward_focus.max_delta > 0 ? opt.forward_focus.max_delta : 999;
+			x += (offset * 0.1).clamp(-max, max);
 		}
-		
-		// Centering Target...
-		if (should_center_target)
-		{
-			if ((getMidpoint().x - target.getMidpoint().x).abs() > 1)
-				should_center_target = false;
-			else
-				x += ((target.getMidpoint().x - getMidpoint().x) * 0.1).clamp(-max_dolly_velocity, max_dolly_velocity);
-		}
-		
-		super.update(elapsed);
 	}
 	
+}
+
+typedef DollyOptions = {
+	window_size:FlxPoint,
+	?lerp:FlxPoint,
+	?platform_snapping:PlatformSnapOptions,
+	?forward_focus:ForwardFocusOptions
+}
+
+typedef PlatformSnapOptions = {
+	platform_offset:Float,
+	?lerp:Float,
+	?max_delta:Float
+}
+
+typedef ForwardFocusOptions = {
+	offset:Float,
+	?trigger_offset:Float,
+	?lerp:Float,
+	?max_delta:Float
 }
