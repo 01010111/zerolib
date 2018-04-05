@@ -15,13 +15,12 @@ class ZJoypad extends ZBaseController
     var p:Int;
     var left_analog:AnalogStick;
     var already_alerted:Bool = false;
-
-    public var connected:Bool = false;
-    public var connect_timer_interval:Int = 1;
-    public var try_to_reconnect:Bool = false;
-    public var alert_connected: Void -> Void;
-    public var alert_disconnected: Void -> Void;
-    public var alert_not_connected: Void -> Void;
+    var connected:Bool = false;
+    var connect_timer_interval:Int = 1;
+	var connect_timer:Float = 0;
+    var alert_connected: Void -> Void;
+    var alert_disconnected: Void -> Void;
+    var alert_not_connected: Void -> Void;
 
     /**
      *  Creates a new Joypad object, and tries to connect to a gamepad
@@ -54,11 +53,11 @@ class ZJoypad extends ZBaseController
                 #end
             } :
             this.alert_not_connected = alert_connected;
-        new FlxTimer().start(1, connect);
     }
 
-    function connect(?t:FlxTimer)
+    function connect()
     {
+		connect_timer = 0;
         if (pad == null)
             pad = FlxG.gamepads.getActiveGamepads()[p];
         if (pad != null)
@@ -72,24 +71,25 @@ class ZJoypad extends ZBaseController
             alert_not_connected();
             already_alerted = true;
         }
-        new FlxTimer().start(connect_timer_interval, connect);
     }
 
     override public function update(e)
     {
         super.update(e);
         
-        if (pad == null)
+		if (!connected)
+		{
+			connect_timer += e;
+			if (connect_timer > connect_timer_interval) connect();
+			return;
+		}
+        else if (pad == null)
         {
-            if (connected)
-            {
-                connected = false;
-                if (try_to_reconnect) connect();
-            }
-
+			alert_disconnected();
+			connected = false;
             return;
         }
-        
+
         left_analog.update(pad.analog.value.LEFT_STICK_X, pad.analog.value.LEFT_STICK_Y);
 
         // DPAD
