@@ -25,6 +25,9 @@ class ZJoypad extends ZBaseController
      *  Creates a new Joypad object, and tries to connect to a gamepad
      *  
      *  @param   player Whether or not the controller object creating this is for Player One or not
+     *  @param   alert_connected Function to alert that a gamepad was connected
+     *  @param   alert_disconnected Function to alert that a gamepad was disconnected
+     *  @param   alert_not_connected Function to alert that a gamepad was not detected
      */
     public function new(player:Int = 0, ?alert_connected:Void -> Void, ?alert_disconnected:Void -> Void, ?alert_not_connected:Void -> Void)
     {
@@ -59,7 +62,7 @@ class ZJoypad extends ZBaseController
 		connect_timer = 0;
         if (pad == null || !pad.connected)
             pad = FlxG.gamepads.getActiveGamepads()[p];
-        else if (pad.connected)
+        if (pad != null && pad.connected)
         {
             alert_connected();
             connected = true;
@@ -193,12 +196,8 @@ class AnalogStick
 
     /**
      *  Creates an object that treats analog inputs as buttons.
-     *  
      */
-    public function new()
-    {
-
-    }
+    public function new() {}
 
     public function update(x, y)
     {
