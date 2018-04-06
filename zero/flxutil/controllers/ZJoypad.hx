@@ -3,7 +3,6 @@ package zero.flxutil.controllers;
 import flixel.FlxG;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxPoint;
-import flixel.util.FlxTimer;
 
 /**
  *  @author 01010111 
@@ -45,22 +44,22 @@ class ZJoypad extends ZBaseController
                 FlxG.log.add('Controller $p disconnected!');
                 #end
             } :
-            this.alert_disconnected = alert_connected;
+            this.alert_disconnected = alert_disconnected;
         alert_not_connected == null ?
             this.alert_not_connected = function () { 
                 #if debug
                 FlxG.log.add('Controller $p not connected!');
                 #end
             } :
-            this.alert_not_connected = alert_connected;
+            this.alert_not_connected = alert_not_connected;
     }
 
     function connect()
     {
 		connect_timer = 0;
-        if (pad == null)
+        if (pad == null || !pad.connected)
             pad = FlxG.gamepads.getActiveGamepads()[p];
-        if (pad != null)
+        else if (pad.connected)
         {
             alert_connected();
             connected = true;
@@ -83,7 +82,7 @@ class ZJoypad extends ZBaseController
 			if (connect_timer > connect_timer_interval) connect();
 			return;
 		}
-        else if (pad == null)
+        else if (!pad.connected)
         {
 			alert_disconnected();
 			connected = false;
