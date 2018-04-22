@@ -3,7 +3,6 @@ package zero.flxutil.controllers;
 import flixel.FlxG;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxPoint;
-import flixel.util.FlxTimer;
 
 /**
  *  @author 01010111 
@@ -15,18 +14,20 @@ class ZJoypad extends ZBaseController
     var p:Int;
     var left_analog:AnalogStick;
     var already_alerted:Bool = false;
-
-    public var connected:Bool = false;
-    public var connect_timer_interval:Int = 1;
-    public var try_to_reconnect:Bool = false;
-    public var alert_connected: Void -> Void;
-    public var alert_disconnected: Void -> Void;
-    public var alert_not_connected: Void -> Void;
+    var connected:Bool = false;
+    var connect_timer_interval:Int = 1;
+	var connect_timer:Float = 0;
+    var alert_connected: Void -> Void;
+    var alert_disconnected: Void -> Void;
+    var alert_not_connected: Void -> Void;
 
     /**
      *  Creates a new Joypad object, and tries to connect to a gamepad
      *  
      *  @param   player Whether or not the controller object creating this is for Player One or not
+     *  @param   alert_connected Function to alert that a gamepad was connected
+     *  @param   alert_disconnected Function to alert that a gamepad was disconnected
+     *  @param   alert_not_connected Function to alert that a gamepad was not detected
      */
     public function new(player:Int = 0, ?alert_connected:Void -> Void, ?alert_disconnected:Void -> Void, ?alert_not_connected:Void -> Void)
     {
@@ -46,22 +47,22 @@ class ZJoypad extends ZBaseController
                 FlxG.log.add('Controller $p disconnected!');
                 #end
             } :
-            this.alert_disconnected = alert_connected;
+            this.alert_disconnected = alert_disconnected;
         alert_not_connected == null ?
             this.alert_not_connected = function () { 
                 #if debug
                 FlxG.log.add('Controller $p not connected!');
                 #end
             } :
-            this.alert_not_connected = alert_connected;
-        new FlxTimer().start(1, connect);
+            this.alert_not_connected = alert_not_connected;
     }
 
-    function connect(?t:FlxTimer)
+    function connect()
     {
-        if (pad == null)
+		connect_timer = 0;
+        if (pad == null || !pad.connected)
             pad = FlxG.gamepads.getActiveGamepads()[p];
-        if (pad != null)
+        if (pad != null && pad.connected)
         {
             alert_connected();
             connected = true;
@@ -72,24 +73,25 @@ class ZJoypad extends ZBaseController
             alert_not_connected();
             already_alerted = true;
         }
-        new FlxTimer().start(connect_timer_interval, connect);
     }
 
     override public function update(e)
     {
         super.update(e);
         
-        if (pad == null)
+		if (!connected)
+		{
+			connect_timer += e;
+			if (connect_timer > connect_timer_interval) connect();
+			return;
+		}
+        else if (!pad.connected)
         {
-            if (connected)
-            {
-                connected = false;
-                if (try_to_reconnect) connect();
-            }
-
+			alert_disconnected();
+			connected = false;
             return;
         }
-        
+
         left_analog.update(pad.analog.value.LEFT_STICK_X, pad.analog.value.LEFT_STICK_Y);
 
         // DPAD
@@ -194,12 +196,8 @@ class AnalogStick
 
     /**
      *  Creates an object that treats analog inputs as buttons.
-     *  
      */
-    public function new()
-    {
-
-    }
+    public function new() {}
 
     public function update(x, y)
     {
