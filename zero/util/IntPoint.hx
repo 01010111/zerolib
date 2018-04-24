@@ -20,11 +20,11 @@ class IntPoint
         return (ip.x == x && ip.y == y);
     }
 
-    public function set(x:Int, y:Int)
-    {
-        this.x = x;
-        this.y = y;
-    }
+	public function set(x:Int = 0, ?y:Int)
+	{
+		this.x = x;
+		this.y = y == null ? x : y;
+	}
 
     public static function add(ip1, ip2):IntPoint
     {
