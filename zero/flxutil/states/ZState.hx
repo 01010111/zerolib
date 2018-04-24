@@ -16,14 +16,14 @@ class ZState extends FlxState
     {
         FlxG.mouse.visible = mouse_visible;
         this.esc_exits = esc_exits;
-        this.check_fullscreen = check_fullscreen;
+        //this.check_fullscreen = check_fullscreen;
         super();
     }
 
     override public function update(e)
     {
         super.update(e);
-        fullscreen_check();
+        //fullscreen_check();
     }
 
     function fullscreen_check()

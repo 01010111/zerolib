@@ -55,9 +55,10 @@ class ZJoypad extends ZBaseController
                 #end
             } :
             this.alert_not_connected = alert_not_connected;
+        connect();
     }
 
-    function connect()
+    public function connect()
     {
 		connect_timer = 0;
         if (pad == null || !pad.connected)
