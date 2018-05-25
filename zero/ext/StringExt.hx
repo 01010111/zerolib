@@ -30,4 +30,9 @@ class StringExt
 		return '$prefix$s$postfix';
 	}
 
+	inline public static function contains(src:String, value:String):Bool
+	{
+		return src.indexOf(value) >= 0;
+	}
+
 }

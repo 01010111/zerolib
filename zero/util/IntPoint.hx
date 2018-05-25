@@ -26,9 +26,19 @@ class IntPoint
 		this.y = y == null ? x : y;
 	}
 
+    public function add_to(ip:IntPoint)
+    {
+        set(x + ip.x, y + ip.y);
+    }
+
     public static function add(ip1, ip2):IntPoint
     {
         return new IntPoint(ip1.x + ip2.x, ip1.y + ip2.y);
     }
+
+	public function copy():IntPoint
+	{
+		return new IntPoint(x, y);
+	}
 
 }
