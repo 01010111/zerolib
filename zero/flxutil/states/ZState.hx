@@ -14,7 +14,9 @@ class ZState extends FlxState
 
     public function new(mouse_visible:Bool = false, esc_exits:Bool = false)
     {
+		#if !mobile
         FlxG.mouse.visible = mouse_visible;
+		#end
         this.esc_exits = esc_exits;
         super();
     }
@@ -28,7 +30,9 @@ class ZState extends FlxState
 	function check_esc()
 	{
 		#if cpp
+		#if !mobile
 		if (FlxG.keys.justPressed.ESCAPE) lime.system.System.exit(0);
+		#end
 		#end
 	}
 
