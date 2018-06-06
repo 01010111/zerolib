@@ -57,4 +57,10 @@ class ArrayExt
 		return array;
 	}
 
+	inline public static function merge<T>(a1:Array<T>, a2:Array<T>):Array<T>
+	{
+		for (o in a2) a1.push(o);
+		return a1;
+	}
+
 }
