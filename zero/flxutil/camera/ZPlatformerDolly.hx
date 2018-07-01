@@ -41,7 +41,7 @@ class ZPlatformerDolly extends FlxObject
 	 *  
 	 *  options object (*required)
 	 *  {
-	 *  	*window_size: Float (size of the dolly),
+	 *  	*window_size: FlxPoint (size of the dolly),
 	 *  	lerp: FlxPoint (rate of change in position on two axes 0-1),
 	 *  	platform_snapping: PlatformSnapOptions (options object for platform snapping) {
 	 *  		*platform_offset: Float (target distance from center of dolly),
@@ -148,7 +148,7 @@ class ZPlatformerDolly extends FlxObject
 
 	function platform_snapping()
 	{
-		if (target.isTouching(FlxObject.FLOOR)) plat_y = target.y + target.height;
+		if (target.wasTouching & FlxObject.FLOOR > 0) plat_y = target.y + target.height;
 
 		var offset = plat_y - (y + height * 0.5 + opt.platform_snapping.platform_offset);
 
