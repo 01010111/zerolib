@@ -1,8 +1,13 @@
 package zero.ext.flx;
 
+import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
+
+using openfl.Assets;
+using haxe.Json;
+using zero.ext.FloatExt;
 
 /**
  *  @author 01010111 
@@ -87,8 +92,14 @@ class FlxSpriteExt
 
 	inline public static function add_animation(sprite:FlxSprite, animation:SpriteAnimation)
 	{
-		if (animation.looped == null) animation.looped = true;
-		sprite.animation.add(animation.name, animation.frames, animation.rate, animation.looped);
+		if (animation.loop == null) animation.loop = true;
+		sprite.animation.add(animation.name, animation.frames, animation.speed.to_int(), animation.loop);
+	}
+
+	inline public static function add_animations_from_json(sprite:FlxSprite, json:String)
+	{
+		var anim_data:Array<SpriteAnimation> = json.getText().parse();
+		for (animation in anim_data) add_animation(sprite, animation);
 	}
 
 }
@@ -96,6 +107,6 @@ class FlxSpriteExt
 typedef SpriteAnimation = {
 	name:String,
 	frames: Array<Int>,
-	rate: Int,
-	?looped: Bool
+	speed: Int,
+	?loop: Bool
 }
