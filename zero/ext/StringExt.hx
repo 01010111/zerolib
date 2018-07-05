@@ -15,6 +15,7 @@ class StringExt
      *  @return Array<Array<Int>>
      */
     public static inline function csv_to_2d_int_array(csv:String):Array<Array<Int>> return [for (row in csv.split('\n')) row.split(',').strings_to_ints()];
+	public static inline function contains(src:String, value:String):Bool return src.indexOf(value) >= 0;
 
 	public static inline function get_random(string:String, length:Int = 16, prefix:String = '', postfix:String = '')
 	{
@@ -23,7 +24,5 @@ class StringExt
 		for (i in 0...length)s += a.charAt(a.length.get_random().to_int());
 		return '$prefix$s$postfix';
 	}
-
-	public static inline function contains(src:String, value:String):Bool return src.indexOf(value) >= 0;
 
 }
