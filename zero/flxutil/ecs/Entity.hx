@@ -1,7 +1,6 @@
 package zero.flxutil.ecs;
 
 import flixel.FlxSprite;
-import components.Component;
 
 class Entity extends FlxSprite
 {
@@ -13,15 +12,15 @@ class Entity extends FlxSprite
 	public function new(options:EntityOptions)
 	{
 		super(options.x, options.y);
-		id = options.id;
+		name = options.name;
 		if (options.components == null) return;
 		for (c in options.components) add_component(c);
 	}
 
 	public function add_component(component:Component)
 	{
-		if (components.exists(component.name)) LOG('Component with name: ${component.name} already exists!', WARNING);
-		else components.set(component.name, component);
+		if (components.exists(component.get_name())) trace('Component with name: ${component.get_name()} already exists!');
+		else components.set(component.get_name(), component);
 		component.add_to(this);
 	}
 
@@ -29,7 +28,7 @@ class Entity extends FlxSprite
 	{
 		if (!components.exists(name))
 		{
-			LOG('No components with name: $name exist!', ERROR);
+			trace('No components with name: $name exist!');
 			return;
 		}
 		components[name].on_remove();
@@ -38,18 +37,18 @@ class Entity extends FlxSprite
 
 	public function get_component(name:String):Null<Component>
 	{
-		if (!components.exists(name)) LOG('No components with name: $name exist!', ERROR);
+		if (!components.exists(name)) trace('No components with name: $name exist!');
 		return components[name];
 	}
 
 	public function add_tag(tag:String)
 	{
-		if (tags.indexOf(tag) >= 0) LOG('tag: $tag already exists!');
+		if (tags.indexOf(tag) >= 0) trace('tag: $tag already exists!');
 		else tags.push(tag);
 	}
 
 	public inline function has_tag(tag:String):Bool return tags.indexOf(tag) >= 0;
-	public inline function get_name():String = return name;
+	public inline function get_name():String return name;
 
 	override public function update(dt:Float)
 	{
@@ -63,6 +62,6 @@ typedef EntityOptions =
 {
 	x:Float,
 	y:Float,
-	id:String,
+	name:String,
 	?components:Array<Component>,
 }

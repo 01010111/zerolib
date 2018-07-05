@@ -8,12 +8,12 @@ using zero.ext.FloatExt;
 class ArrayExt 
 {
 
-    /**
-     *  Converts an array of strings to an array of itegers
-     *  @param array - 
-     *  @return Array<Int>
-     */
-    public static inline function strings_to_ints(array:Array<String>):Array<Int> return [for (s in array) Std.parseInt(s)];
+	/**
+	 *  Converts an array of strings to an array of itegers
+	 *  @param array - 
+	 *  @return Array<Int>
+	 */
+	public static inline function strings_to_ints(array:Array<String>):Array<Int> return [for (s in array) Std.parseInt(s)];
 
 	/**
 	 *  Checks whether or not an array contains a value or object

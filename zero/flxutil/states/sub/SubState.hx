@@ -8,9 +8,9 @@ import flixel.FlxSubState;
 class SubState extends FlxSubState
 {
 
-    public function new()
-    {
-        super();
-    }
+	public function new()
+	{
+		super();
+	}
 
 }

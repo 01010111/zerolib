@@ -12,9 +12,9 @@ using zero.ext.flx.FlxPointExt;
 class Vector
 {
 	
-    @:isVar public var x (default, set) : Float = 0;
+	@:isVar public var x (default, set) : Float = 0;
 	function set_x(x:Float):Float { return this.x = x; }
-    @:isVar public var y (default, set) : Float = 0;
+	@:isVar public var y (default, set) : Float = 0;
 	function set_y(y:Float):Float { return this.y = y; }
 
 	@:isVar public var len (get, set) : Float = 0;

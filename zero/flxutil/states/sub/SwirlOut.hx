@@ -15,8 +15,8 @@ using zero.ext.flx.FlxPointExt;
 class SwirlOut extends SubState
 {
 
-    public function new(on_complete:Void -> Void, color:Int = 0xff000000)
-    {
+	public function new(on_complete:Void -> Void, color:Int = 0xff000000)
+	{
 		super();
 		var s:FlxSprite = new FlxSprite();
 		s.makeGraphic(FlxG.width, FlxG.height, 0x00ffffff);
@@ -38,6 +38,6 @@ class SwirlOut extends SubState
 			on_complete();
 			close();	
 		}
-    }
+	}
 
 }

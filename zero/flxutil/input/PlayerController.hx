@@ -47,7 +47,7 @@ class PlayerController extends Controller
 
 }
 
-class Gamepad extends ControllerBase
+class Gamepad extends Controller
 {
 
 	var pad:FlxGamepad;

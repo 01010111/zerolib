@@ -1,5 +1,7 @@
 package zero.flxutil.ecs;
 
+import flixel.math.FlxPoint;
+
 class Component
 {
 
