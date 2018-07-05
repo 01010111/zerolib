@@ -12,7 +12,7 @@ using zero.ext.flx.FlxPointExt;
 /**
  *  @author 01010111
  */
-class SwirlOut extends ZSubState
+class SwirlOut extends SubState
 {
 
     public function new(on_complete:Void -> Void, color:Int = 0xff000000)

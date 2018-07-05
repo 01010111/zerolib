@@ -14,15 +14,9 @@ class StringExt
      *  @param csv - 
      *  @return Array<Array<Int>>
      */
-    inline public static function csv_to_2d_int_array(csv:String):Array<Array<Int>>
-    {
-        var a:Array<Array<Int>> = [];
-        var rows = csv.split('\n');
-        for (row in rows) a.push(row.split(',').strings_to_ints());
-        return a;
-    }
+    public static inline function csv_to_2d_int_array(csv:String):Array<Array<Int>> return [for (row in csv.split('\n')) row.split(',').strings_to_ints()];
 
-	inline public static function get_random(string:String, length:Int = 16, prefix:String = '', postfix:String = '')
+	public static inline function get_random(string:String, length:Int = 16, prefix:String = '', postfix:String = '')
 	{
 		var a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#';
 		var s = '';
@@ -30,9 +24,6 @@ class StringExt
 		return '$prefix$s$postfix';
 	}
 
-	inline public static function contains(src:String, value:String):Bool
-	{
-		return src.indexOf(value) >= 0;
-	}
+	public static inline function contains(src:String, value:String):Bool return src.indexOf(value) >= 0;
 
 }

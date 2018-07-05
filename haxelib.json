@@ -1,0 +1,15 @@
+{
+	"name": "zerolib",
+	"url" : "https://github.com/01010111/zerolib",
+	"license": "MIT",
+	"tags": ["game", "flixel", "openfl", "flash", "html5", "neko", "cpp", "android", "ios", "cross"],
+	"description": "Zerolib is a library of extensions, utilities, and other helpful classes for making games quickly in haxeflixel!",
+	"version": "0.2.1",
+	"classPath": "zero",
+	"releasenote": "Initial haxelib release",
+	"contributors": ["01010111"],
+	"dependencies": {
+		"flixel": "",
+		"flixel-addons": ""
+	}
+}

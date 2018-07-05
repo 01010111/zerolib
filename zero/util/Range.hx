@@ -17,9 +17,6 @@ class Range
         this.max = max;
     }
 
-    public function get_random_in_range():Float
-    {
-        return max.get_random(min);
-    }
+    public inline function get_random_in_range():Float return max.get_random(min);
 
 }

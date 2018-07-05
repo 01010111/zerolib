@@ -16,20 +16,14 @@ class FloatExt
      *  @param rad - input radian
      *  @return Float
      */
-    inline public static function rad_to_deg(rad:Float):Float
-    {
-        return rad * (180 / Math.PI);
-    }
-
+    public static inline function rad_to_deg(rad:Float):Float return rad * (180 / Math.PI);
+\
     /**
      *  Returns the radian equivalent to the input degree. ex. 180.deg_to_rad() == Math.PI = true
      *  @param deg - input degree
      *  @return Float
      */
-    inline public static function deg_to_rad(deg:Float):Float
-    {
-        return deg * (Math.PI / 180);
-    }
+    public static inline function deg_to_rad(deg:Float):Float return deg * (Math.PI / 180);
 
     /**
      *  Loops input value through a range of minimum and maximum values. ex. 150.cycle(0, 100) = 50
@@ -38,20 +32,14 @@ class FloatExt
      *  @param max - maximum value (end) of cycle
      *  @return Float
      */
-    inline public static function cycle(n:Float, min:Float, max:Float):Float
-	{
-    	return((n - min) % (max - min) + (max - min)) % (max - min) + min;
-	}
+    public static inline function cycle(n:Float, min:Float, max:Float):Float return((n - min) % (max - min) + (max - min)) % (max - min) + min;
 
     /**
      *  Returns a degree between 0 and 360. ex. (-10).get_relative_degree() = 350
      *  @param n - input degree
      *  @return Float
      */
-    inline public static function get_relative_degree(n:Float):Float
-    {
-        return (n % 360 + 360) % 360;
-    }
+    public static inline function get_relative_degree(n:Float):Float return (n % 360 + 360) % 360;
 
     /**
      *  Returns the degrees between two angles. ex. 20.degrees_between(-20) = 40
@@ -59,10 +47,7 @@ class FloatExt
      *  @param a2 - second angle in degrees
      *  @return Float
      */
-    inline public static function degrees_between(a1:Float, a2:Float):Float
-    {
-        return (((a2 - a1).max(a1 - a2) + 180) % 360 - 180).abs();
-    }
+    public static inline function degrees_between(a1:Float, a2:Float):Float return (((a2 - a1).max(a1 - a2) + 180) % 360 - 180).abs();
 
     /**
      *  Clamps input value between the minimum and maximum values. ex. 120.clamp(0, 100) = 100
@@ -71,10 +56,7 @@ class FloatExt
      *  @param max - maximum value
      *  @return Float
      */
-    inline public static function clamp(n:Float, min:Float, max:Float):Float
-    {
-        return n.max(min).min(max);
-    }
+    public static inline function clamp(n:Float, min:Float, max:Float):Float return n.max(min).min(max);
 
     /**
      *  returns input value with removed decimal places after places input. ex. 1.135908.normalize(2) = 1.14
@@ -82,10 +64,7 @@ class FloatExt
      *  @param places - how many places
      *  @return Float
      */
-    inline public static function normalize(n:Float, places:Int):Float
-	{
-        return (n * 10.pow(places)).round() / 10.pow(places);
-	}
+    public static inline function normalize(n:Float, places:Int):Float return (n * 10.pow(places)).round() / 10.pow(places);
 
     /**
      *  returns a norm value t of a through b. ex. 10.norm(0, 100) = 0.1
@@ -94,10 +73,7 @@ class FloatExt
      *  @param   b norm range second index
      *  @return  Float
      */
-    inline public static function norm(t:Float, a:Float, b:Float):Float
-    {
-        return ( t - a ) / ( b - a );
-    }
+    public static inline function norm(t:Float, a:Float, b:Float):Float return ( t - a ) / ( b - a );
 
     /**
      *  linear interpolation. ex. 2.lerp(0, 100) = 200;
@@ -106,10 +82,7 @@ class FloatExt
      *  @param   b lerp range second index
      *  @return  Float
      */
-    inline public static function lerp(t:Float, a:Float, b:Float):Float
-    {
-        return (1 - t) * a + t * b;
-    }
+    public static inline function lerp(t:Float, a:Float, b:Float):Float return (1 - t) * a + t * b;
 
     /**
      *  Maps a value from one range of values to another, ex: 1.map(0, 2, 20, 30) = 25
@@ -120,10 +93,7 @@ class FloatExt
      *  @param   a1 1 index for second range
      *  @return  Float
      */
-    inline public static function map(t:Float, a0:Float, b0:Float, a1:Float, b1:Float):Float
-    {
-        return t.norm(a0, b0).lerp(a1, b1);
-    }
+    public static inline function map(t:Float, a0:Float, b0:Float, a1:Float, b1:Float):Float return t.norm(a0, b0).lerp(a1, b1);
 
     /**
      *  snaps value n to a grid. ex. 21.snap_to_grid(10) = 20
@@ -133,10 +103,7 @@ class FloatExt
      *  @param floor - whether or not to use Math.floor() or Math.round(), default false (Math.round())
      *  @return Float
      */
-    inline public static function snap_to_grid(n:Float, grid_size:Float, ?offset:Float = 0, ?floor:Bool = false):Float
-    {
-        return offset + grid_size * (floor ? (n / grid_size).floor() : (n / grid_size).round()); 
-    }
+    public static inline function snap_to_grid(n:Float, grid_size:Float, ?offset:Float = 0, ?floor:Bool = false):Float return offset + grid_size * (floor ? (n / grid_size).floor() : (n / grid_size).round()); 
 
     /**
      *  gets a random number from a range of numbers. ex. 10.get_random() = a number between 0 and 10
@@ -145,10 +112,7 @@ class FloatExt
      *  @param max - overrides input number for the maximum number in the desired range (input number is ignored)
      *  @return Float
      */
-    inline public static function get_random(def_max:Float, min:Float = 0, ?max:Float):Float
-    {
-        return min + Math.random() * ((max == null ? def_max : max) - min);
-    }
+    public static inline function get_random(def_max:Float, min:Float = 0, ?max:Float):Float return min + Math.random() * ((max == null ? def_max : max) - min);
 
 	/**
 	 *  returns the sign (-1, 0, 1) of a number
@@ -156,32 +120,18 @@ class FloatExt
 	 *  @param   n - input value
 	 *  @return  Int
 	 */
-	inline public static function sign_of(n:Float):Int
-	{
-		if (n > 0) return 1;
-		if (n < 0) return -1;
-		return 0;
-	}
+	public static inline function sign_of(n:Float):Int return n > 0 ? 1 : n < 0 ? -1 : 0;
 
     /**
      *  returns an Int in the place of a Float. ex. 10.1.to_int() = 10
      *  @param n - input Float
      *  @return Int
      */
-    inline public static function to_int(n:Float):Int
-    {
-        return Std.int(n);
-    }
+    public static inline function to_int(n:Float):Int return Std.int(n);
 
-	inline public static function half(n:Float):Float
-	{
-		return n * 0.5;
-	}
+	public static inline function half(n:Float):Float return n * 0.5;
 
-	inline public static function quarter(n:Float):Float
-	{
-		return n * 0.25;
-	}
+	public static inline function quarter(n:Float):Float return n * 0.25;
 
     /**
      *  returns a Vector describing a vector of given angle and length. ex. 270.vector_from_angle(100) == new Vector(0, -100) = true
@@ -189,9 +139,6 @@ class FloatExt
      *  @param len - the length of the desired vector
      *  @return Vector
      */
-    inline public static function vector_from_angle(a:Float, len:Float):Vector
-    {
-        return new Vector(a.deg_to_rad().cos() * len, a.deg_to_rad().sin() * len);
-    }
+    public static inline function vector_from_angle(a:Float, len:Float):Vector return new Vector(a.deg_to_rad().cos() * len, a.deg_to_rad().sin() * len);
 
 }

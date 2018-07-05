@@ -7,7 +7,7 @@ import flixel.tweens.FlxTween;
 /**
  *  @author 01010111 
  */
-class FadeIn extends ZSubState
+class FadeIn extends SubState
 {
 
     public var on_complete:Void -> Void = function() { };

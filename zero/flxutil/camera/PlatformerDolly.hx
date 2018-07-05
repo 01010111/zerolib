@@ -18,7 +18,7 @@ using Math;
  *  
  * @author 01010111
  */
-class ZPlatformerDolly extends FlxObject
+class PlatformerDolly extends FlxObject
 {
 	// required vars
 	var target:FlxSprite;
