@@ -78,12 +78,17 @@ class FlxSpriteExt
 	 */
 	public static inline function set_midpoint_position(sprite:FlxSprite, point:FlxPoint) sprite.setPosition(point.x - sprite.width * 0.5, point.y - sprite.height * 0.5);
 
-	public static inline function add_animation(sprite:FlxSprite, animation:SpriteAnimation)
+	static inline function add_animation(sprite:FlxSprite, animation:SpriteAnimation)
 	{
 		if (animation.loop == null) animation.loop = true;
 		sprite.animation.add(animation.name, animation.frames, animation.speed.to_int(), animation.loop);
 	}
 
+	/**
+	 *  Add animations from JSON file
+	 *  @param sprite - 
+	 *  @param json - 
+	 */
 	public static inline function add_animations_from_json(sprite:FlxSprite, json:String)
 	{
 		var anim_data:Array<SpriteAnimation> = json.getText().parse();
