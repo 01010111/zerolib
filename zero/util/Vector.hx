@@ -50,7 +50,7 @@ class Vector
 	 *  @param x	x coordinate
 	 *  @param y	y coordinate
 	 */
-	public function new(x: Float = 0, y:Float = 0) set_xyz(x, y);
+	public function new(x: Float = 0, y:Float = 0) set_xy(x, y);
 
 	/**
 	 *  returns a copy of an input vector

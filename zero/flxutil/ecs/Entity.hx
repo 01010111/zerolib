@@ -89,7 +89,7 @@ class Entity extends FlxSprite
 	 */
 	public inline function get_name():String return name;
 
-	@dox(hide)
+	@:dox(hide)
 	override public function update(dt:Float)
 	{
 		for (c in components) c.update(dt);

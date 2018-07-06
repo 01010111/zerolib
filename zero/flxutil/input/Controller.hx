@@ -28,7 +28,7 @@ class Controller extends FlxBasic
 		for (button in Type.allEnums(ControllerButton)) state.set(button, false);
 	}
 
-	@dox(hide)
+	@:dox(hide)
 	override public function update(dt:Float)
 	{
 		var last_state:Map<ControllerButton, Bool> = new Map();
@@ -39,14 +39,14 @@ class Controller extends FlxBasic
 		set(dt);
 	}
 
-	@dox(show)
+	@:dox(show)
 	/**
 	 *  Override this to set controller buttons instead of update()
 	 *  @param dt	delta time
 	 */
 	function set(dt:Float){}
 
-	@dox(show)
+	@:dox(show)
 	/**
 	 *  Call this to add the controller to the state instead of [FlxState].add(controller)
 	 */

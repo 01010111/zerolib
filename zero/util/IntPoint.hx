@@ -1,5 +1,7 @@
 package zero.util;
 
+import flixel.math.FlxPoint;
+
 using zero.ext.FloatExt;
 
 /**

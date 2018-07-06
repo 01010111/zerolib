@@ -23,7 +23,7 @@ class State extends FlxState
 		super();
 	}
 
-	@dox(hide)
+	@:dox(hide)
 	override public function update(e)
 	{
 		super.update(e);

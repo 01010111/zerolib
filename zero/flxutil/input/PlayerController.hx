@@ -119,7 +119,7 @@ class Gamepad extends Controller
 		else new FlxTimer().start(connect_timer, connect);
 	}
 
-	@dox(hide)
+	@:dox(hide)
 	override public function update(dt:Float)
 	{
 		if (!connected && pad != null)
