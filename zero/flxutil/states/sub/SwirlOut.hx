@@ -10,11 +10,16 @@ using Math;
 using zero.ext.flx.FlxPointExt;
 
 /**
- *  @author 01010111
+ *  A SubState that creates a swirl effect then closes
  */
 class SwirlOut extends SubState
 {
 
+	/**
+	 *  Creates a new substate that creates a swirl effect and closes
+	 *  @param on_complete	function to call when fade is complete (FlxG.switchState() is a good choice :P)
+	 *  @param color		a color to show in place of black
+	 */
 	public function new(on_complete:Void -> Void, color:Int = 0xff000000)
 	{
 		super();

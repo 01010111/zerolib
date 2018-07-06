@@ -4,13 +4,18 @@ import flixel.FlxG;
 import flixel.FlxState;
 
 /**
- *  @author 01010111 
+ *  An extended FlxState
  */
 class State extends FlxState
 {
 
 	var esc_exits:Bool;
 
+	/**
+	 *  Creates a new State with some options
+	 *  @param mouse_visible	whether or not the mouse is visible
+	 *  @param esc_exits		whether or not pressing ESC on cpp targets will exit the game
+	 */
 	public function new(mouse_visible:Bool = false, esc_exits:Bool = false)
 	{
 		#if !mobile FlxG.mouse.visible = mouse_visible; #end
@@ -18,6 +23,7 @@ class State extends FlxState
 		super();
 	}
 
+	@dox(hide)
 	override public function update(e)
 	{
 		super.update(e);

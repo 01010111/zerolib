@@ -8,23 +8,20 @@ import flixel.text.FlxText.FlxTextAlign;
 import flixel.FlxG;
 
 /**
- * ...
- * @author x01010111
- *  
- *  TODO: Needs review / update
+ * A wrapper for FlxBitmapText that makes it easy to use a monospaced bitmap font image
  */
 class ZBitmapText extends FlxBitmapText
 {
 	/**
-	 * A helper class to get bitmapfonts working quickly!
-	 * @param	X	Float	X Position of your text
-	 * @param	Y	Float	Y Position of your text
-	 * @param	LETTERS	String	String of letters included in your graphic
-	 * @param	LETTERSIZE	FlxPoint	Width and Height of glyph in your graphic
-	 * @param	FONTGRAPHIC	FlxBitmapFontGraphicAsset	font graphic
-	 * @param	ALIGN	FlxTextAlign	Defaults to left
-	 * @param	WIDTH	Set width of your text area
-	 * @param	LINESPACING	Space between lines
+	 * Creates a new bitmaptext instance with lots of options
+	 * @param	X				X Position of your text
+	 * @param	Y				Y Position of your text
+	 * @param	LETTERS			String	String of letters included in your graphic
+	 * @param	LETTERSIZE		FlxPoint	Width and Height of glyph in your graphic
+	 * @param	FONTGRAPHIC		font graphic
+	 * @param	ALIGN			Defaults to left
+	 * @param	WIDTH			Set width of your text area
+	 * @param	LINESPACING		Space between lines
 	 * @param	LETTERSPACING	Space between letters
 	 */
 	public function new(X:Float, Y:Float, LETTERS:String, LETTERSIZE:FlxPoint, FONTGRAPHIC:FlxBitmapFontGraphicAsset, ?ALIGN:FlxTextAlign, WIDTH:Int = -1, LINESPACING:Int = 0, LETTERSPACING:Int = 0) 
