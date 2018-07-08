@@ -14,9 +14,8 @@ using zero.ext.flx.FlxPointExt;
 using Math;
 
 /**
- * Thanks to Itay Keren and his amazing talk "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers"
- *  
- * @author 01010111
+ * A Handy Platformer camera dolly with several advanced features
+ * Thanks to Itay Keren and his amazing GDC talk "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers"
  */
 class PlatformerDolly extends FlxObject
 {
@@ -90,8 +89,8 @@ class PlatformerDolly extends FlxObject
 
 	/**
 	 *  Switches the camera target
-	 *  @param   target the target to follow
-	 *  @param   snap whether or not to snap to target immediately
+	 *  @param target	the target to follow
+	 *  @param snap		whether or not to snap to target immediately
 	 */
 	public function switch_target(target:FlxSprite, snap:Bool = false):Void
 	{
@@ -117,7 +116,8 @@ class PlatformerDolly extends FlxObject
 				: opt.forward_focus.offset;
 		}
 	}
-		
+	
+	@:dox(hide)
 	override public function update(dt:Float):Void 
 	{
 		var update_pos = {
@@ -185,7 +185,7 @@ class PlatformerDolly extends FlxObject
 
 	/**
 	 *  Creates and returns a debug sprite that visualizes the dolly's configuration
-	 *  @return  FlxSprite
+	 *  @return	FlxSprite
 	 */
 	public function get_debug_sprite():FlxSprite
 	{

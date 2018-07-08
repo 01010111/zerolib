@@ -8,11 +8,20 @@ using zero.ext.FloatExt;
 using Math;
 
 /**
- *  @author 01010111
+ *  creates a checkerboard!
  */
 class CheckerBoard extends FlxSprite
 {
 
+	/**
+	 *  Creates a new checkerboard sprite
+	 *  @param width		this sprite's width
+	 *  @param height		this sprite's height
+	 *  @param color0		first color
+	 *  @param color1		second color
+	 *  @param tile_width	checkerboard tile width
+	 *  @param tile_height	checkerboard tile height
+	 */
 	public function new(width:Int, height:Int, color0:Int, color1:Int, tile_width:Int, tile_height:Int)
 	{
 		super();

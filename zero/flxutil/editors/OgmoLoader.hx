@@ -5,7 +5,7 @@ import flixel.addons.editors.ogmo.FlxOgmoLoader;
 using zero.ext.StringExt;
 
 /**
- *  @author 01010111 
+ *  A Wrapper for FlxOgmoLoader with the ability to return tile data in an Array or CSV
  */
 class OgmoLoader extends FlxOgmoLoader
 {

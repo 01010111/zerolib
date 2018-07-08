@@ -5,13 +5,22 @@ import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 
 /**
- *  @author 01010111 
+ *  A SubState that Fades in and closes
  */
 class FadeIn extends SubState
 {
 
+	/**
+	 *  callback function that is called when fade is complete
+	 */
 	public var on_complete:Void -> Void = function() { };
 
+	/**
+	 *  Creates a new substate that fades in and closes
+	 *  @param time		the amount of time to fade in
+	 *  @param sprite	a sprite to show in place of a solid color
+	 *  @param color	a color to show in place of black
+	 */
 	public function new(time:Float = 0.5, ?sprite:FlxSprite, ?color:Int = 0xff000000)
 	{
 		super();

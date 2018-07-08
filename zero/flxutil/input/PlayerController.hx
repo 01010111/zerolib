@@ -7,12 +7,29 @@ import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import zero.flxutil.input.Controller;
 
+/**
+ *  A Player Controller class for quick and easy controller setup
+ */
 class PlayerController extends Controller
 {
 
 	var gamepad:Gamepad;
 	var binding:Map<ControllerButton, FlxKey> = new Map();
 
+	/**
+	 *  Creates a new player controller with given options
+	 *  @param options	ControllerOptions - {
+	 *  	binding:Map<ControllerButton, FlxKey>	controller bindings,
+	 *  	density:ControllerDensity				NES/GENESIS/SNES,
+	 *  	gamepad_options:GamepadOptions - {
+	 *  		id:Int								Gamepad ID,
+	 *  		connect_timer:Float					how often to try to connect,
+	 *  		binding:Map<ControllerButton, FlxGamepadInputID>	gamepad bindings,
+	 *  		on_connect:Void -> Void				on connect callback
+	 *  		on_disconnect:Void -> Void			on disconnect callback,
+	 *  	}
+	 *  }
+	 */
 	public function new(?options:ControllerOptions)
 	{
 		super();
@@ -36,17 +53,29 @@ class PlayerController extends Controller
 		gamepad = options.gamepad_options == null ? new Gamepad() : new Gamepad(options.gamepad_options);
 	}
 
+	/**
+	 *  Add this controller (and gamepad controller) to state, use instead of [FlxState].add(player_controller)
+	 */
 	override public function add()
 	{
 		super.add();
 		gamepad.add();
 	}
 
+	/**
+	 *  Bind a button to a keyboard key
+	 *  @param button	button
+	 *  @param key		key
+	 */
 	public function bind(button:ControllerButton, key:FlxKey) binding.set(button, key);
+
 	override function set(dt:Float) for (button in binding.keys()) set_button(button, FlxG.keys.anyPressed([binding[button]]) || gamepad.get_pressed(button));
 
 }
 
+/**
+ *  A Gamepad controller class
+ */
 class Gamepad extends Controller
 {
 
@@ -59,6 +88,16 @@ class Gamepad extends Controller
 
 	var binding:Map<ControllerButton, FlxGamepadInputID>;
 
+	/**
+	 *  Creates a new Gamepad controller with given options
+	 *  @param options	GamepadOptions - {
+	 *  	id:Int								Gamepad ID,
+	 *  	connect_timer:Float					how often to try to connect,
+	 *  	binding:Map<ControllerButton, FlxGamepadInputID>	gamepad bindings,
+	 *  	on_connect:Void -> Void				on connect callback
+	 *  	on_disconnect:Void -> Void			on disconnect callback,
+	 *  }
+	 */
 	public function new(?options:GamepadOptions)
 	{
 		if (options == null) options = {
@@ -80,6 +119,7 @@ class Gamepad extends Controller
 		else new FlxTimer().start(connect_timer, connect);
 	}
 
+	@:dox(hide)
 	override public function update(dt:Float)
 	{
 		if (!connected && pad != null)
@@ -104,8 +144,8 @@ class Gamepad extends Controller
 
 typedef ControllerOptions =
 {
-	?density:ControllerDensity,
 	?binding:Map<ControllerButton, FlxKey>,
+	?density:ControllerDensity,
 	?gamepad_options:GamepadOptions
 }
 
@@ -125,6 +165,9 @@ enum ControllerDensity
 	SNES;		// A, B, X, Y, DPAD, BUMPERS, START, SELECT
 }
 
+/**
+ *  A collection of default bindings
+ */
 class Bindings
 {
 
