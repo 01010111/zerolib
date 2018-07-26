@@ -60,4 +60,11 @@ class ArrayExt
 		return a1;
 	}
 
+	/**
+	 * Flattens a 2D Array into a 1D Array
+	 * @param a	input array
+	 * @return Array<T>
+	 */
+	public static inline function flatten<T>(a:Array<Array<T>>):Array<T> return [for (row in a) for (e in row) e];
+
 }
