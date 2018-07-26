@@ -1,5 +1,7 @@
 # ZEROLIB
 
+![build status](https://api.travis-ci.org/01010111/zerolib.png)
+
 Zerolib is a library of extensions, utilities, and other helpful classes for making games quickly in haxeflixel!
 
 ## Installing
