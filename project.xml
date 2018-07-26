@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<!-- _________________________ Application Settings _________________________ -->
+
+	<app title="zerolib" file="zerolib" main="Main" version="0.0.1" company="01010111" />
+
+	<!-- _____________________________ Path Settings ____________________________ -->
+
+	<classpath name="src" />
+
+	<!-- _______________________________ Libraries ______________________________ -->
+
+	<haxelib name="flixel" />
+	<haxelib name="flixel-addons" />
+	<haxelib name="zerolib" />
+
+	<!-- _________________________________ Custom _______________________________ -->
+
+	<haxeflag name="--macro" value="include('zero')" />
+
+</project>
