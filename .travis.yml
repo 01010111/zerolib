@@ -12,6 +12,10 @@ matrix:
    - haxe: development
 
 install:
+ - haxelib install lime
+ - haxelib install openfl
+ - haxelib install flixel
+ - haxelib install flixel-addons
  - haxelib dev zerolib .
 
 script:
