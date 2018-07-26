@@ -2,8 +2,9 @@ package zero.flxutil.editors;
 
 import flixel.tile.FlxTilemap;
 import flixel.tile.FlxBaseTilemap;
-import flixel.tile.FlxTilemapExt;
+import flixel.addons.tile.FlxTilemapExt;
 import flixel.system.FlxAssets;
+import haxe.Json;
 
 /**
  * A class for loading json levels created with ZOME (01010111/itch.io/zome)
@@ -21,7 +22,7 @@ class ZomeLoader
 	 */
 	public function new(json_path:String, tileset_folder:String = 'assets/images/')
 	{
-		this.level = openfl.Assets.getText(json_path);
+		this.level = Json.parse(openfl.Assets.getText(json_path));
 		this.tileset_folder = tileset_folder;
 	}
 
@@ -45,7 +46,7 @@ class ZomeLoader
 	public function get_tilemap(?options:TilemapOptions):FlxTilemap
 	{
 		var tilemap = new FlxTilemap();
-		tilemap.load_tilemap(tilemap, options);
+		load_tilemap(tilemap, options);
 		return tilemap;
 	}
 
@@ -57,12 +58,12 @@ class ZomeLoader
 	public function get_tilemap_ext(?options:TilemapExtOptions):FlxTilemapExt
 	{
 		var tilemap = new FlxTilemapExt();
-		tilemap.load_tilemap(tilemap, options.tilemap_options);
+		load_tilemap(tilemap, options.tilemap_options);
 		tilemap.setSlopes(options.northwest_slopes, options.northeast_slopes, options.southwest_slopes, options.southeast_slopes);
 		return tilemap;
 	}
 
-	function load_tilemap(tilemap:FlxBaseTilemap, options:TilemapOptions)
+	function load_tilemap(tilemap:FlxTilemap, options:TilemapOptions)
 	{
 		options = prep_tilemap_options(options);
 		tilemap.loadMapFrom2DArray(
@@ -76,6 +77,7 @@ class ZomeLoader
 			options.collide_index
 		);
 		if (options.collision_array != null) set_tile_properties(tilemap, options.collision_array);
+		if (options.follow) tilemap.follow();
 	}
 
 	function prep_tilemap_options(options:TilemapOptions):TilemapOptions
@@ -87,10 +89,14 @@ class ZomeLoader
 		if (options.starting_index == null) options.starting_index = 0;
 		if (options.draw_index == null) options.draw_index = 0;
 		if (options.collide_index == null) options.collide_index = 1;
+		if (options.follow == null) options.follow = true;
 		return options;
 	}
 
-	function set_tile_properties(tilemap:FlxBaseTilemap, collision_array:Array<Int>) for (tile in collision_array) tilemap.setTileProperties(tile, collision_array[tile]);
+	function set_tile_properties(tilemap:FlxTilemap, collision_array:Array<Int>)
+	{
+		for (i in 0...collision_array.length) tilemap.setTileProperties(i, collision_array[i]);
+	}
 
 }
 
@@ -109,14 +115,15 @@ typedef TilemapOptions =
 	?starting_index:Int,
 	?draw_index:Int,
 	?collide_index:Int,
-	?collision_array:Array<Int>
+	?collision_array:Array<Int>,
+	?follow:Bool
 }
 
 typedef TilemapExtOptions =
 {
-	tilemap_options:TilemapOptions,
-	northeast_slopes:Array<Int>,
-	northwest_slopes:Array<Int>,
-	southeast_slopes:Array<Int>,
-	southwest_slopes:Array<Int>
+	?tilemap_options:TilemapOptions,
+	?northeast_slopes:Array<Int>,
+	?northwest_slopes:Array<Int>,
+	?southeast_slopes:Array<Int>,
+	?southwest_slopes:Array<Int>
 }
