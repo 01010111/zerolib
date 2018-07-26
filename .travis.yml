@@ -19,7 +19,7 @@ install:
  - haxelib dev zerolib .
 
 script:
- - lime build neko
+ - haxelib run lime build neko
 
 deploy:
  - provider: script
