@@ -4,9 +4,9 @@
 	"license": "MIT",
 	"tags": ["game", "flixel", "openfl", "flash", "html5", "neko", "cpp", "android", "ios", "cross"],
 	"description": "Zerolib is a library of extensions, utilities, and other helpful classes for making games quickly in haxeflixel!",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"classPath": "zero",
-	"releasenote": "A loader for ZOME map editor, some components for fun!",
+	"releasenote": "A loader for ZOME map editor, some components for fun! Added Travis CI stuff",
 	"contributors": ["01010111"],
 	"dependencies": {
 		"flixel": "",
