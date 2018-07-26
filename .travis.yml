@@ -15,7 +15,7 @@ install:
  - haxelib dev zerolib .
 
 script:
- - haxe test.hxml
+ - lime build neko
 
 deploy:
  - provider: script
