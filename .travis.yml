@@ -15,11 +15,11 @@ install:
  - haxelib dev zerolib .
 
 script:
- - lime build neko
+ - haxe test.hxml
 
 deploy:
  - provider: script
    haxe: 3.4.7
    script: bash ./release_haxelib.sh $HAXELIB_PWD
    on:
-	 tags: true
+     tags: true
