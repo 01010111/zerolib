@@ -15,6 +15,13 @@ class StringExt
 	 *  @return		Array<Array<Int>>
 	 */
 	public static inline function csv_to_2d_int_array(csv:String):Array<Array<Int>> return [for (row in csv.split('\n')) row.split(',').strings_to_ints()];
+
+	/**
+	 *  returns an array of integers from a csv string
+	 *  @param csv	input csv string
+	 *  @return		Array<Int>
+	 */
+	public static inline function csv_to_int_array(csv:String):Array<Int> return [for (row in csv.split('\n')) row.split(',').strings_to_ints()].flatten();
 	
 	/**
 	 *  checks to see if a string contains another string
