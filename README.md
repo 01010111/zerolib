@@ -4,6 +4,8 @@
 
 Zerolib is a library of extensions, utilities, and other helpful classes for making games quickly in haxeflixel!
 
+**notice: this library is in an alpha state, and may introduce breaking changes with updates**
+
 ## Installing
 With Haxe and Flixel installed, use this command to install:
 ```
