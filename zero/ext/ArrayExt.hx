@@ -129,7 +129,7 @@ class ArrayExt
 	 * @param max_value	max heat value, -1 will find the max value based on the minimum result
 	 * @return Array<Array<Int>>
 	 */
-	function heat_map(array:Array<Array<Dynamic>>, x:Int, y:Int, max_value:Int = -1):Array<Array<Int>>
+	public static function heat_map(array:Array<Array<Dynamic>>, x:Int, y:Int, max_value:Int = -1):Array<Array<Int>>
 	{
 		if (x < 0 || y < 0 || y >= array.length || x >= array[y].length) return [];
 		var value = -1;
