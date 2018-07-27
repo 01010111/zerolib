@@ -69,7 +69,7 @@ class PlayerController extends Controller
 	 */
 	public function bind(button:ControllerButton, key:FlxKey) binding.set(button, key);
 
-	override function set(dt:Float) for (button in binding.keys()) set_button(button, FlxG.keys.anyPressed([binding[button]]) || gamepad.get_pressed(button));
+	override function set(dt:Float) for (button in binding.keys()) set_button(button, FlxG.keys.anyPressed([binding[button]]) || gamepad.pressed(button));
 
 }
 

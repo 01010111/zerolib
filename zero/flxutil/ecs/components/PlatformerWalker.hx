@@ -37,8 +37,8 @@ class PlatformerWalker extends Component
 	override public function update(dt:Float)
 	{
 		acceleration.x = 0;
-		if (controller.get_pressed(DPAD_LEFT)) acceleration.x -= accel_amt;
-		if (controller.get_pressed(DPAD_RIGHT)) acceleration.x += accel_amt;
+		if (controller.pressed(DPAD_LEFT)) acceleration.x -= accel_amt;
+		if (controller.pressed(DPAD_RIGHT)) acceleration.x += accel_amt;
 		if (entity.facing == LEFT && velocity.x > 0 || entity.facing == RIGHT && velocity.x < 0) velocity.x *= 0.5;
 		entity.facing = acceleration.x < 0 ? LEFT : acceleration.x > 0 ? RIGHT : entity.facing;
 	}
