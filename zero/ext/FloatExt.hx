@@ -36,10 +36,22 @@ class FloatExt
 
 	/**
 	 *  Returns a degree between 0 and 360. ex. (-10).get_relative_degree() = 350
-	 *  @param n	input degree
+	 *  @param n	input angle
 	 *  @return		Float
 	 */
 	public static inline function get_relative_degree(n:Float):Float return (n % 360 + 360) % 360;
+
+	/**
+	 * Returns a degree that has the same relative angle as the input angle, but is closest to the second angle. ex. 350.translate_to_nearest_angle(10) = 20
+	 * @param a1	input angle in degrees
+	 * @param a2	second angle in degrees
+	 * @return Float
+	 */
+	public static inline function translate_to_nearest_angle(a1:Float, a2:Float):Float
+	{
+		while((a1 - a2).abs() > 180) a1 -= (a1 - a2).sign_of() * 360;
+		return a1;
+	}
 
 	/**
 	 *  Returns the degrees between two angles. ex. 20.degrees_between(-20) = 40
