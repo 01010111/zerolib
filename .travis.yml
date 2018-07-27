@@ -4,7 +4,7 @@ dist: trusty
 language: haxe
 
 haxe:
- - "3.4.7"
+ - "4.0.0"
  - "development"
 
 matrix:
