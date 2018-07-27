@@ -22,8 +22,9 @@ class Entity extends FlxSprite
 	 *  	?components:Array<Component>	an array of components to be added to this Entity
 	 *  }
 	 */
-	public function new(options:EntityOptions)
+	public function new(?options:EntityOptions)
 	{
+		if (options == null) options = {};
 		if (options.x == null) options.x = 0;
 		if (options.y == null) options.y = 0;
 		if (options.name != null) name = options.name;
