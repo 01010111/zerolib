@@ -59,7 +59,7 @@ class PlatformerDolly extends FlxObject
 	 *  	}
 	 *  }
 	 */
-	public function new(target:FlxSprite, options:DollyOptions) 
+	public function new(?target:FlxSprite, options:DollyOptions) 
 	{
 		if (options.lerp == null) options.lerp = FlxPoint.get(1, 1);
 		opt = options;
@@ -92,9 +92,10 @@ class PlatformerDolly extends FlxObject
 	 *  @param target	the target to follow
 	 *  @param snap		whether or not to snap to target immediately
 	 */
-	public function switch_target(target:FlxSprite, snap:Bool = false):Void
+	public function switch_target(?target:FlxSprite, snap:Bool = false):Void
 	{
 		this.target = target;
+		if (target == null) return;
 		facing = target.facing;
 		if (snap) focus(target.getPosition().add(target.width.half(), target.height));
 	}
@@ -120,6 +121,12 @@ class PlatformerDolly extends FlxObject
 	@:dox(hide)
 	override public function update(dt:Float):Void 
 	{
+		if (target == null)
+		{
+			super.update(dt);
+			return;
+		}
+
 		var update_pos = {
 			x: target.x < x || target.x + target.width > x + width,
 			y: target.y < y || target.y + target.height > y + height
