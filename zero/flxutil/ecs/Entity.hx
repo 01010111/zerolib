@@ -23,8 +23,10 @@ class Entity extends FlxSprite
 	 */
 	public function new(options:EntityOptions)
 	{
+		if (options.x == null) options.x = 0;
+		if (options.y == null) options.y = 0;
+		if (options.name != null) name = options.name;
 		super(options.x, options.y);
-		name = options.name;
 		if (options.components == null) return;
 		for (c in options.components) add_component(c);
 	}
@@ -100,8 +102,8 @@ class Entity extends FlxSprite
 
 typedef EntityOptions =
 {
-	x:Float,
-	y:Float,
-	name:String,
+	?x:Float,
+	?y:Float,
+	?name:String,
 	?components:Array<Component>,
 }
