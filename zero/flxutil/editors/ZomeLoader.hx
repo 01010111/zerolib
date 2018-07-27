@@ -89,7 +89,7 @@ class ZomeLoader
 		if (options.starting_index == null) options.starting_index = 0;
 		if (options.draw_index == null) options.draw_index = 0;
 		if (options.collide_index == null) options.collide_index = 1;
-		if (options.follow == null) options.follow = true;
+		if (options.follow == null) options.follow = false;
 		return options;
 	}
 
