@@ -15,9 +15,9 @@ class Entity extends FlxSprite
 	/**
 	 *  Creates a new Entity with given options
 	 *  @param options	EntityOptions - {
-	 *  	x:Float							x position,
-	 *  	y:Float							y position,
-	 *  	name:String						Entity name,
+	 *  	?x:Float						x position,
+	 *  	?y:Float						y position,
+	 *  	?name:String					Entity name,
 	 *  	?components:Array<Component>	an array of components to be added to this Entity
 	 *  }
 	 */
