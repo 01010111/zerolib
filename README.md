@@ -1,3 +1,5 @@
+![zerolib logo](https://raw.githubusercontent.com/01010111/zerolib/storage/zerolib.png)
+
 # ZEROLIB
 
 ![build status](https://api.travis-ci.org/01010111/zerolib.png)
