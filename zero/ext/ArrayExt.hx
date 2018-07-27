@@ -74,4 +74,86 @@ class ArrayExt
 	 */
 	public static inline function flatten<T>(a:Array<Array<T>>):Array<T> return [for (row in a) for (e in row) e];
 
+	/**
+	 * Uses a flood-fill algorithm to change equal values contiguous to the input coordinates to a new value
+	 * @param array	input array
+	 * @param x		x coordinate
+	 * @param y		y coordinate
+	 * @param value	new value
+	 */
+	public static function flood_fill_2D(array:Array<Array<Dynamic>>, x:Int, y:Int, value:Dynamic)
+	{
+		if (x < 0 || y < 0 || y >= array.length || x >= array[y].length) return;
+		var target_value = array[y][x];
+		var validate = (x:Int, y:Int) -> !(x < 0 || y < 0 || y >= array.length || x >= array[y].length) && array[y][x] == target_value;
+		var queue:Array<{ x:Int, y:Int }> = [{ x: x, y: y }];
+		while (queue.length > 0)
+		{
+			var point = queue.shift();
+			array[point.y][point.x] = value;
+
+			if (validate(point.x, point.y - 1)) queue.push({ x: point.x, y: point.y - 1 });
+			if (validate(point.x, point.y + 1)) queue.push({ x: point.x, y: point.y + 1 });
+			if (validate(point.x - 1, point.y)) queue.push({ x: point.x - 1, y: point.y });
+			if (validate(point.x + 1, point.y)) queue.push({ x: point.x + 1, y: point.y });
+		}
+	}
+
+	/**
+	 * Uses a flood-fill algorithm to change equal values contiguous to the input position to a new value
+	 * @param array	input array
+	 * @param pos	index position	
+	 * @param value	new value
+	 */
+	public static function flood_fill_1D(array:Array<Dynamic>, pos:Int, value:Dynamic)
+	{
+		if (pos < 0 || pos > array.length) return;
+		var target_value = array[pos];
+		var validate = (pos:Int) -> !(pos < 0 || pos > array.length) && array[pos] == target_value;
+		var queue:Array<Int> = [pos];
+		while (queue.length > 0)
+		{
+			var pos = queue.shift();
+			array[pos] = value;
+
+			if (validate(pos - 1)) queue.push(pos - 1);
+			if (validate(pos + 1)) queue.push(pos + 1);
+		}
+	}
+
+	/**
+	 * Uses a flood-fill type algorithm to generate a heat map from the coordinates
+	 * @param array		input array
+	 * @param x			x coordinate
+	 * @param y			y coordinate
+	 * @param max_value	max heat value, -1 will find the max value based on the minimum result
+	 * @return Array<Array<Int>>
+	 */
+	function heat_map(array:Array<Array<Dynamic>>, x:Int, y:Int, max_value:Int = -1):Array<Array<Int>>
+	{
+		if (x < 0 || y < 0 || y >= array.length || x >= array[y].length) return [];
+		var value = -1;
+		var map = [for (row in array) [for (v in row) 0]];
+		var min:Int = 0;
+		var target_value = array[y][x];
+		var validate = (x:Int, y:Int) -> !(x < 0 || y < 0 || y >= array.length || x >= array[y].length) && array[y][x] == target_value && map[y][x] == 0;
+		var queue:Array<{ x:Int, y:Int, value:Int }> = [{ x: x, y: y, value: value }];
+		while (queue.length > 0)
+		{
+			var point = queue.shift();
+			map[point.y][point.x] = point.value;
+			min = point.value.min(min).round(); 
+
+			if (validate(point.x, point.y - 1)) queue.push({ x: point.x, y: point.y - 1, value: point.value - 1 });
+			if (validate(point.x, point.y + 1)) queue.push({ x: point.x, y: point.y + 1, value: point.value - 1 });
+			if (validate(point.x - 1, point.y)) queue.push({ x: point.x - 1, y: point.y, value: point.value - 1 });
+			if (validate(point.x + 1, point.y)) queue.push({ x: point.x + 1, y: point.y, value: point.value - 1 });
+		}
+
+		var diff = max_value < 0 ? -min + 1 : -min + 1 - (-min - max_value);
+		for (j in 0...map.length) for (i in 0...map[j].length) if (map[j][i] != 0) map[j][i] = (map[j][i] + diff).max(0).round();
+
+		return map;
+	}
+
 }
