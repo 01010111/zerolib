@@ -41,12 +41,11 @@ class Particle extends Entity
 {
 
 	/**
-	 * Creates a new particle with given name
-	 * @param name 
+	 * Creates a new particle
 	 */
-	public function new(name:String = 'particle')
+	public function new()
 	{
-		super({ y: 0, x: 0, name: name });
+		super();
 		add_tag('particle');
 		exists = false;
 	}
