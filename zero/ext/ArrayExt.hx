@@ -1,6 +1,7 @@
 package zero.ext;
 
 using zero.ext.FloatExt;
+using Math;
 
 /**
  *  A collection of extension methods for Arrays (some of these are only usable on arrays containing specific types)
