@@ -24,6 +24,13 @@ class ArrayExt
 	public static inline function contains(array:Array<Dynamic>, value:Dynamic):Bool return array.indexOf(value) >= 0;
 
 	/**
+	 * Returns the last element in an array
+	 * @param a	input array
+	 * @return <T>
+	 */
+	public static inline function last(a:Array<Dynamic>):Dynamic return a[a.length - 1];
+
+	/**
 	 *  Returns a random element from an array
 	 *  @param array	input array
 	 *  @return			Dynamic
