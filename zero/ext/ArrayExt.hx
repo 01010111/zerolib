@@ -85,7 +85,7 @@ class ArrayExt
 	{
 		if (x < 0 || y < 0 || y >= array.length || x >= array[y].length) return;
 		var target_value = array[y][x];
-		var validate = (x:Int, y:Int) -> !(x < 0 || y < 0 || y >= array.length || x >= array[y].length) && array[y][x] == target_value;
+		var validate = function(x:Int, y:Int) return !(x < 0 || y < 0 || y >= array.length || x >= array[y].length) && array[y][x] == target_value;
 		var queue:Array<{ x:Int, y:Int }> = [{ x: x, y: y }];
 		while (queue.length > 0)
 		{
@@ -109,7 +109,7 @@ class ArrayExt
 	{
 		if (pos < 0 || pos > array.length) return;
 		var target_value = array[pos];
-		var validate = (pos:Int) -> !(pos < 0 || pos > array.length) && array[pos] == target_value;
+		var validate = function(pos:Int) return !(pos < 0 || pos > array.length) && array[pos] == target_value;
 		var queue:Array<Int> = [pos];
 		while (queue.length > 0)
 		{
@@ -136,7 +136,7 @@ class ArrayExt
 		var map = [for (row in array) [for (v in row) 0]];
 		var min:Int = 0;
 		var target_value = array[y][x];
-		var validate = (x:Int, y:Int) -> !(x < 0 || y < 0 || y >= array.length || x >= array[y].length) && array[y][x] == target_value && map[y][x] == 0;
+		var validate = function(x:Int, y:Int) return !(x < 0 || y < 0 || y >= array.length || x >= array[y].length) && array[y][x] == target_value && map[y][x] == 0;
 		var queue:Array<{ x:Int, y:Int, value:Int }> = [{ x: x, y: y, value: value }];
 		while (queue.length > 0)
 		{
