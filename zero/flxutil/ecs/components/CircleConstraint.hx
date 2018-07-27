@@ -11,18 +11,18 @@ class CircleConstraint extends Component
 
 	var p:Vector;
 	public var center:Vector;
-	public var update_angle:Bool;
+	public var match_angle:Bool;
 
 	/**
 	 * Create a new constraint that will place an object on the given angle of a circle with a given radius
 	 * @param center		the center point of the circle
 	 * @param angle			the angle at which to place the entity
 	 * @param radius		the radius of the circle
-	 * @param update_angle	whether or not to update the entity's angle to match it's relation to the center
+	 * @param match_angle	whether or not to update the entity's angle to match it's relation to the center
 	 */
-	public function new(center:Vector, angle:Float, radius:Float, update_angle:Bool = true)
+	public function new(center:Vector, angle:Float, radius:Float, match_angle:Bool = true)
 	{
-		this.update_angle = update_angle;
+		this.match_angle = match_angle;
 		this.center = center;
 		this.p = new Vector().copy_from(center);
 		update_position(angle, radius);
@@ -34,7 +34,7 @@ class CircleConstraint extends Component
 	{
 		x = center.x + p.x - entity.width * 0.5;
 		y = center.y + p.y - entity.height * 0.5;
-		if (update_angle) angle = p.angle;
+		if (match_angle) angle = p.angle;
 		super.update(e);
 	}
 
