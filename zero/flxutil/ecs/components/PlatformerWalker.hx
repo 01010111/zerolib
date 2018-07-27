@@ -21,7 +21,7 @@ class PlatformerWalker extends Component
 	 */
 	public function new(options:WalkerOptions)
 	{
-		super('walker');
+		super('platformer_walker');
 		controller = options.controller;
 		walk_speed = options.walk_speed;
 		accel_amt = options.acceleration_force;

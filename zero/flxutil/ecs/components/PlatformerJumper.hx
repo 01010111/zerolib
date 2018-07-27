@@ -24,7 +24,7 @@ class PlatformerJumper extends Component
 	 */
 	public function new(options:JumperOptions)
 	{
-		super('jumper');
+		super('platformer_jumper');
 		jump_power = options.jump_power;
 		jump_button = options.jump_button;
 		controller = options.controller;
