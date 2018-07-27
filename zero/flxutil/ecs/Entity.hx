@@ -1,6 +1,7 @@
 package zero.flxutil.ecs;
 
 import flixel.FlxSprite;
+import zero.flxutil.util.GameLog.*;
 
 /**
  *  An Entity class for some light-weight ECS behavior in Flixel
@@ -37,7 +38,7 @@ class Entity extends FlxSprite
 	 */
 	public function add_component(component:Component)
 	{
-		if (components.exists(component.get_name())) trace('Component with name: ${component.get_name()} already exists!');
+		if (components.exists(component.get_name())) LOG('Component with name: ${component.get_name()} already exists!', WARNING);
 		else components.set(component.get_name(), component);
 		component.add_to(this);
 	}
@@ -50,7 +51,7 @@ class Entity extends FlxSprite
 	{
 		if (!components.exists(name))
 		{
-			trace('No components with name: $name exist!');
+			LOG('No components with name: $name exist!', WARNING);
 			return;
 		}
 		components[name].on_remove();
@@ -64,7 +65,7 @@ class Entity extends FlxSprite
 	 */
 	public function get_component(name:String):Null<Component>
 	{
-		if (!components.exists(name)) trace('No components with name: $name exist!');
+		if (!components.exists(name)) LOG('No components with name: $name exist!', ERROR);
 		return components[name];
 	}
 
@@ -74,7 +75,7 @@ class Entity extends FlxSprite
 	 */
 	public function add_tag(tag:String)
 	{
-		if (tags.indexOf(tag) >= 0) trace('tag: $tag already exists!');
+		if (tags.indexOf(tag) >= 0) LOG('tag: $tag already exists!', WARNING);
 		else tags.push(tag);
 	}
 
