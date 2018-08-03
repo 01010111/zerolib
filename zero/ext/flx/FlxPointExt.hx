@@ -88,9 +88,19 @@ class FlxPointExt
 
 	/**
 	 *  returns a new IntPoint with the same coordinates, translated to Ints
-	 *  @param p	inpoint point
+	 *  @param p	input point
 	 *  @return		IntPoint
 	 */
 	public static inline function to_int_point(p:FlxPoint):IntPoint return new IntPoint(p.x.to_int(), p.y.to_int());
+
+	/**
+	 * Returns a FlxPoint snapped to a grid
+	 * @param p			input 
+	 * @param grid_size	grid size as FlxPoint
+	 * @param offset	grid offpoint
+	 * @param floor		whether to floor() or round() to grid
+	 * @return FlxPoint
+	 */
+	public static inline function snap_to_grid(p:FlxPoint, grid_size:FlxPoint, ?offset:FlxPoint, ?floor:Bool = false):FlxPoint return FlxPoint.get(p.x.snap_to_grid(grid_size.x, offset == null ? 0 : offset.x, floor), p.y.snap_to_grid(grid_size.y, offset == null ? 0 : offset.y, floor));
 
 }
