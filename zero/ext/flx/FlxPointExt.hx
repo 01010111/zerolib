@@ -4,6 +4,7 @@ import flixel.math.FlxPoint;
 import zero.util.IntPoint;
 import zero.util.Vector;
 
+using Math;
 using zero.ext.FloatExt;
 using zero.ext.flx.FlxPointExt;
 
@@ -102,5 +103,14 @@ class FlxPointExt
 	 * @return FlxPoint
 	 */
 	public static inline function snap_to_grid(p:FlxPoint, grid_size:FlxPoint, ?offset:FlxPoint, ?floor:Bool = false):FlxPoint return FlxPoint.get(p.x.snap_to_grid(grid_size.x, offset == null ? 0 : offset.x, floor), p.y.snap_to_grid(grid_size.y, offset == null ? 0 : offset.y, floor));
+
+	/**
+	 * Returns a FlxPoint within limits set by min and max points
+	 * @param p		input
+	 * @param min	minimum limit
+	 * @param max	maximum limit
+	 * @return FlxPoint return FlxPoint.get(p.x.min(max.x).max(min.x), p.y.min(max.y).max(min.y))
+	 */
+	public static inline function limit(p:FlxPoint, min:FlxPoint, max:FlxPoint):FlxPoint return FlxPoint.get(p.x.min(max.x).max(min.x), p.y.min(max.y).max(min.y));
 
 }
