@@ -39,12 +39,10 @@ class TopDownWalker extends Component
 	override public function update(dt:Float)
 	{
 		acceleration.set();
-		if (controller.pressed(DPAD_UP)) acceleration.x -= accel_amt;
-		if (controller.pressed(DPAD_DOWN)) acceleration.x += accel_amt;
+		if (controller.pressed(DPAD_UP)) acceleration.y -= accel_amt;
+		if (controller.pressed(DPAD_DOWN)) acceleration.y += accel_amt;
 		if (controller.pressed(DPAD_LEFT)) acceleration.x -= accel_amt;
 		if (controller.pressed(DPAD_RIGHT)) acceleration.x += accel_amt;
-		if ((velocity.x.abs() - acceleration.x.abs()).abs() > 1) velocity.x *= 0.5;
-		if ((velocity.y.abs() - acceleration.y.abs()).abs() > 1) velocity.y *= 0.5;
 	}
 }
 
