@@ -15,6 +15,7 @@ class Controller extends FlxBasic
 	 *  The current state of the controller
 	 */
 	public var state:Map<ControllerButton, Bool> = new Map();
+	public var protected:Bool = false;
 
 	var history:Array<Map<ControllerButton, Bool>> = [];
 	var max_history:Int = 1;
@@ -91,6 +92,12 @@ class Controller extends FlxBasic
 	 *  @return			Bool
 	 */
 	public inline function just_released(button:ControllerButton):Bool return !state[button] && history[history.length - 1][button];
+
+	override public function destroy()
+	{
+		if (protected) return;
+		super.destroy();
+	}
 
 }
 

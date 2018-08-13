@@ -10,6 +10,7 @@ class Component
 
 	var entity:Entity;
 	var name:String;
+	var tags:Array<String>;
 
 	@:dox(hide)
 	public var x(get,set):Float;
@@ -35,12 +36,23 @@ class Component
 	 *  Creates a new Component with given name
 	 *  @param name	a name for this component
 	 */
-	public function new(name:String) this.name = name;
+	public function new(name:String, ?tags:Array<String>)
+	{
+		this.name = name;
+		this.tags = tags == null ? [] : tags;
+	}
 
 	/**
 	 *  returns the name of this component
 	 */
 	public function get_name():String return name;
+
+	/**
+	 * Returns whether or not this component is tagged with given tag
+	 * @param tag 
+	 * @return Bool return tags.indexOf(tag) >= 0
+	 */
+	public function has_tag(tag:String):Bool return tags.indexOf(tag) >= 0;
 
 	@:dox(hide)
 	public function add_to(entity:Entity)
