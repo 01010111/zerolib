@@ -70,5 +70,8 @@ typedef FireOptions =
 	?velocity:FlxPoint,
 	?acceleration:FlxPoint,
 	?animation:String,
-	?util_amount:Float
+	?util_amount:Float,
+	?util_color:Int,
+	?util_int:Int,
+	?util_bool:Bool
 }
