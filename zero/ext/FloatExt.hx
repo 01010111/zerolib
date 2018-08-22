@@ -155,6 +155,17 @@ class FloatExt
 	public static inline function quarter(n:Float):Float return n * 0.25;
 
 	/**
+	 * Converts an 0xRRGGBBAA Int to a float array suitable for passing to shaders
+	 * @param n	input value
+	 * @return Array<Float>
+	 */
+	public static inline function to_vec4(n:Float):Array<Float>
+	{
+		var color:flixel.util.FlxColor = n.to_int();
+		return [color.redFloat, color.greenFloat, color.blueFloat, color.alphaFloat];
+	}
+
+	/**
 	 *  returns a Vector describing a vector of given angle and length. ex. 270.vector_from_angle(100) == new Vector(0, -100) = true
 	 *  @param a	the angle in degrees of desired vector
 	 *  @param len	the length of the desired vector
