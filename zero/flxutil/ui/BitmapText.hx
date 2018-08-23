@@ -19,6 +19,20 @@ using StringTools;
  */
 class BitmapText extends FlxBitmapText
 {
+
+	var caps_case:CapsCase;
+	public var string(get, set):String;
+	function get_string():String return text;
+	function set_string(s:String):String
+	{
+		return text = switch (caps_case)
+		{
+			case UPPERCASE: s.toUpperCase();
+			case LOWERCASE: s.toLowerCase();
+			case MIXED, NONE: s;
+		};
+	}
+
 	/**
 	 * Creates a new bitmaptext instance
 	 * @param options 
@@ -34,6 +48,7 @@ class BitmapText extends FlxBitmapText
 		alignment = options.align == null ? FlxTextAlign.LEFT : options.align;
 		lineSpacing = options.line_spacing == null ? 0 : options.line_spacing;
 		letterSpacing = options.letter_spacing == null ? 0 : options.letter_spacing;
+		caps_case = options.charset.indexOf('a') >= 0 ? options.charset.indexOf('A') >= 0 ? MIXED : LOWERCASE : options.charset.indexOf('A') >= 0 ? UPPERCASE : NONE;
 	}
 
 	/**
@@ -227,4 +242,12 @@ typedef ZCharData =
 {
 	char:String,
 	data:String,
+}
+
+enum CapsCase
+{
+	UPPERCASE;
+	LOWERCASE;
+	MIXED;
+	NONE;
 }
