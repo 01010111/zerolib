@@ -1,4 +1,4 @@
-package zero.flxutil.editors;
+package zero.flxutil.formats;
 
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 
