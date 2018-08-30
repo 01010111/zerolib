@@ -3,5 +3,6 @@
 	
 	<assets path="assets/zfonts/square.json" rename="FONT_SQUARE" if="INCLUDE_Z_FONTS" />
 	<assets path="assets/zfonts/nes.json" rename="FONT_NES" if="INCLUDE_Z_FONTS" />
+	<assets path="assets/zfonts/autechre.json" rename="FONT_AUTECHRE" if="INCLUDE_Z_FONTS" />
 
 </project>

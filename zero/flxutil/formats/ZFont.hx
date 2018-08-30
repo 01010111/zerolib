@@ -7,6 +7,7 @@ import haxe.Json;
 import openfl.Assets;
 import openfl.display.BitmapData;
 import zero.flxutil.ui.BitmapText;
+import zero.flxutil.ui.RichText;
 
 using Math;
 using StringTools;
@@ -18,7 +19,7 @@ typedef ZFont =
 	chars:Array<ZCharData>,
 }
 
-typedef ZFontOptions =
+typedef ZFontBitmapTextOptions =
 {
 	zfont:String,
 	?colors:ZFontColors,
@@ -52,6 +53,7 @@ class ZFonts
 {
 	public static var FONT_SQUARE:String = "FONT_SQUARE";
 	public static var FONT_NES:String = "FONT_NES";
+	public static var FONT_AUTECHRE:String = "FONT_AUTECHRE";
 }
 
 class ZFontUtil
@@ -62,7 +64,7 @@ class ZFontUtil
 	 * @param options 
 	 * @return Null<BitmapText>
 	 */
-	public static function to_bitmap_text(options:ZFontOptions):Null<BitmapText>
+	public static function to_bitmap_text(options:ZFontBitmapTextOptions):Null<BitmapText>
 	{
 		if (options.zfont.trim().charAt(0) != '{') options.zfont = Assets.getText(options.zfont);
 		var zfont:ZFont = Json.parse(options.zfont);
@@ -81,13 +83,25 @@ class ZFontUtil
 		});
 	}
 
+	public static function to_rich_text_graphic(font:String):RichTextGraphicOptions
+	{
+		if (font.trim().charAt(0) != '{') font = Assets.getText(font);
+		var zfont:ZFont = Json.parse(font);
+		return {
+			graphic: create_graphic_from_zfont(zfont, { one: 0xFFFFFFFF, zero: 0x00FFFFFF }),
+			frame_width: zfont.size.x,
+			frame_height: zfont.size.y,
+			charset: [for (char in zfont.chars) char.char].join('')
+		};
+	}
+
 	static function validate(font:ZFont):Bool
 	{
 		for (char in font.chars) if (char.data.length != font.size.x * font.size.y) return false;
 		return true;
 	}
 
-	static function create_graphic_from_zfont(font:ZFont, colors:ZFontColors):FlxBitmapFontGraphicAsset
+	static function create_graphic_from_zfont(font:ZFont, colors:ZFontColors):BitmapData
 	{
 		var size = font.chars.length.sqrt().ceil();
 		var data = new BitmapData(size * font.size.x, size * font.size.y, true, 0x00FFFFFF);
