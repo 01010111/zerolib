@@ -157,4 +157,32 @@ class ArrayExt
 		return map;
 	}
 
+	/**
+	 * get a value from a 2D array with coordinates
+	 * @param array	input array
+	 * @param x		x coordinate
+	 * @param y		y coordinate
+	 * @return Dynamic
+	 */
+	public static function get_xy(array:Array<Array<Dynamic>>, x:Int, y:Int):Dynamic
+	{
+		y = y.max(0).min(array.length - 1).floor();
+		x = x.max(0).min(array[y].length - 1).floor();
+		return array[y][x];
+	}
+
+	/**
+	 * set a value in a 2D array
+	 * @param array	input array
+	 * @param x		x coordinate
+	 * @param y		y coordinate
+	 * @param value	input value
+	 */
+	public static function set_xy(array:Array<Array<Dynamic>>, x:Int, y:Int, value:Dynamic)
+	{
+		y = y.max(0).min(array.length - 1).floor();
+		x = x.max(0).min(array[y].length - 1).floor();
+		array[y][x] = value;
+	}
+
 }
