@@ -7,6 +7,9 @@ import flixel.system.FlxAssets;
 import flixel.text.FlxText.FlxTextAlign;
 import openfl.display.BitmapData;
 import haxe.Utf8;
+import zero.flxutil.ui.BitmapText;
+
+using Math;
 
 typedef BitsyFont =
 {
