@@ -395,12 +395,12 @@ class RichTextChar extends Particle
 		switch (options.effect)
 		{
 			case NONE: kill();
-			case FADE_OUT: 				build_tween = FlxTween.tween(this, { alpha: 0 }, options.speed, { ease: get_ease_in(options.ease), onComplete: (_) -> kill() });
-			case FADE_OUT_TO_TOP: 		build_tween = FlxTween.tween(this, { alpha: 0, y: y - options.amount }, options.speed, { ease: get_ease_in(options.ease), onComplete: (_) -> kill() });
-			case FADE_OUT_TO_BOTTOM:	build_tween = FlxTween.tween(this, { alpha: 0, y: y + options.amount }, options.speed, { ease: get_ease_in(options.ease), onComplete: (_) -> kill() });
-			case FADE_OUT_TO_LEFT:		build_tween = FlxTween.tween(this, { alpha: 0, x: x - options.amount }, options.speed, { ease: get_ease_in(options.ease), onComplete: (_) -> kill() });
-			case FADE_OUT_TO_RIGHT:		build_tween = FlxTween.tween(this, { alpha: 0, x: x + options.amount }, options.speed, { ease: get_ease_in(options.ease), onComplete: (_) -> kill() });
-			case SCALE_OUT:				build_tween = FlxTween.tween(scale, { x: 0, y: 0 }, options.speed, { ease: get_ease_in(options.ease), onComplete: (_) -> kill() });
+			case FADE_OUT: 				build_tween = FlxTween.tween(this, { alpha: 0 }, options.speed, { ease: get_ease_in(options.ease), onComplete: function(_) { kill() } });
+			case FADE_OUT_TO_TOP: 		build_tween = FlxTween.tween(this, { alpha: 0, y: y - options.amount }, options.speed, { ease: get_ease_in(options.ease), onComplete: function(_) { kill() } });
+			case FADE_OUT_TO_BOTTOM:	build_tween = FlxTween.tween(this, { alpha: 0, y: y + options.amount }, options.speed, { ease: get_ease_in(options.ease), onComplete: function(_) { kill() } });
+			case FADE_OUT_TO_LEFT:		build_tween = FlxTween.tween(this, { alpha: 0, x: x - options.amount }, options.speed, { ease: get_ease_in(options.ease), onComplete: function(_) { kill() } });
+			case FADE_OUT_TO_RIGHT:		build_tween = FlxTween.tween(this, { alpha: 0, x: x + options.amount }, options.speed, { ease: get_ease_in(options.ease), onComplete: function(_) { kill() } });
+			case SCALE_OUT:				build_tween = FlxTween.tween(scale, { x: 0, y: 0 }, options.speed, { ease: get_ease_in(options.ease), onComplete: function(_) { kill() } });
 		}
 	}
 
