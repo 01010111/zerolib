@@ -95,7 +95,6 @@ class RichText extends FlxTypedGroup<RichTextChar>
 
 	public function parse_input(s:String):Array<String>
 	{	
-		trace(s);
 		var out = [];
 		var temp_s = parse_new_line_chars(remove_unavailable_characters(s));
 		var words = temp_s.split(' ');
@@ -106,8 +105,9 @@ class RichText extends FlxTypedGroup<RichTextChar>
 		var out_words = [];
 		for (word in words)
 		{
-			for (cmd in ['<w>', '</w>', '<c#', '</c>', '<s>', '</s>']) if (word.indexOf(cmd) >= 0) continue;
-			w += word.length + 1;
+			var has_command = false;
+			for (cmd in ['<w>', '</w>', '<c#', '</c>', '<s>', '</s>']) if (word.indexOf(cmd) >= 0) has_command = true;
+			w += has_command ? get_special_word_length(word) + 1 : word.length + 1;
 			if (word.indexOf('\n') >= 0)
 			{
 				w = word.length + 1;
@@ -134,8 +134,21 @@ class RichText extends FlxTypedGroup<RichTextChar>
 			out_words.push(word);
 		}
 		out.push(out_words.join(' '));
-		trace(out);
 		return out;
+	}
+
+	function get_special_word_length(word:String)
+	{
+		var do_add = true;
+		var amt = 0;
+		for (i in 0...word.length)
+		{
+			var char = word.charAt(i);
+			if (char == '<') do_add = false;
+			else if (do_add) amt++;
+			else if (!do_add && char == '>') do_add = true;
+		}
+		return amt;
 	}
 
 	function remove_unavailable_characters(s:String):String
@@ -196,26 +209,28 @@ class RichText extends FlxTypedGroup<RichTextChar>
 	{
 		if (override_type_effect)
 		{
-			for (i in 0...queued_text.length) post_char(queued_text.shift());
+			while (queued_text.length > 0) type_out(dt, true);
 			override_type_effect = false;
 			return;
 		}
 		switch (anim_options.type_effect.effect)
 		{
-			case IMMEDIATE: for (i in 0...queued_text.length) post_char(queued_text.shift());
+			case IMMEDIATE: while (queued_text.length > 0) type_out(dt, true);
 			case TYPEWRITER: type_out(dt);
 		}
 	}
 
-	function type_out(dt)
+	function type_out(dt, ignore_timer:Bool = false)
 	{
-		if (!timer_trigger(dt)) return;
+		if (!timer_trigger(dt) && !ignore_timer) return;
+		trace(0);
 		check_effects();
 		post_char(queued_text.shift());
 	}
 
 	function check_effects()
 	{
+		trace(1);
 		if (queued_text[0] != '<') return;
 		var is_cmd = false;
 		for (cmd in ['/', 'w', 'c', 's']) if (queued_text[1] == cmd) is_cmd = true;
@@ -229,6 +244,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 
 	function add_effect()
 	{
+		trace(2);
 		switch (queued_text[1])
 		{
 			case 'w': 
@@ -246,6 +262,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 
 	function remove_effect()
 	{
+		trace(3);
 		switch (queued_text[2])
 		{
 			case 'w': current_effects.remove(WIGGLE);
@@ -266,6 +283,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 
 	function post_char(char:String)
 	{
+		if (char == null) return;
 		if (char == '\n')
 		{
 			cursor_position.x = 0;
@@ -318,6 +336,7 @@ class RichTextChar extends Particle
 
 	public function post(char:String, position:FlxPoint, build_in:RichTextBuildInOptions, build_out:RichTextBuildOutOptions, effects:Array<ERichTextCharEffect>)
 	{
+		if (char == null) return;
 		apply_effect(NONE);
 		reset(position.x, position.y);
 		animation.play(char);
