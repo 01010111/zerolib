@@ -29,6 +29,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 	var current_color:Int;
 	var state:ERichTextState;
 	var override_type_effect:Bool = false;
+	var wiggle_timer:Float = 0;
 
 	public function new(options:RichTextOptions)
 	{
@@ -40,6 +41,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 		text_field_options = options.text_field_options;
 		queued_strings = options.queued_strings == null ? [] : options.queued_strings;
 		state = queued_strings.length == 0 ? EMPTY : READY;
+		FlxG.watch.add(this, 'wiggle_timer', 'WT:');
 	}
 
 	public function create_defaults(options:RichTextOptions)
@@ -84,6 +86,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 
 	public function get_anim_options():RichTextAnimOptions return anim_options;
 	public function get_current_color():Int return current_color;
+	public function get_wiggle_timer():Float return wiggle_timer;
 
 	public function queue(s:String)
 	{
@@ -195,6 +198,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 
 	override public function update(dt)
 	{
+		wiggle_timer = (wiggle_timer + dt) % 1;
 		super.update(dt);
 		switch (state)
 		{
@@ -223,14 +227,12 @@ class RichText extends FlxTypedGroup<RichTextChar>
 	function type_out(dt, ignore_timer:Bool = false)
 	{
 		if (!timer_trigger(dt) && !ignore_timer) return;
-		trace(0);
 		check_effects();
 		post_char(queued_text.shift());
 	}
 
 	function check_effects()
 	{
-		trace(1);
 		if (queued_text[0] != '<') return;
 		var is_cmd = false;
 		for (cmd in ['/', 'w', 'c', 's']) if (queued_text[1] == cmd) is_cmd = true;
@@ -244,7 +246,6 @@ class RichText extends FlxTypedGroup<RichTextChar>
 
 	function add_effect()
 	{
-		trace(2);
 		switch (queued_text[1])
 		{
 			case 'w': 
@@ -262,7 +263,6 @@ class RichText extends FlxTypedGroup<RichTextChar>
 
 	function remove_effect()
 	{
-		trace(3);
 		switch (queued_text[2])
 		{
 			case 'w': current_effects.remove(WIGGLE);
@@ -369,7 +369,7 @@ class RichTextChar extends Particle
 				if (build_in.effect == FADE_IN_FROM_TOP || build_in.effect == FADE_IN_FROM_BOTTOM) build_in.effect = FADE_IN;
 				y -= emitter.get_anim_options().wiggle_options.amount.half();
 				wiggle_tween = FlxTween.tween(this, { y: y + emitter.get_anim_options().wiggle_options.amount }, emitter.get_anim_options().wiggle_options.speed, { ease: FlxEase.sineInOut, type:FlxTweenType.PINGPONG });
-				wiggle_tween.percent = x % emitter.get_anim_options().wiggle_options.frequency;
+				wiggle_tween.percent = (x + emitter.get_wiggle_timer()) % emitter.get_anim_options().wiggle_options.frequency;
 			case SHAKE:
 				shake = true;
 				shake_amt = emitter.get_anim_options().shake_options.amount;
