@@ -185,4 +185,14 @@ class ArrayExt
 		array[y][x] = value;
 	}
 
+	/**
+	 * Return the value closest to the middle of the array
+	 * @param array input array
+	 * @return Dynamic
+	 */
+	public static function median(array:Array<Dynamic>):Dynamic
+	{
+		return array[array.length.half().floor()];
+	}
+
 }
