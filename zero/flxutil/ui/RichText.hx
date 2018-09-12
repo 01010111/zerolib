@@ -110,10 +110,11 @@ class RichText extends FlxTypedGroup<RichTextChar>
 		{
 			var has_command = false;
 			for (cmd in ['<w>', '</w>', '<c#', '</c>', '<s>', '</s>']) if (word.indexOf(cmd) >= 0) has_command = true;
-			w += has_command ? get_special_word_length(word) + 1 : word.length + 1;
+			var len = has_command ? get_special_word_length(word) + 1 : word.length + 1;
+			w += len;
 			if (word.indexOf('\n') >= 0)
 			{
-				w = word.length + 1;
+				w = len;
 				h ++;
 				if (h > max_h)
 				{
@@ -124,7 +125,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 			}
 			if (w > max_w)
 			{
-				w = word.length + 1;
+				w = len;
 				h ++;
 				if (h > max_h)
 				{
