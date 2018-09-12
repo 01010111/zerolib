@@ -77,7 +77,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 			amount: 2
 		};
 		if (options.animations.type_effect == null) options.animations.type_effect = {
-			rate: 0.05,
+			rate: 0.03,
 			effect: TYPEWRITER
 		};
 
