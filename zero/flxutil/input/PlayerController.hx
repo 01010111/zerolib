@@ -133,6 +133,7 @@ class Gamepad extends Controller
 			on_disconnect();
 		}
 		if (pad == null) return;
+		super.update(dt);
 	}
 
 	override function set(dt:Float)
