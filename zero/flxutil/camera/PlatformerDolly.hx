@@ -127,6 +127,14 @@ class PlatformerDolly extends FlxObject
 			return;
 		}
 
+		#if debug
+		if (FlxG.keys.pressed.SHIFT)
+		{
+			manual_control();
+			return;
+		}
+		#end
+
 		var update_pos = {
 			x: target.x < x || target.x + target.width > x + width,
 			y: target.y < y || target.y + target.height > y + height
@@ -151,6 +159,14 @@ class PlatformerDolly extends FlxObject
 		if (show_debug) debug_sprite.setPosition(x, y);
 
 		super.update(dt);
+	}
+
+	function manual_control()
+	{
+		if (FlxG.keys.pressed.UP) y--;
+		if (FlxG.keys.pressed.DOWN) y++;
+		if (FlxG.keys.pressed.LEFT) x--;
+		if (FlxG.keys.pressed.RIGHT) x++;
 	}
 
 	function platform_snapping()
