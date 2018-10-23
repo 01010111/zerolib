@@ -36,12 +36,12 @@ class SquaresIn extends SubState
 			add(s);
 
 			var time = (i + j) * 0.025;
-			new FlxTimer().start(time).onComplete = (_) -> {
+			new FlxTimer().start(time).onComplete = function(?t:FlxTimer) {
 				FlxTween.tween(s.scale, { x: 0, y: 0 }, 0.1);
 			}
 			t = t.max(time + 0.1);
 		}
-		new FlxTimer().start(t).onComplete = (_) -> close();
+		new FlxTimer().start(t).onComplete = function(t:FlxTimer) { close(); }
 	}
 
 }
