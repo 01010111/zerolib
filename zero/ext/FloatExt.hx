@@ -1,5 +1,6 @@
 package zero.ext;
 
+import flixel.math.FlxPoint;
 import zero.util.Vector;
 
 using zero.ext.FloatExt;
@@ -172,5 +173,13 @@ class FloatExt
 	 *  @return		Vector
 	 */
 	public static inline function vector_from_angle(a:Float, len:Float):Vector return new Vector(a.deg_to_rad().cos() * len, a.deg_to_rad().sin() * len);
+
+	/**
+	 *  returns a Vector describing a vector of given angle and length. ex. 270.vector_from_angle(100) == new Vector(0, -100) = true
+	 *  @param a	the angle in degrees of desired vector
+	 *  @param len	the length of the desired vector
+	 *  @return		Vector
+	 */
+	public static inline function flxpoint_from_angle(a:Float, len:Float):FlxPoint return FlxPoint.get(a.deg_to_rad().cos() * len, a.deg_to_rad().sin() * len);
 
 }
