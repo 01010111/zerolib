@@ -16,7 +16,7 @@ class Stack extends FlxSprite
 
 	var group:StackGroup;
 	var options:StackOptions;
-	var slice_post_init:FlxSprite -> Void = (_) -> {};
+	var slice_post_init:FlxSprite -> Void = function(_){};
 
 	public var z_offset:Float;
 	
@@ -127,7 +127,7 @@ class StackManager
 		camera.scroll.set(camera.x, camera.y);
 	}
 
-	public function sort_objects() object_group.sort((order:Int, g1:StackGroup, g2:StackGroup) -> return g1.z > g2.z ? 1 : -1, 0);
+	public function sort_objects() object_group.sort(function(order:Int, g1:StackGroup, g2:StackGroup) return g1.z > g2.z ? 1 : -1, 0);
 	public function adjust_tilt(amt:Float) for (stack in base_group) stack.z_offset += amt;
 
 }
