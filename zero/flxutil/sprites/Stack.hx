@@ -1,6 +1,7 @@
 package zero.flxutil.sprites;
 
 import flixel.FlxState;
+import flixel.system.FlxAssets;
 import flixel.math.FlxPoint;
 import flixel.FlxG;
 import flixel.FlxCamera;
@@ -40,7 +41,7 @@ class Stack extends FlxSprite
 	function init_group()
 	{
 		group = new StackGroup(this, options.camera);
-		group.camera = options.camera;
+		group.cameras = [options.camera];
 	}
 
 	function add_to_groups()
@@ -55,6 +56,7 @@ class Stack extends FlxSprite
 		slice.animation.frameIndex = i;
 		if (options.offset != null) slice.offset.copyFrom(options.offset);
 		if (options.size != null) slice.setSize(options.size.x, options.size.y);
+		slice.cameras = [options.camera];
 		group.add(slice);
 		slice_post_init(slice);
 	}
@@ -69,7 +71,7 @@ class Stack extends FlxSprite
 
 	function set_slices()
 	{
-		var offset:FlxPoint = ((options.camera.angle + 90) * -1).flxpoint_from_angle(z_offset);
+		var offset:FlxPoint = ((group.camera.angle + 90) * -1).flxpoint_from_angle(z_offset);
 		for (i in 1...group.members.length) set_slice(group.members[i], offset, i);
 	}
 
@@ -135,7 +137,7 @@ class StackManager
 typedef StackOptions =
 {
 	position:FlxPoint,
-	graphic:String,
+	graphic:FlxGraphicAsset,
 	slices:Int,
 	frame_height:Int,
 	frame_width:Int,
