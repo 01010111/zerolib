@@ -12,6 +12,11 @@ class Component
 	var name:String;
 	var tags:Array<String>;
 
+	/**
+	 * Whether or not this component gets updated
+	 */
+	public var active:Bool = true;
+
 	@:dox(hide)
 	public var x(get,set):Float;
 	function get_x():Float return entity.x;

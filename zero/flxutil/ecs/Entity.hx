@@ -96,7 +96,7 @@ class Entity extends FlxSprite
 	@:dox(hide)
 	override public function update(dt:Float)
 	{
-		for (c in components) c.update(dt);
+		for (c in components) if (c.active) c.update(dt);
 		super.update(dt);
 	}
 
