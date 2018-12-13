@@ -39,10 +39,10 @@ class PlatformerJumper extends Component
 
 		if (entity.wasTouching & FLOOR > 0) coyote_timer = coyote_time;
 		if (controller.just_pressed(jump_button)) just_jumped_timer = coyote_time;
-		if (controller.just_released(jump_button) && entity.velocity.y < 0) entity.velocity.y *= 0.5;
+		if (controller.just_released(jump_button) && velocity.y < 0) velocity.y *= 0.5;
 
 		if (just_jumped_timer <= 0 || coyote_timer <= 0) return;
-		entity.velocity.y = -jump_power;
+		velocity.y = -jump_power;
 		just_jumped_timer = 0;
 	}
 
