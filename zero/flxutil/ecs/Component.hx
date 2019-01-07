@@ -15,7 +15,8 @@ class Component
 	/**
 	 * Whether or not this component gets updated
 	 */
-	public var active:Bool = true;
+	public var active(default, set):Bool = true;
+	function set_active(bool:Bool):Bool return active = bool;
 
 	@:dox(hide)
 	public var x(get,set):Float;
