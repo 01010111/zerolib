@@ -35,7 +35,8 @@ class TopDownWalker extends Component
 		entity.maxVelocity.set(walk_speed, walk_speed);
 		drag.set(drag_amt, drag_amt);
 	}
-
+	
+	@:dox(hide)
 	override public function update(dt:Float)
 	{
 		acceleration.set();

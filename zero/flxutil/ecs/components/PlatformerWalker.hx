@@ -33,7 +33,8 @@ class PlatformerWalker extends Component
 		entity.maxVelocity.x = walk_speed;
 		drag.x = drag_amt;
 	}
-
+	
+	@:dox(hide)
 	override public function update(dt:Float)
 	{
 		acceleration.x = 0;

@@ -21,6 +21,10 @@ class Stack extends FlxSprite
 
 	public var z_offset:Float;
 	
+	/**
+	 * Creates a stack - a set of sprites that fake 3D by layering and offsetting sprites. Use this.add() to add to state!
+	 * @param options 
+	 */
 	public function new(options:StackOptions)
 	{
 		super(options.position.x, options.position.y);
@@ -61,8 +65,14 @@ class Stack extends FlxSprite
 		slice_post_init(slice);
 	}
 
+	/**
+	 * Adds stack to the given state.
+	 * @param state 
+	 * @return state.add(group)
+	 */
 	public function add(state:FlxState) state.add(group);
 
+	@:dox(hide)
 	override public function update(dt:Float)
 	{
 		super.update(dt);
@@ -81,6 +91,10 @@ class Stack extends FlxSprite
 		slice.angle = angle;
 	}
 
+	/**
+	 * Combines this stack with a given stack
+	 * @param stack 
+	 */
 	public function combine(stack:Stack)
 	{
 		StackManager.i.base_group.remove(stack);
@@ -90,6 +104,7 @@ class Stack extends FlxSprite
 	
 }
 
+@:dox(hide)
 class StackGroup extends FlxTypedGroup<FlxSprite>
 {
 
@@ -111,6 +126,7 @@ class StackGroup extends FlxTypedGroup<FlxSprite>
 
 }
 
+@:dox(hide)
 class StackManager
 {
 

@@ -29,12 +29,20 @@ class FourColor extends FlxShader
         }'
     )
 
+    /**
+     * Creates a 4 color palette shader - useful for gameboy-like games!
+     * @param palette 
+     */
     public function new(palette:Array<Int>)
     {
         super();
         set_palette(palette);
     }
 
+	/**
+	 * Sets the palette using an array of four colors (Ints), colors should be ordered from dark to light
+	 * @param palette 
+	 */
 	public function set_palette(palette:Array<Int>)
 	{
 		if (palette.length != 4)
@@ -48,6 +56,11 @@ class FourColor extends FlxShader
 		set_color(WHITE, palette[3]);
 	}
 
+	/**
+	 * Set a specific palette index to the given color
+	 * @param index 
+	 * @param color 
+	 */
 	public function set_color(index:PaletteIndex, color:Int)
 	{
 		switch (index) {

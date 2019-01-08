@@ -19,6 +19,10 @@ class ColorMix extends FlxShader
         }'
     )
 
+    /**
+     * Mixes a sprite with a given color - use color and uMix to update the color and mix amount.
+     * @param color 
+     */
     public function new(color:Int = 0xFFFFFFFF)
     {
         super();

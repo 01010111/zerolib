@@ -1,6 +1,5 @@
 package zero.flxutil.formats;
 
-import haxe.Json;
 import openfl.Assets;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets;

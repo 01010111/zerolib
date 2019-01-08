@@ -9,6 +9,10 @@ using Math;
 class Grid extends FlxSprite
 {
 
+	/**
+	 * Creates a sprite and draws a grid on it using given options.
+	 * @param options 
+	 */
 	public function new(options:GridOptions)
 	{
 		super(options.x, options.y);

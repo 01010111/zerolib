@@ -1,7 +1,6 @@
 package zero.flxutil.ui;
 
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets;
 import zero.util.IntPoint;
@@ -31,6 +30,10 @@ class RichText extends FlxTypedGroup<RichTextChar>
 	var override_type_effect:Bool = false;
 	var wiggle_timer:Float = 0;
 
+	/**
+	 * Creates a rich text object for animated text.
+	 * @param options 
+	 */
 	public function new(options:RichTextOptions)
 	{
 		super();
@@ -44,7 +47,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 		FlxG.watch.add(this, 'wiggle_timer', 'WT:');
 	}
 
-	public function create_defaults(options:RichTextOptions)
+	function create_defaults(options:RichTextOptions)
 	{
 		if (options.position == null) options.position = FlxPoint.get(0, 0);
 		
@@ -84,10 +87,14 @@ class RichText extends FlxTypedGroup<RichTextChar>
 		return options;
 	}
 
-	public function get_anim_options():RichTextAnimOptions return anim_options;
-	public function get_current_color():Int return current_color;
-	public function get_wiggle_timer():Float return wiggle_timer;
+	@:dox(hide) public function get_anim_options():RichTextAnimOptions return anim_options;
+	@:dox(hide) public function get_current_color():Int return current_color;
+	@:dox(hide) public function get_wiggle_timer():Float return wiggle_timer;
 
+	/**
+	 * Enqueues text to be parsed and displayed
+	 * @param s 
+	 */
 	public function queue(s:String)
 	{
 		if (s.length == 0) return;
@@ -96,7 +103,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 		state = READY;
 	}
 
-	public function parse_input(s:String):Array<String>
+	function parse_input(s:String):Array<String>
 	{	
 		var out = [];
 		var temp_s = parse_new_line_chars(remove_unavailable_characters(s));
@@ -172,6 +179,10 @@ class RichText extends FlxTypedGroup<RichTextChar>
 		return lines.join(' ');
 	}
 
+	/**
+	 * Invokes queued text to be displayed, returns true if there is still text enqueued. Call during text output to interrupt/show all text.
+	 * @return Bool
+	 */
 	public function invoke():Bool
 	{
 		switch (state)
@@ -197,6 +208,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 		}
 	}
 
+	@:dox(hide)
 	override public function update(dt)
 	{
 		wiggle_timer = (wiggle_timer + dt) % 1;
@@ -312,6 +324,7 @@ class RichText extends FlxTypedGroup<RichTextChar>
 
 }
 
+@:dox(hide)
 class RichTextChar extends Particle
 {
 

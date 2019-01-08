@@ -1,7 +1,6 @@
 package zero.flxutil.formats;
 
 import flixel.math.FlxPoint;
-import flixel.system.FlxAssets;
 import flixel.text.FlxText.FlxTextAlign;
 import haxe.Json;
 import openfl.Assets;

@@ -1,18 +1,13 @@
 package zero.flxutil.ui;
 
-import haxe.Json;
-import openfl.Assets;
 import flixel.graphics.frames.FlxBitmapFont;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets;
 import flixel.text.FlxBitmapText;
 import flixel.text.FlxText.FlxTextAlign;
 import flixel.FlxG;
-import openfl.display.BitmapData;
-import haxe.Utf8;
 
 using Math;
-using StringTools;
 
 /**
  * A wrapper for FlxBitmapText that makes it easy to use a monospaced bitmap font image

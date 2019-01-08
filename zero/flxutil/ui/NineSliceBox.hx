@@ -1,17 +1,10 @@
 package zero.flxutil.ui;
 
-import flixel.addons.ui.FlxSlider;
-import flixel.math.FlxRect;
 import flixel.system.FlxAssets;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 import openfl.display.BitmapData;
-import zero.flxutil.util.GameLog.*;
-import zero.util.IntPoint;
 
-using flixel.util.FlxSpriteUtil;
-using zero.ext.FloatExt;
-using zero.ext.flx.FlxSpriteExt;
 using Math;
 
 class NineSliceBox extends FlxSprite
