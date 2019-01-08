@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": ["game", "flixel", "openfl", "flash", "html5", "neko", "cpp", "android", "ios", "cross"],
 	"description": "Zerolib is a library of extensions, utilities, and other helpful classes for making games quickly in haxeflixel!",
-	"version": "0.4.0",
-	"releasenote": "Particle Emitter, a few extension updates, a few flxutil updates",
+	"version": "0.5.0",
+	"releasenote": "Stacks, Rich Text, MUCH MUCH MORE!",
 	"contributors": ["01010111"],
 	"dependencies": {
 		"flixel": "",
