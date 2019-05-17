@@ -14,10 +14,10 @@ class Controller extends FlxBasic
 	/**
 	 *  The current state of the controller
 	 */
-	public var state:Map<ControllerButton, Bool> = new Map();
+	public var state:ControllerState = { buttons: new Map(), axes: new Map() };
 	public var protected:Bool = false;
 
-	var history:Array<Map<ControllerButton, Bool>> = [];
+	var history:Array<ControllerState> = [];
 	var max_history:Int = 1;
 
 	/**
@@ -26,14 +26,16 @@ class Controller extends FlxBasic
 	public function new()
 	{
 		super();
-		for (button in Type.allEnums(ControllerButton)) state.set(button, false);
+		for (button in Type.allEnums(ControllerButton)) state.buttons.set(button, false);
+		for (axis in Type.allEnums(ControllerAxis)) state.axes.set(axis, 0);
 	}
 
 	@:dox(hide)
 	override public function update(dt:Float)
 	{
-		var last_state:Map<ControllerButton, Bool> = new Map();
-		for (key in state.keys()) last_state.set(key, state[key]);
+		var last_state:ControllerState = { buttons: new Map(), axes: new Map() };
+		for (key in state.buttons.keys()) last_state.buttons.set(key, state.buttons[key]);
+		for (key in state.axes.keys()) last_state.axes.set(key, state.axes[key]);
 		history.push(last_state);
 		while (history.length > max_history) history.shift();
 		super.update(dt);
@@ -57,7 +59,7 @@ class Controller extends FlxBasic
 	 *  Returns a history of states for the controller
 	 *  @return	Array<Map<ControllerButton, Bool>>
 	 */
-	public inline function get_history():Array<Map<ControllerButton, Bool>> return history;
+	public inline function get_history():Array<ControllerState> return history;
 
 	/**
 	 *  Set the maximum number of history states
@@ -70,28 +72,42 @@ class Controller extends FlxBasic
 	 *  @param button	button to set
 	 *  @param pressed	whether it's pressed or not
 	 */
-	public inline function set_button(button:ControllerButton, pressed:Bool) state.set(button, pressed);
+	public inline function set_button(button:ControllerButton, pressed:Bool) state.buttons.set(button, pressed);
+
+		/**
+	 *  Set axis state
+	 *  @param axis	axis to set
+	 *  @param value	value of the axis
+	 */
+	public inline function set_axis(axis:ControllerAxis, value:Float) state.axes.set(axis, value);
 
 	/**
 	 *  Gets the pressed state of a button
 	 *  @param button	button query
 	 *  @return			Bool
 	 */
-	public inline function pressed(button:ControllerButton):Bool return state[button];
+	public inline function pressed(button:ControllerButton):Bool return state.buttons[button];
 
 	/**
 	 *  Gets the just pressed state of a button
 	 *  @param button	button query
 	 *  @return			Bool
 	 */
-	public inline function just_pressed(button:ControllerButton):Bool return state[button] && !history[history.length - 1][button];
+	public inline function just_pressed(button:ControllerButton):Bool return state.buttons[button] && !history[history.length - 1].buttons[button];
 	
 	/**
 	 *  Gets the just released state of a button
 	 *  @param button	button query
 	 *  @return			Bool
 	 */
-	public inline function just_released(button:ControllerButton):Bool return !state[button] && history[history.length - 1][button];
+	public inline function just_released(button:ControllerButton):Bool return !state.buttons[button] && history[history.length - 1].buttons[button];
+
+	/**
+	 *  Gets the value of an axis
+	 *  @param axis	axis query
+	 *  @return			Float
+	 */
+	public inline function get_axis(axis:ControllerAxis):Float return state.axes[axis];
 
 	override public function destroy()
 	{
@@ -99,6 +115,12 @@ class Controller extends FlxBasic
 		super.destroy();
 	}
 
+}
+
+typedef ControllerState = 
+{
+	var buttons:Map<ControllerButton, Bool>;
+	var axes:Map<ControllerAxis, Float>;
 }
 
 enum ControllerButton
@@ -128,4 +150,14 @@ enum ControllerButton
 	RIGHT_ANALOG_RIGHT;
 	RIGHT_ANALOG_CLICK;
 	GUIDE;
+}
+
+enum ControllerAxis
+{
+	LEFT_ANALOG_X;
+	LEFT_ANALOG_Y;
+	RIGHT_ANALOG_X;
+	RIGHT_ANALOG_Y;
+	TRIGGER_LEFT;
+	TRIGGER_RIGHT;
 }
