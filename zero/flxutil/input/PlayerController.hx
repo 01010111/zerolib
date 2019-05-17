@@ -1,5 +1,6 @@
 package zero.flxutil.input;
 
+import flixel.input.gamepad.FlxGamepadAnalogStick;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.util.FlxTimer;
 import flixel.input.gamepad.FlxGamepad;
@@ -15,11 +16,13 @@ class PlayerController extends Controller
 
 	var gamepad:Gamepad;
 	var binding:Map<ControllerButton, FlxKey> = new Map();
+	var axes:Array<ControllerAxis> = [];
 
 	/**
 	 *  Creates a new player controller with given options
 	 *  @param options	ControllerOptions - {
 	 *  	binding:Map<ControllerButton, FlxKey>	controller bindings,
+	 * 		axes:Array<ControllerAxis>		optional axis to test on gamepad
 	 *  	density:ControllerDensity				NES/GENESIS/SNES,
 	 *  	gamepad_options:GamepadOptions - {
 	 *  		id:Int								Gamepad ID,
@@ -50,6 +53,7 @@ class PlayerController extends Controller
 			}
 		}
 		else binding = Bindings.NES_SAFE_ARROWS;
+		if (options.axes != null) axes = options.axes;
 		gamepad = options.gamepad_options == null ? new Gamepad() : new Gamepad(options.gamepad_options);
 	}
 
@@ -67,10 +71,19 @@ class PlayerController extends Controller
 	 *  @param button	button
 	 *  @param key		key
 	 */
-	public function bind(button:ControllerButton, key:FlxKey) binding.set(button, key);
+	public function bind_button(button:ControllerButton, key:FlxKey) binding.set(button, key);
 
-	override function set(dt:Float) for (button in binding.keys()) set_button(button, FlxG.keys.anyPressed([binding[button]]) || gamepad.pressed(button));
+	/**
+	 *  Bind an to a keyboard key
+	 *  @param button	button
+	 *  @param key		key
+	 */
+	public function bind_axis(axis:ControllerAxis) if (axes.indexOf(axis) > -1) axes.push(axis);
 
+	override function set(dt:Float) {
+		for (button in binding.keys()) set_button(button, FlxG.keys.anyPressed([binding[button]]) || gamepad.pressed(button));
+		for (axis in axes) set_axis(axis, gamepad.get_axis(axis));
+	}
 }
 
 /**
@@ -86,7 +99,7 @@ class Gamepad extends Controller
 	var connect_timer:Float;
 	var connected = false;
 
-	var binding:Map<ControllerButton, FlxGamepadInputID>;
+	var binding:Binding;
 
 	/**
 	 *  Creates a new Gamepad controller with given options
@@ -109,7 +122,11 @@ class Gamepad extends Controller
 		connect_timer = options.connect_timer;
 		if (options.on_connect != null) on_connect = options.on_connect;
 		if (options.on_disconnect != null) on_disconnect = options.on_disconnect;
-		binding = options.binding == null ? Bindings.GAMEPAD : options.binding;
+		if (options.binding == null) options.binding = {};
+		binding = { 
+			buttons: options.binding.buttons == null ? Bindings.GAMEPAD : options.binding.buttons, 
+			axes: options.binding.axes == null ? Bindings.GAMEPAD_AXIS : options.binding.axes
+		};
 		connect();
 	}
 
@@ -138,7 +155,24 @@ class Gamepad extends Controller
 
 	override function set(dt:Float)
 	{
-		for (button in binding.keys()) set_button(button, pad.anyPressed([binding[button]]));
+		for (button in binding.buttons.keys()) set_button(button, pad.anyPressed([binding.buttons[button]]));
+		for (axis in binding.axes.keys()) 
+		{
+			set_axis(axis, switch (axis) {
+				case LEFT_ANALOG_X:
+					pad.getXAxis(binding.axes[axis]);
+				case LEFT_ANALOG_Y:
+					pad.getYAxis(binding.axes[axis]);
+				case RIGHT_ANALOG_X:
+					pad.getXAxis(binding.axes[axis]);
+				case RIGHT_ANALOG_Y:
+					pad.getYAxis(binding.axes[axis]);
+				case TRIGGER_LEFT:
+					pad.getAxis(binding.axes[axis]);
+				case TRIGGER_RIGHT:
+					pad.getAxis(binding.axes[axis]);
+			});
+		}
 	}
 
 }
@@ -146,6 +180,7 @@ class Gamepad extends Controller
 typedef ControllerOptions =
 {
 	?binding:Map<ControllerButton, FlxKey>,
+	?axes:Array<ControllerAxis>,
 	?density:ControllerDensity,
 	?gamepad_options:GamepadOptions
 }
@@ -154,7 +189,7 @@ typedef GamepadOptions =
 {
 	id:Int,
 	connect_timer:Float,
-	?binding:Map<ControllerButton, FlxGamepadInputID>,
+	?binding:Binding,
 	?on_connect:Void -> Void,
 	?on_disconnect:Void -> Void
 }
@@ -165,6 +200,12 @@ enum ControllerDensity
 	GENESIS;	// A, B, X, DPAD, START, SELECT
 	SNES;		// A, B, X, Y, DPAD, BUMPERS, START, SELECT
 }
+
+typedef Binding =
+{
+	?buttons:Map<ControllerButton, FlxGamepadInputID>,
+	?axes:Map<ControllerAxis, FlxGamepadInputID>
+} 
 
 /**
  *  A collection of default bindings
@@ -243,10 +284,19 @@ class Bindings
 		LEFT_ANALOG_CLICK =>	FlxGamepadInputID.LEFT_ANALOG_STICK,
 		RIGHT_ANALOG_UP =>		FlxGamepadInputID.RIGHT_STICK_DIGITAL_UP,
 		RIGHT_ANALOG_DOWN =>	FlxGamepadInputID.RIGHT_STICK_DIGITAL_DOWN,
-		RIGHT_ANALOG_RIGHT =>	FlxGamepadInputID.RIGHT_STICK_DIGITAL_LEFT,
+		RIGHT_ANALOG_LEFT =>	FlxGamepadInputID.RIGHT_STICK_DIGITAL_LEFT,
 		RIGHT_ANALOG_RIGHT =>	FlxGamepadInputID.RIGHT_STICK_DIGITAL_RIGHT,
 		RIGHT_ANALOG_CLICK =>	FlxGamepadInputID.RIGHT_ANALOG_STICK,
 		GUIDE =>				FlxGamepadInputID.GUIDE,
+	];
+
+	public static var GAMEPAD_AXIS:Map<ControllerAxis, FlxGamepadInputID> = [
+		LEFT_ANALOG_X =>		FlxGamepadInputID.LEFT_ANALOG_STICK,
+		LEFT_ANALOG_Y =>		FlxGamepadInputID.LEFT_ANALOG_STICK,
+		RIGHT_ANALOG_X =>		FlxGamepadInputID.RIGHT_ANALOG_STICK,
+		RIGHT_ANALOG_Y =>		FlxGamepadInputID.RIGHT_ANALOG_STICK,
+		TRIGGER_LEFT =>		FlxGamepadInputID.LEFT_TRIGGER,
+		TRIGGER_RIGHT =>		FlxGamepadInputID.RIGHT_TRIGGER
 	];
 
 }
