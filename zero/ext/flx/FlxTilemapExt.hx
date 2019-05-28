@@ -15,7 +15,7 @@ class FlxTilemapExt
 	 * @param p point
 	 * @return Int
 	 */
-	public static inline function get_index_from_point(t:FlxTilemap, p:FlxPoint):Int return t.getTile((p.x / t.get_tile_width()).floor(), (p.y / t.get_tile_height()).floor());
+	public static inline function get_index_from_point(t:FlxTilemap, p:FlxPoint):Int return t.getTile(((p.x - t.x) / t.get_tile_width()).floor(), ((p.y - t.y) / t.get_tile_height()).floor());
 
 	/**
 	 * Returns a tile's allowCollisions value at a given point
