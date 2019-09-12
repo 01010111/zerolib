@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"tags": ["game", "gamedev", "math", "utilities", "extensions"],
 	"description": "Zerolib is a framework agnostic library of extensions, utilities, and other helpful classes for making games!",
-	"version": "0.9.0",
+	"version": "0.6.0",
 	"releasenote": "Added lots of utilities, moved flixel related utilities to zerolib-flixel",
 	"contributors": ["01010111"],
 	"dependencies": {}
