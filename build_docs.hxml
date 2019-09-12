@@ -1,0 +1,6 @@
+-cp src
+-main Main
+--macro include('zero')
+--interp
+--xml docs/types.xml
+--cmd haxelib run dox -i docs/types.xml -o api/ --title "Zerolib API" --toplevel-package zero

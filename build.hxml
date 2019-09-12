@@ -1,0 +1,4 @@
+-cp src
+-main Main
+--macro include('zero')
+--interp

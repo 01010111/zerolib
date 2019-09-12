@@ -1,0 +1,24 @@
+sudo: required
+dist: trusty
+
+language: haxe
+
+haxe:
+ - "4.0.0-rc.4"
+
+matrix:
+ allow_failures:
+   - haxe: "4.0.0-rc.4"
+
+install:
+ - haxelib dev zerolib .
+
+script:
+ - haxe build.hxml
+
+deploy:
+ - provider: script
+   haxe: development
+   script: bash ./release_haxelib.sh $HAXELIB_PWD
+   on:
+     tags: true
