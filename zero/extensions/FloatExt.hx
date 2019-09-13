@@ -159,12 +159,12 @@ class FloatExt
 	/**
 	 * Converts an 0xRRGGBBAA Int to a float array suitable for passing to shaders
 	 * @param n	input value
-	 * @return Array<Float>
+	 * @return Color
 	 */
-	public static inline function to_vec4(n:Float):Array<Float>
+	public static inline function to_color(n:Float):Color
 	{
 		var out:Color = Color.get().from_int32(n.to_int()); 
-		return cast out;
+		return out;
 	}
 
 	/**
