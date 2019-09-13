@@ -55,6 +55,8 @@ abstract Range(Vec2)
 	public inline function equals(v:Range):Bool return min == v.min && max == v.max;
 	public inline function toString():String return 'min: $min | max: $max | difference: $difference';
 	public inline function get_random():Float return max.get_random(min);
+	public inline function normalize(v:Float):Float return v.map(min, max, 0, 1);
+	public inline function denormalize(v:Float):Float return v.map(0, 1, min, max);
 
 	// Operator Overloads
 	@:op(A + B) static function add(v:Range, n:Float):Range return Range.get(v.min + n, v.max + n);
