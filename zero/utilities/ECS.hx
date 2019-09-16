@@ -124,6 +124,7 @@ class ECS
 
 }
 
+@:dox(hide)
 interface ISystem
 {
 	public function update(dt:Float, entities:Array<String>):Void;
