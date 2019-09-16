@@ -8,7 +8,7 @@ using Math;
 /**
  *  A collection of extension methods for Arrays (some of these are only usable on arrays containing specific types)
  * 
- * **USAGE:**
+ * **Usage:**
  * 
  * - use this extension by adding this where you normally import modules: `using zero.extensions.ArrayExt;`
  * - now you can use any of these functions on different arrays: `[0, 1, 2, 3].get_random(); // 2`

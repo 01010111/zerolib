@@ -1,7 +1,7 @@
 package zero.extensions;
 
 /**
- * **USAGE:** 
+ * **Usage:** 
  * 
  * To use ALL of the zero.extensions, simply: `using zero.extensions.Tools`
  */

@@ -7,7 +7,7 @@ using Math;
 /**
  *  A collection of extension methods for strings
  * 
- * **USAGE:**
+ * **Usage:**
  * 
  * - use this extension by adding this where you normally import modules: `using zero.extensions.StringExt;`
  * - now you can use any of these functions on different arrays: `'ABCDEFG'.get_random(2); // 'GB'`

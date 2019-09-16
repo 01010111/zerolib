@@ -6,7 +6,7 @@ using zero.extensions.ArrayExt;
 /**
  * A collection of extension methods for Enums
  * 
- * **USAGE:**
+ * **Usage:**
  * 
  * - use this extension by adding this where you normally import modules: `using zero.extensions.EnumExt;`
  * - now you can use any of these functions on different arrays: `MyEnum.get_random();`

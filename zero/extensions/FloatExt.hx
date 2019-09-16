@@ -10,7 +10,7 @@ using Math;
 /**
  *  A collection of extension methods for Floats
  * 
- * **USAGE:**
+ * **Usage:**
  * 
  * - use this extension by adding this where you normally import modules: `using zero.extensions.FloatExt;`
  * - now you can use any of these functions on different arrays: `100.get_random(50); // gets a float between 50 and 100`
