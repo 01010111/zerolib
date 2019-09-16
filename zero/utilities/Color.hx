@@ -31,22 +31,22 @@ abstract Color(Vec4)
 	public static var TRANSPARENT:Color = [1, 1, 1, 0];
 	public static var GREY:Color = [0.5, 0.5, 0.5, 1];
 
-	public static var PICO_8_BLACK:Color = [0, 0, 0, 1];
-	public static var PICO_8_DARK_BLUE:Color = [29/255, 43/255, 83/255, 1];
-	public static var PICO_8_DARK_PURPLE:Color = [126/255, 37/255, 83/255, 1];
-	public static var PICO_8_DARK_GREEN:Color = [0, 135/255, 81/255, 1];
-	public static var PICO_8_BROWN:Color = [171/255, 82/255, 54/255, 1];
-	public static var PICO_8_DARK_GREY:Color = [95/255, 87/255, 79/255, 1];
-	public static var PICO_8_LIGHT_GREY:Color = [194/255, 195/255, 199/255, 1];
-	public static var PICO_8_WHITE:Color = [1, 241/255, 232/255, 1];
-	public static var PICO_8_RED:Color = [1, 0, 77/255, 1];
-	public static var PICO_8_ORANGE:Color = [1, 163/255, 0, 1];
-	public static var PICO_8_YELLOW:Color = [1, 236/255, 39/255, 1];
-	public static var PICO_8_GREEN:Color = [0, 228/255, 54/255, 1];
-	public static var PICO_8_BLUE:Color = [41/255, 173/255, 1, 1];
-	public static var PICO_8_INDIGO:Color = [131/255, 118/255, 156/255, 1];
-	public static var PICO_8_PINK:Color = [1, 119/255, 168/255, 1];
-	public static var PICO_8_PEACH:Color = [1, 204/255, 170/255, 1];
+	@:dox(hide) public static var PICO_8_BLACK:Color = [0, 0, 0, 1];
+	@:dox(hide) public static var PICO_8_DARK_BLUE:Color = [29/255, 43/255, 83/255, 1];
+	@:dox(hide) public static var PICO_8_DARK_PURPLE:Color = [126/255, 37/255, 83/255, 1];
+	@:dox(hide) public static var PICO_8_DARK_GREEN:Color = [0, 135/255, 81/255, 1];
+	@:dox(hide) public static var PICO_8_BROWN:Color = [171/255, 82/255, 54/255, 1];
+	@:dox(hide) public static var PICO_8_DARK_GREY:Color = [95/255, 87/255, 79/255, 1];
+	@:dox(hide) public static var PICO_8_LIGHT_GREY:Color = [194/255, 195/255, 199/255, 1];
+	@:dox(hide) public static var PICO_8_WHITE:Color = [1, 241/255, 232/255, 1];
+	@:dox(hide) public static var PICO_8_RED:Color = [1, 0, 77/255, 1];
+	@:dox(hide) public static var PICO_8_ORANGE:Color = [1, 163/255, 0, 1];
+	@:dox(hide) public static var PICO_8_YELLOW:Color = [1, 236/255, 39/255, 1];
+	@:dox(hide) public static var PICO_8_GREEN:Color = [0, 228/255, 54/255, 1];
+	@:dox(hide) public static var PICO_8_BLUE:Color = [41/255, 173/255, 1, 1];
+	@:dox(hide) public static var PICO_8_INDIGO:Color = [131/255, 118/255, 156/255, 1];
+	@:dox(hide) public static var PICO_8_PINK:Color = [1, 119/255, 168/255, 1];
+	@:dox(hide) public static var PICO_8_PEACH:Color = [1, 204/255, 170/255, 1];
 	
 	public static var PALETTE:Map<String, Color> = new Map();
 
