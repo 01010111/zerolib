@@ -1,9 +1,12 @@
 package zero.extensions;
 
 /**
- * To use ALL of the zero.extensions, simply:
- * using zero.extensions.Tools
+ * **USAGE:** 
+ * 
+ * To use ALL of the zero.extensions, simply: `using zero.extensions.Tools`
  */
+
+ class Tools {}
 
 @:dox(hide)
 typedef TArrayExt = ArrayExt;
