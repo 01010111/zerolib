@@ -2,6 +2,7 @@ package zero.extensions;
 
 using zero.extensions.ArrayExt;
 using zero.extensions.FloatExt;
+using Math;
 
 /**
  *  A collection of extension methods for strings
@@ -32,18 +33,17 @@ class StringExt
 	public static inline function contains(src:String, value:String):Bool return src.indexOf(value) >= 0;
 
 	/**
-	 *  returns a random set of letters with an optional prefix and suffix
-	 *  @param string	input string (ignored)
-	 *  @param length	length of set
-	 *  @param prefix	prefix string
-	 *  @param postfix	suffix string
+	 * Returns a set of letters from an input string, ordered returns a random chunk of the input string
+	 * @param string	input string
+	 * @param length	length of output
+	 * @param ordered 	whether to return a random set of letters (default) or an ordered chunk
+	 * @return String
 	 */
-	public static inline function get_random(string:String, length:Int = 16, prefix:String = '', postfix:String = '')
+	public static inline function get_random(string:String, length:Int = 1, ordered:Bool = false):String
 	{
-		var a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#';
-		var s = '';
-		for (i in 0...length)s += a.charAt(a.length.get_random().to_int());
-		return '$prefix$s$postfix';
+		if (!ordered) return [for (i in 0...length) string.charAt(string.length.get_random().floor())].join(''); 
+		length = length.min(string.length).to_int();
+		return string.substr(string.length.min(string.length - length).get_random().to_int(), length);
 	}
 
 }
