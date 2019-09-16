@@ -7,22 +7,28 @@ using Math;
 
 /**
  *  A collection of extension methods for Arrays (some of these are only usable on arrays containing specific types)
+ * 
+ * **USAGE:**
+ * 
+ * - use this extension by adding this where you normally import modules: `using zero.extensions.ArrayExt;`
+ * - now you can use any of these functions on different arrays: `[0, 1, 2, 3].get_random(); // 2`
+ * - or use all of the extensions in this library by adding: `using zero.extensions.Tools;`
  */
 class ArrayExt 
 {
 
 	/**
 	 *  Converts an array of strings to an array of itegers
-	 *  @param array	input array
-	 *  @return			Array<Int>
+	 *  @param array input array
+	 *  @return Array<Int>
 	 */
 	public static inline function strings_to_ints(array:Array<String>):Array<Int> return [for (s in array) Std.parseInt(s)];
 
 	/**
 	 *  Checks whether or not an array contains a value or object
-	 *  @param array	input array
-	 *  @param value	value to check
-	 *  @return			Bool
+	 *  @param array input array
+	 *  @param value value to check
+	 *  @return	Bool
 	 */
 	public static inline function contains(array:Array<Dynamic>, value:Dynamic):Bool return array.indexOf(value) >= 0;
 
@@ -35,15 +41,15 @@ class ArrayExt
 
 	/**
 	 *  Returns a random element from an array
-	 *  @param array	input array
-	 *  @return			Dynamic
+	 *  @param array input array
+	 *  @return	Dynamic
 	 */
 	public static inline function get_random(array:Array<Dynamic>):Dynamic return array[array.length.get_random().to_int()];
 
    	/**
    	 *  shuffles an array in place and returns it
-   	 *  @param array	input array
-   	 *  @return			Array<T>
+   	 *  @param array input array
+   	 *  @return	Array<T>
    	 */
    	public static function shuffle<T>(array:Array<T>):Array<T>
 	{
@@ -60,9 +66,9 @@ class ArrayExt
 
 	/**
 	 *  Merges a second array (of the same type) into the first array
-	 *  @param a1	first array
-	 *  @param a2	second array
-	 *  @return		Array<T>
+	 *  @param a1 first array
+	 *  @param a2 second array
+	 *  @return Array<T>
 	 */
 	public static function merge<T>(a1:Array<T>, a2:Array<T>):Array<T>
 	{
@@ -97,9 +103,9 @@ class ArrayExt
 	/**
 	 * Uses a flood-fill algorithm to change equal values contiguous to the input coordinates to a new value
 	 * @param array	input array
-	 * @param x		x coordinate
-	 * @param y		y coordinate
-	 * @param value	new value
+	 * @param x x coordinate
+	 * @param y	y coordinate
+	 * @param value new value
 	 */
 	public static function flood_fill_2D(array:Array<Array<Dynamic>>, x:Int, y:Int, value:Dynamic)
 	{
@@ -121,9 +127,9 @@ class ArrayExt
 
 	/**
 	 * Uses a flood-fill algorithm to change equal values contiguous to the input position to a new value
-	 * @param array	input array
-	 * @param pos	index position	
-	 * @param value	new value
+	 * @param array input array
+	 * @param pos index position	
+	 * @param value new value
 	 */
 	public static function flood_fill_1D(array:Array<Dynamic>, pos:Int, value:Dynamic)
 	{
@@ -143,10 +149,10 @@ class ArrayExt
 
 	/**
 	 * Uses a flood-fill type algorithm to generate a heat map from the coordinates
-	 * @param array		input array
-	 * @param x			x coordinate
-	 * @param y			y coordinate
-	 * @param max_value	max heat value, -1 will find the max value based on the minimum result
+	 * @param array input array
+	 * @param x x coordinate
+	 * @param y y coordinate
+	 * @param max_value max heat value, -1 will find the max value based on the minimum result
 	 * @return Array<Array<Int>>
 	 */
 	public static function heat_map(array:Array<Array<Dynamic>>, x:Int, y:Int, max_value:Int = -1):Array<Array<Int>>
@@ -178,9 +184,9 @@ class ArrayExt
 
 	/**
 	 * get a value from a 2D array with coordinates
-	 * @param array	input array
-	 * @param x		x coordinate
-	 * @param y		y coordinate
+	 * @param array input array
+	 * @param x x coordinate
+	 * @param y y coordinate
 	 * @return Dynamic
 	 */
 	public static function get_xy(array:Array<Array<Dynamic>>, x:Int, y:Int):Dynamic
@@ -192,10 +198,10 @@ class ArrayExt
 
 	/**
 	 * set a value in a 2D array
-	 * @param array	input array
-	 * @param x		x coordinate
-	 * @param y		y coordinate
-	 * @param value	input value
+	 * @param array input array
+	 * @param x x coordinate
+	 * @param y y coordinate
+	 * @param value input value
 	 */
 	public static function set_xy(array:Array<Array<Dynamic>>, x:Int, y:Int, value:Dynamic)
 	{

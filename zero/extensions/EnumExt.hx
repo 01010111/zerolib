@@ -3,6 +3,16 @@ package zero.extensions;
 using zero.extensions.EnumExt;
 using zero.extensions.ArrayExt;
 
+/**
+ * A collection of extension methods for Enums
+ * 
+ * **USAGE:**
+ * 
+ * - use this extension by adding this where you normally import modules: `using zero.extensions.EnumExt;`
+ * - now you can use any of these functions on different arrays: `MyEnum.get_random();`
+ * - or use all of the extensions in this library by adding: `using zero.extensions.Tools;`
+ */
+
 class EnumExt
 {
 
