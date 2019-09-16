@@ -8,8 +8,8 @@ using StringTools;
  * 
  * **Usage:**
  * 
- * - Initialize using `var color = Color.get(1, 0, 0, 1); // red`
- * - Or with an array `var color:Vec4 = [0, 1, 0, 1]; // green`
+ * - Initialize using Color.get() `var color = Color.get(1, 0, 0, 1); // red`
+ * - Or with an array `var color:Color = [0, 1, 0, 1]; // green`
  * - Or using a 32 bit Integer `var color = Color.get().from_int32(0xFF0000FF); // blue`
  * - Get/set various details like `color.hue`, `color.saturation`, and more
  * - Swizzle like you're using GLSL! `var yellow = red.rrba;`
