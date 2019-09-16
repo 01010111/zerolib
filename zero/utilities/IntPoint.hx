@@ -4,6 +4,12 @@ using Math;
 
 /**
  * A basic point consisting of two Integers - X and Y
+ * 
+ * **Usage:**
+ * 
+ * - Initialize using IntPoint.get() `var point = IntPoint.get(0, 0);`
+ * - Or with an array `var point:IntPoint = [0, 1];`
+ * - Recycle points when you're done with them: `my_point.put()`
  */
 abstract IntPoint(Array<Int>)
 {
