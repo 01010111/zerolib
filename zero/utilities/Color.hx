@@ -3,6 +3,18 @@ package zero.utilities;
 using Math;
 using StringTools;
 
+/**
+ * A color abstract of Vec4
+ * 
+ * **Usage**
+ * - Initialize using `var color = Color.get(1, 0, 0, 1); // red`
+ * - Or with an array `var color:Vec4 = [0, 1, 0, 1]; // green`
+ * - Or using a 32 bit Integer `var color = Color.get().from_int32(0xFF0000FF); // blue`
+ * - Get/set various details like `color.hue`, `color.saturation`, and more
+ * - Swizzle like you're using GLSL! `var yellow = red.rrba;`
+ * - Register and use colors in a global palette `Color.PALETTE.set('pico 8 red', Color.get().from_int32(0xFFFF004D));` / `var red = Color.PALETTE['pico 8 red'];`
+ * - Recycle colors when you're done with them: `my_color.put()`
+ */
 @:forward
 abstract Color(Vec4)
 {
