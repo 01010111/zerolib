@@ -3,6 +3,17 @@ package zero.utilities;
 using zero.utilities.EventBus;
 using Std;
 
+/**
+ * Simple Bare-bones Achievements framework.
+ * 
+ * * Usage:
+ * - import it into your project `import zero.utilities.Achievements;`
+ * - also use EventBus - `using zero.utilities.EventBus;`
+ * - Set data from Map<String, Bool> (either to initialize Achievements or use saved data) using `Achievements.set_data(my_map);`
+ * - Add listeners for individual achievements using `Achievements.listen('my achievement');` (also works with enums!)
+ * - Trigger achievements using `"my achievement".dispatch();`
+ * - Make sure to save your achievement data - you can retrive it with `Achievements.get_data();`
+ */
 class Achievements
 {
 
