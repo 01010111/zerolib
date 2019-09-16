@@ -6,7 +6,8 @@ using Std;
 /**
  * Simple Bare-bones Achievements framework.
  * 
- * **Usage**
+ * **Usage:**
+ * 
  * - import it into your project `import zero.utilities.Achievements;`
  * - also use EventBus - `using zero.utilities.EventBus;`
  * - Set data from Map<String, Bool> (either to initialize Achievements or use saved data) using `Achievements.set_data(my_map);`
