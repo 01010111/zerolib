@@ -5,6 +5,12 @@ using zero.extensions.FloatExt;
 
 /**
  * A class representing a range of floating point numbers
+ * 
+ * **Usage:**
+ * 
+ * - Initialize using Range.get() `var range = Range.get(0, 0);`
+ * - Or with an array `var range:Range = [0, 1];`
+ * - Recycle ranges when you're done with them: `my_range.put()`
  */
 abstract Range(Vec2)
 {

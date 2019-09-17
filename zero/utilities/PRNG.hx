@@ -1,5 +1,14 @@
 package zero.utilities;
 
+/**
+ * A Simple Pseudo-Random Number Generator
+ * 
+ * **Usage:**
+ * 
+ * - get a random number using either `int()` or `float()`
+ * - or get a random number within a specific range using `int_range(min, max)` or `float_range(min, max)`
+ * - set a unique seed using `set_seed()` or `set_seed_from_string()`
+ */
 class PRNG
 {
 

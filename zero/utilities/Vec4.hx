@@ -4,6 +4,12 @@ using Math;
 
 /**
  * A simple Vector class
+ * 
+ * **Usage:**
+ * 
+ * - Initialize using Vec4.get() `var vec = Vec4.get(0, 1, 0, 1);`
+ * - Or with an array `var vec:Vec4 = [0, 1, 0, 1];`
+ * - Recycle vectors when you're done with them: `my_vector.put()`
  */
 abstract Vec4(Array<Float>)
 {

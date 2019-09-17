@@ -3,6 +3,9 @@ package zero.utilities;
 using haxe.Json;
 using zero.utilities.OgmoUtils;
 
+/**
+ * Docs coming soon :)
+ */
 class OgmoUtils
 {
 
