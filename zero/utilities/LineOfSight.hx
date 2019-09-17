@@ -3,7 +3,7 @@ package zero.utilities;
 using Math;
 
 /**
- * A Haxe implementation of the line of sight algorithm on [roguebasin]()
+ * A Haxe implementation of the line of sight algorithm on [roguebasin](https://github.com/01010111/zerolib/wiki/LineOfSight)
  * 
  * **Usage:**
  * ```
