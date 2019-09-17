@@ -4,6 +4,12 @@ using Math;
 
 /**
  * A simple Rectangle class
+ * 
+ * **Usage:**
+ * 
+ * - Initialize using Rect.get() `var rect = Rect.get(0, 0, 100, 100);`
+ * - Or with an array `var rect:Rect = [0, 0, 100, 100];`
+ * - Recycle rectangles when you're done with them: `my_rect.put()`
  */
 @:forward
 abstract Rect(Vec4)

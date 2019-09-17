@@ -4,6 +4,12 @@ using Math;
 
 /**
  * A simple Vector class
+ * 
+ * **Usage:**
+ * 
+ * - Initialize using Vec2.get() `var vec = Vec2.get(0, 0);`
+ * - Or with an array `var vec:Vec2 = [0, 1];`
+ * - Recycle vectors when you're done with them: `my_vector.put()`
  */
 abstract Vec2(Array<Float>)
 {
@@ -92,26 +98,26 @@ abstract Vec2(Array<Float>)
 	@:op(A % B) static function mod_f(v:Vec2, n:Float):Vec2 return Vec2.get(v.x % n, v.y % n);
 
 	// Swizzling
-	public var xx (get, never):Vec2; function get_xx() return Vec2.get(x, x);
-	public var xy (get, never):Vec2; function get_xy() return Vec2.get(x, y);
-	public var yx (get, never):Vec2; function get_yx() return Vec2.get(y, x);
-	public var yy (get, never):Vec2; function get_yy() return Vec2.get(y, y);
+	@:dox(hide) public var xx (get, never):Vec2; private function get_xx() return Vec2.get(x, x);
+	@:dox(hide) public var xy (get, never):Vec2; private function get_xy() return Vec2.get(x, y);
+	@:dox(hide) public var yx (get, never):Vec2; private function get_yx() return Vec2.get(y, x);
+	@:dox(hide) public var yy (get, never):Vec2; private function get_yy() return Vec2.get(y, y);
 
-	public var xxxx (get, never):Vec4; function get_xxxx() return Vec4.get(x, x, x, x);
-	public var xxxy (get, never):Vec4; function get_xxxy() return Vec4.get(x, x, x, y);
-	public var xxyx (get, never):Vec4; function get_xxyx() return Vec4.get(x, x, y, x);
-	public var xxyy (get, never):Vec4; function get_xxyy() return Vec4.get(x, x, y, y);
-	public var xyxx (get, never):Vec4; function get_xyxx() return Vec4.get(x, y, x, x);
-	public var xyxy (get, never):Vec4; function get_xyxy() return Vec4.get(x, y, x, y);
-	public var xyyx (get, never):Vec4; function get_xyyx() return Vec4.get(x, y, y, x);
-	public var xyyy (get, never):Vec4; function get_xyyy() return Vec4.get(x, y, y, y);
-	public var yxxx (get, never):Vec4; function get_yxxx() return Vec4.get(y, x, x, x);
-	public var yxxy (get, never):Vec4; function get_yxxy() return Vec4.get(y, x, x, y);
-	public var yxyx (get, never):Vec4; function get_yxyx() return Vec4.get(y, x, y, x);
-	public var yxyy (get, never):Vec4; function get_yxyy() return Vec4.get(y, x, y, y);
-	public var yyxx (get, never):Vec4; function get_yyxx() return Vec4.get(y, y, x, x);
-	public var yyxy (get, never):Vec4; function get_yyxy() return Vec4.get(y, y, x, y);
-	public var yyyx (get, never):Vec4; function get_yyyx() return Vec4.get(y, y, y, x);
-	public var yyyy (get, never):Vec4; function get_yyyy() return Vec4.get(y, y, y, y);
+	@:dox(hide) public var xxxx (get, never):Vec4; private function get_xxxx() return Vec4.get(x, x, x, x);
+	@:dox(hide) public var xxxy (get, never):Vec4; private function get_xxxy() return Vec4.get(x, x, x, y);
+	@:dox(hide) public var xxyx (get, never):Vec4; private function get_xxyx() return Vec4.get(x, x, y, x);
+	@:dox(hide) public var xxyy (get, never):Vec4; private function get_xxyy() return Vec4.get(x, x, y, y);
+	@:dox(hide) public var xyxx (get, never):Vec4; private function get_xyxx() return Vec4.get(x, y, x, x);
+	@:dox(hide) public var xyxy (get, never):Vec4; private function get_xyxy() return Vec4.get(x, y, x, y);
+	@:dox(hide) public var xyyx (get, never):Vec4; private function get_xyyx() return Vec4.get(x, y, y, x);
+	@:dox(hide) public var xyyy (get, never):Vec4; private function get_xyyy() return Vec4.get(x, y, y, y);
+	@:dox(hide) public var yxxx (get, never):Vec4; private function get_yxxx() return Vec4.get(y, x, x, x);
+	@:dox(hide) public var yxxy (get, never):Vec4; private function get_yxxy() return Vec4.get(y, x, x, y);
+	@:dox(hide) public var yxyx (get, never):Vec4; private function get_yxyx() return Vec4.get(y, x, y, x);
+	@:dox(hide) public var yxyy (get, never):Vec4; private function get_yxyy() return Vec4.get(y, x, y, y);
+	@:dox(hide) public var yyxx (get, never):Vec4; private function get_yyxx() return Vec4.get(y, y, x, x);
+	@:dox(hide) public var yyxy (get, never):Vec4; private function get_yyxy() return Vec4.get(y, y, x, y);
+	@:dox(hide) public var yyyx (get, never):Vec4; private function get_yyyx() return Vec4.get(y, y, y, x);
+	@:dox(hide) public var yyyy (get, never):Vec4; private function get_yyyy() return Vec4.get(y, y, y, y);
 
 }

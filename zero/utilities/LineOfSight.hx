@@ -2,6 +2,39 @@ package zero.utilities;
 
 using Math;
 
+/**
+ * A Haxe implementation of the line of sight algorithm on [roguebasin](https://github.com/01010111/zerolib/wiki/LineOfSight)
+ * 
+ * **Usage:**
+ * ```
+ * var map_data = [
+ * 	' ########       '.split(''),
+ * 	' #......#       '.split(''),
+ * 	' #......#       '.split(''),
+ * 	' #......####### '.split(''),
+ * 	' ####.####....# '.split(''),
+ * 	'   #..........# '.split(''),
+ * 	'   #...###....# '.split(''),
+ * 	'   ##### ###### '.split(''),
+ * ];
+ * var los = new LineOfSight({ map: map_data, walls: ['#'] });
+ * var p = { x: 5, y: 5 };
+ * 
+ * los.fov(p.x, p.y, 6);
+ * for (row in los.place_char(los.get_lit_map('?'), '@', p)) trace(row.join(''));
+ * ```
+ * Output:
+ * ```
+ * ???#####????????
+ * ????...?????????
+ * ????...?????????
+ * ????...?????????
+ * ??###.####.?????
+ *    #.@.....?????
+ * ?? #...###.?????
+ * ???#####????????
+ * ```
+ */
 class LineOfSight<T>
 {
 

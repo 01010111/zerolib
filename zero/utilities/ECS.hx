@@ -1,5 +1,28 @@
 package zero.utilities;
 
+/**
+ * An extremely simple Entity-Component-System implementation!
+ * 
+ * **Usage:**
+ * 
+ * - Entities are just integers, but you register and look them up using Strings: `ECS.register_entity('player');`  
+ * - Components are just sets of data tied to an entity: `ECS.register_component('player', 'position', { x: 0, y: 0 });`  
+ * - Systems are classes with an `update()` function that modify data. The update function is fed delta time and an array of entities.  
+ * - In your system's `update()` loop, you can use `ECS.get_data()` to get the relevant data:  
+ * - for example:  
+ * ```
+ * 	Class MoveRightSystem implements ISystem {
+ * 		public function new() {}
+ * 		public function update(dt:Float, entities:Array<String>) for (entity in entities) {
+ * 			var position = ECS.get_data(entity, 'position');
+ * 			position.x++;
+ * 		}
+ * 	}
+ * ```
+ * - When you have a System set up, register it and give it a list of necessary components: `ECS.register_system(new MoveRightSystem(), ['position']);`  
+ * - To update all registered systems, use the tick function: `ECS.tick(1/60);`  
+ * - You can also delist entities, components, and systems.
+ */
 class ECS
 {
 
@@ -101,6 +124,7 @@ class ECS
 
 }
 
+@:dox(hide)
 interface ISystem
 {
 	public function update(dt:Float, entities:Array<String>):Void;

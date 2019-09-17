@@ -3,6 +3,9 @@ package zero.utilities;
 using haxe.Json;
 using zero.utilities.OgmoUtils;
 
+/**
+ * Docs coming soon :)
+ */
 class OgmoUtils
 {
 
@@ -139,6 +142,7 @@ class OgmoUtils
 // region TYPEDEFS
 
 // Parsed .OGMO Project data
+@:dox(hide)
 typedef ProjectData = {
 	name:String,
 	levelPaths:Array<String>,
@@ -158,6 +162,7 @@ typedef ProjectData = {
 }
 
 // Project Layer
+@:dox(hide)
 typedef ProjectLayerData = {
 	definition:String,
 	name:String,
@@ -177,6 +182,7 @@ typedef ProjectLayerData = {
 }
 
 // Project Entity
+@:dox(hide)
 typedef ProjectEntityData = {
 	exportID:String,
 	name:String,
@@ -205,6 +211,7 @@ typedef ProjectEntityData = {
 }
 
 // Project Tileset
+@:dox(hide)
 typedef ProjectTilesetData = {
 	label:String,
 	path:String,
@@ -216,6 +223,7 @@ typedef ProjectTilesetData = {
 }
 
 // Parsed .JSON Level data
+@:dox(hide)
 typedef LevelData = {
 	width:Int,
 	height:Int,
@@ -226,6 +234,7 @@ typedef LevelData = {
 }
 
 // Level Layer data
+@:dox(hide)
 typedef LayerData = {
 	name:String,
 	_eid:String,
@@ -246,6 +255,7 @@ typedef LayerData = {
 }
 
 // Tile subset of LayerData
+@:dox(hide)
 typedef TileLayer = {
 	name:String,
 	_eid:String,
@@ -264,6 +274,7 @@ typedef TileLayer = {
 }
 
 // Grid subset of LayerData
+@:dox(hide)
 typedef GridLayer = {
 	name:String,
 	_eid:String,
@@ -279,6 +290,7 @@ typedef GridLayer = {
 }
 
 // Entity subset of LayerData
+@:dox(hide)
 typedef EntityLayer = {
 	name:String,
 	_eid:String,
@@ -292,6 +304,7 @@ typedef EntityLayer = {
 }
 
 // Individual Entity data
+@:dox(hide)
 typedef EntityData = {
 	name:String,
 	id:Int,
@@ -310,6 +323,7 @@ typedef EntityData = {
 }
 
 // Decal subset of LayerData
+@:dox(hide)
 typedef DecalLayer = {
 	name:String,
 	_eid:String,
@@ -323,6 +337,7 @@ typedef DecalLayer = {
 }
 
 // Individual Decal data
+@:dox(hide)
 typedef DecalData = {
 	x:Int,
 	y:Int,
