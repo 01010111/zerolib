@@ -11,9 +11,8 @@ package zero.utilities;
  * - In your system's `update()` loop, you can use `ECS.get_data()` to get the relevant data:  
  * - for example:  
  * ```
- * 	Class MoveRightSystem implements ISystem {
- * 		public function new() {}
- * 		public function update(dt:Float, entities:Array<String>) for (entity in entities) {
+ * 	class MoveRightSystem extends System {
+ * 		override public function update(dt:Float, entities:Array<String>) for (entity in entities) {
  * 			var position = ECS.get_data(entity, 'position');
  * 			position.x++;
  * 		}
@@ -28,7 +27,7 @@ class ECS
 
 	static var ENTITIES:Map<String, Int> = new Map();
 	static var COMPONENTS:Map<String, Map<Int, Dynamic>> = new Map();
-	static var SYSTEMS:Map<ISystem, Array<String>> = new Map();
+	static var SYSTEMS:Map<System, Array<String>> = new Map();
 	static var ID_NUMERATOR:Int = 0;
 
 	public static function register_entity(name:String)
@@ -61,12 +60,12 @@ class ECS
 		COMPONENTS[component].remove(ENTITIES[entity]);
 	}
 
-	public static function register_system(system:ISystem, components:Array<String>)
+	public static function register_system(system:System, components:Array<String>)
 	{
 		SYSTEMS.set(system, components);
 	}
 
-	public static function delist_system(system:ISystem)
+	public static function delist_system(system:System)
 	{
 		if (!SYSTEMS.exists(system)) return trace('System ${Type.getClassName(Type.getClass(system))} does not exist!');
 		SYSTEMS.remove(system);
@@ -101,7 +100,9 @@ class ECS
 
 	public static function tick(dt:Float = 0)
 	{
-		for (system => components in SYSTEMS) system.update(dt, get_matching_entities(components));
+		var systems = [for (s in SYSTEMS.keys()) s];
+		systems.sort((s1, s2) -> return s1.priority > s2.priority ? -1 : 1);
+		for (system in systems) system.update(dt, get_matching_entities(SYSTEMS[system]));
 	}
 
 	static function get_matching_entities(components:Array<String>):Array<String>
@@ -125,7 +126,11 @@ class ECS
 }
 
 @:dox(hide)
-interface ISystem
+class System
 {
-	public function update(dt:Float, entities:Array<String>):Void;
+	public static var PRIORITY_LAST:Int = -9999999;
+	public static var PRIORITY_FIRST:Int = 9999999;
+	public var priority:Int;
+	public function new(priority:Int = 0) this.priority = priority;
+	public function update(dt:Float, entities:Array<String>){}
 }
