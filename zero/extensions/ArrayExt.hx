@@ -221,6 +221,19 @@ class ArrayExt
 	}
 
 	/**
+	 * Checks to see if two arrays are equal
+	 * @param a1 
+	 * @param a2
+	 * @return Bool
+	 */
+	public static function equals(a1:Array<Dynamic>, a2:Array<Dynamic>):Bool
+	{
+		if (a1.length != a2.length) return false;
+		for (i in 0...a1.length) if (a1[i] != a2[i]) return false;
+		return true;
+	}
+
+	/**
 	 * Runs A* algorithm over given array
 	 * @param array input array
 	 * @param options
