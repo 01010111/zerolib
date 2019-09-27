@@ -8,9 +8,9 @@ using Std;
  * **Usage:**
  * 
  * - Assume `MyClass.listen = (data:Dynamic) -> trace(data.text)`
- * - Register listener `EventBus.register_listener(MyClass.listen);`
- * - Dispatch data `EventBus.dispatch({ text: 'hello world' });` this will trace: `hello world`
- * - Deregister listener when done: `EventBus.deregister_listener(MyClass.listen)`
+ * - Register listener `EventBus.register_listener(MyClass.listen, 'hello');`
+ * - Dispatch data `EventBus.dispatch('hello', { text: 'hello world' });` this will trace: `hello world`
+ * - Deregister listener when done: `EventBus.deregister_listener(MyClass.listen, 'hello')`
  * - or deregister all listeners: `EventBus.deregister_all()`
  */
 class EventBus
