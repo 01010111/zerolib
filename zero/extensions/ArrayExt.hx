@@ -3,6 +3,7 @@ package zero.extensions;
 import zero.utilities.IntPoint;
 
 using zero.extensions.FloatExt;
+using zero.extensions.ArrayExt;
 using Math;
 
 /**
@@ -311,6 +312,16 @@ class ArrayExt
 		return out;
 	}
 
+	/**
+	 * Remove duplicates from given array and return the array
+	 * @param arr 
+	 * @return Array<T>
+	 */
+	public static function remove_duplicates<T>(arr:Array<T>):Array<T> {
+		var processed = [];
+		for (o in arr) processed.contains(o) ? arr.remove(o) : processed.push(o);
+		return arr;
+	}
 
 }
 
