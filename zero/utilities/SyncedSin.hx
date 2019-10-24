@@ -2,7 +2,15 @@ package zero.utilities;
 
 using Math;
 
-class SinCosMap
+/**
+ * A Synced getter for sin/cos
+ * 
+ * **Usage**
+ * 
+ * - Update counter: `SyncedSin.update(delta_time)`
+ * - Get synced sin/cos values: `SyncedSin.synced_sin(10);` <- returns a synced sin value that takes 10 seconds to loop
+ */
+class SyncedSin
 {
 
 	static var counter = 0.0;

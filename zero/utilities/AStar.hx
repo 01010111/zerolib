@@ -4,6 +4,21 @@ import zero.utilities.IntPoint;
 
 using Math;
 
+/**
+ * A* Pathfinding algorithm with methods to simplify the output.
+ * 
+ * **Usage**
+ * 
+ * - Get a set of path nodes to traverse a 2D Int Array
+ * 
+ * ```haxe
+ * 	AStar.get_path(my_2D_array, {
+ * 		start: [1, 1],
+ * 		end: [10, 10],
+ * 		passable: [0, 1, 2],
+ * 	});
+ * ```
+ */
 class AStar {
 
 	public static function get_path(map:Array<Array<Int>>, options:AStarOptions):Array<IntPoint> {

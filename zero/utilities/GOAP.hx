@@ -4,6 +4,64 @@ using haxe.Json;
 using zero.extensions.ArrayExt;
 using zero.utilities.GOAP;
 
+/**
+ * Goal Oriented Action Planning
+ * 
+ * **Usage**
+ * 
+ * - First, set up personas. Use `Personas.add_persona()`
+ * 
+ * ```haxe
+ * 	Personas.add_persona("Lumberjack", [
+ * 		{
+ * 			name: "Chop Trees",
+ * 			prerequisites: [ "Has Axe" ],
+ * 			effects: [ "Has Wood" ],
+ * 			cost: 1
+ * 		},
+ * 		{
+ * 			name: "Gather Twigs",
+ * 			prerequisites: [],
+ * 			effects: [ "Has Wood" ],
+ * 			cost: 10
+ * 		},
+ * 		{
+ * 			name: "Get Axe",
+ * 			prerequisites: [],
+ * 			effects: [ "Has Axe" ],
+ * 			cost: 5
+ * 		}
+ * 	]);
+ * ```
+ * 
+ * - Then implement an Agent
+ * 
+ * ```haxe
+ * 	class MyAgent implements Agent {
+ *		public var goal:State;
+ *		public var persona:Persona;
+ *		public var state:Map<State, Bool>;
+ *		public function new(persona:Persona, goal:State, state:Map<State, Bool>) {
+ *			this.persona = persona;
+ *			this.goal = goal;
+ *			this.state = state;
+ *		}
+ * 	}
+ * ```
+ * 
+ * - And then instantiate it and run `Planner.plan()`
+ * 
+ * ```haxe
+ * `var my_agent = new MyAgent('Lumberjack', 'Has Wood', [
+ * 		"Has Wood" => false,
+ * 		"Has Axe" => false,
+ * 	]);
+ * 	var task = Planner.plan(my_agent);
+ * ```
+ * 
+ * - `task` will be the task with the name "Get Axe".
+ * - If an axe isn't available to our lumberjack, you can remove that task - `Personas.remove_task("Lumberjack", "Get Axe");
+ */
 class GOAP {}
 
 class Planner {
@@ -126,6 +184,15 @@ class Personas {
 		}
 		return out;
 	}
+
+	public static function add_task(persona:Persona, task:Task) {
+		if (!persona.validate_task(task.name)) map[persona].push(task);
+	}
+
+	public static function remove_task(persona:Persona, task:TaskName) {
+		for (t in map[persona]) if (t.name == task) map[persona].remove(t);
+	}
+
 }
 
 typedef TaskName = String;

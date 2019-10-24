@@ -1,5 +1,17 @@
 package zero.utilities;
 
+/**
+ * A Timer that will execute a function once a specified time limit runs out
+ * 
+ * **Usage**
+ * 
+ * - Import into your project. `import zero.utilities.Timer;`
+ * - Create a new timer! `Timer.get(1, () -> trace('hiya world'), 10);` <- traces "hiya world" every 1 second 10 times
+ * - Make sure to update timers by including this in your game loop: `Timer.update(delta_time);`
+ * - You can store Timers as variables - `var timer = Timer.get(10, () -> do_thing());`
+ * - Which will let you pause, unpause, or cancel it - `timer.cancel();`
+ * - You can cancel all active timers as well - `Timer.cancel_all();`
+ */
 class Timer {
 	
 	static var timers:Array<Timer> = [];
@@ -27,6 +39,7 @@ class Timer {
 
 	function new() {}
 
+	public static function cancel_all() for (timer in timers) timer.cancel();
 	public function cancel() if (timers.remove(this)) pool.push(this);
 	public function pause() paused = true;
 	public function unpause() paused = false;
