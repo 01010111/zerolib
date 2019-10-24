@@ -60,8 +60,17 @@ abstract Vec3(Array<Float>)
 
 	public inline function copy():Vec3 return Vec3.get(x, y, z);
 	public inline function equals(v:Vec3):Bool return x == v.x && y == v.y && z == v.z;
-	public inline function to_hex():Int return (((red * 255).round() & 0xFF) << 16 | ((green * 255).round() & 0xFF) << 8 | ((blue * 255).round() & 0xFF);
+	public inline function to_hex():Int return ((x * 255).round() & 0xFF) << 16 | ((y * 255).round() & 0xFF) << 8 | ((z * 255).round() & 0xFF);
 	public inline function toString():String return 'x: $x | y: $y | z: $z';
+
+	/*
+	TODO :
+	dot
+	cross
+	distance
+	length
+	rotate
+	*/
 
 	// Operator Overloads
 	@:op(A + B) static function add(v1:Vec3, v2:Vec3):Vec3 return Vec3.get(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
