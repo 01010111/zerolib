@@ -54,23 +54,28 @@ abstract Vec3(Array<Float>)
 	function get_z() return this[2];
 	function set_z(v) return this[2] = v;
 
+	public var length (get, set):Float;
+	inline function get_length() return (x*x + y*y + z*z).sqrt();
+	inline function set_length(v:Float)
+	{
+		normalize();
+		scale(v);
+		return v;
+	}
+
 	// These functions modify the vector in place!
 	public inline function copy_from(v:Vec3):Vec3 return set(v.x, v.y, v.z);
 	public inline function scale(n:Float):Vec3 return set(x * n, y * n, z * n);
+	public inline function normalize():Vec3 return scale(1/length);
 
 	public inline function copy():Vec3 return Vec3.get(x, y, z);
 	public inline function equals(v:Vec3):Bool return x == v.x && y == v.y && z == v.z;
 	public inline function to_hex():Int return ((x * 255).round() & 0xFF) << 16 | ((y * 255).round() & 0xFF) << 8 | ((z * 255).round() & 0xFF);
 	public inline function toString():String return 'x: $x | y: $y | z: $z';
 
-	/*
-	TODO :
-	dot
-	cross
-	distance
-	length
-	rotate
-	*/
+	public inline function dot(v:Vec3):Float return x * v.x + y * v.y + z * v.z;
+	public inline function cross(v:Vec3):Vec3 return Vec3.get(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
+	public inline function distance(v):Float return ((v.x - x).pow(2) + (v.y - y).pow(2) + (v.z - z).pow(2)).sqrt();
 
 	// Operator Overloads
 	@:op(A + B) static function add(v1:Vec3, v2:Vec3):Vec3 return Vec3.get(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
