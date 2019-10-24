@@ -102,7 +102,14 @@ abstract Vec2(Array<Float>)
 	@:dox(hide) public var xy (get, never):Vec2; private function get_xy() return Vec2.get(x, y);
 	@:dox(hide) public var yx (get, never):Vec2; private function get_yx() return Vec2.get(y, x);
 	@:dox(hide) public var yy (get, never):Vec2; private function get_yy() return Vec2.get(y, y);
-
+	@:dox(hide) public var xxx (get, never):Vec3; private function get_xxx() return Vec3.get(x, x, x);
+	@:dox(hide) public var xxy (get, never):Vec3; private function get_xxy() return Vec3.get(x, x, y);
+	@:dox(hide) public var xyx (get, never):Vec3; private function get_xyx() return Vec3.get(x, y, x);
+	@:dox(hide) public var xyy (get, never):Vec3; private function get_xyy() return Vec3.get(x, y, y);
+	@:dox(hide) public var yxx (get, never):Vec3; private function get_yxx() return Vec3.get(y, x, x);
+	@:dox(hide) public var yxy (get, never):Vec3; private function get_yxy() return Vec3.get(y, x, y);
+	@:dox(hide) public var yyx (get, never):Vec3; private function get_yyx() return Vec3.get(y, y, x);
+	@:dox(hide) public var yyy (get, never):Vec3; private function get_yyy() return Vec3.get(y, y, y);
 	@:dox(hide) public var xxxx (get, never):Vec4; private function get_xxxx() return Vec4.get(x, x, x, x);
 	@:dox(hide) public var xxxy (get, never):Vec4; private function get_xxxy() return Vec4.get(x, x, x, y);
 	@:dox(hide) public var xxyx (get, never):Vec4; private function get_xxyx() return Vec4.get(x, x, y, x);
