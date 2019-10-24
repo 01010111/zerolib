@@ -1,8 +1,8 @@
 package zero.utilities;
 
-using GOAP;
 using haxe.Json;
 using zero.extensions.ArrayExt;
+using zero.utilities.GOAP;
 
 class GOAP {}
 
