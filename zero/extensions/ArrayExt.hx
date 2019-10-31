@@ -240,9 +240,9 @@ class ArrayExt
 	 * @return Array<T>
 	 */
 	public static function remove_duplicates<T>(arr:Array<T>):Array<T> {
-		var processed = [];
-		for (o in arr) processed.contains(o) ? arr.remove(o) : processed.push(o);
-		return arr;
+		var unique = [];
+		for (item in arr) if (!unique.contains(item)) unique.push(item);
+		return arr = unique;
 	}
 
 }
