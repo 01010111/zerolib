@@ -147,7 +147,7 @@ class FloatExt
 		var r = 0.0;
 		for (i in 0...iterations) r += Math.random();
 		r /= iterations;
-		return min + r * ((max == null ? def_max : max) - min);
+		return min + r * (max - min);
 	}
 
 	/**
