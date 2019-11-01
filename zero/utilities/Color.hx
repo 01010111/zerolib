@@ -159,6 +159,7 @@ abstract Color(Vec4)
 	inline function min_color():Float return Math.min(red, Math.min(green, blue));
 
 	public inline function to_hex():Int return ((alpha * 255).round() & 0xFF) << 24 | ((red * 255).round() & 0xFF) << 16 | ((green * 255).round() & 0xFF) << 8 | ((blue * 255).round() & 0xFF);
+	public inline function to_hex_24():Int return ((red * 255).round() & 0xFF) << 16 | ((green * 255).round() & 0xFF) << 8 | ((blue * 255).round() & 0xFF);
 	public inline function from_int32(color:Int) return set(((color >> 16) & 0xff) / 255, ((color >> 8) & 0xff) / 255, (color & 0xff) / 255, ((color >> 24) & 0xff) / 255);
 	public inline function equals(color:Color) return red == color.red && green == color.green && blue == color.blue && alpha == color.alpha;
 	public function toString():String return 'r: $red | g: $green | b: $blue | a: $alpha | #${to_hex().hex()}';
