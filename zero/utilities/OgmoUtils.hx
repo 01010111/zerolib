@@ -4,7 +4,7 @@ using haxe.Json;
 using zero.utilities.OgmoUtils;
 
 /**
- * Docs coming soon :)
+ * A group of Utility functions for working with OGMO files (level .json and project .ogmo files) in haxe
  */
 class OgmoUtils
 {
