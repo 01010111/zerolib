@@ -49,7 +49,7 @@ class OgmoUtils
 	 * @param name 
 	 * @return TileLayer
 	 */
-	public static function get_grid_layer(data:LevelData, name:String):TileLayer
+	public static function get_grid_layer(data:LevelData, name:String):GridLayer
 	{
 		for (layer in data.layers) if (layer.name == name) return cast layer;
 		return null;
