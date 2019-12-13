@@ -23,7 +23,7 @@ class EventBus
 		for (listener in listeners[name.string()]) if (listener != null) listener(data);
 	}
 
-	public static function register_listener(listener:?Dynamic -> Void, name:Dynamic) {
+	public static function listen(listener:?Dynamic -> Void, name:Dynamic) {
 		if (!listeners.exists(name.string())) listeners.set(name.string(), []);
 		listeners[name.string()].push(listener);
 	}
