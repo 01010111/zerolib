@@ -28,12 +28,12 @@ class EventBus
 		listeners[name.string()].push(listener);
 	}
 
-	public static function deregister_listener(listener:?Dynamic -> Void, name:Dynamic) {
+	public static function unlisten(listener:?Dynamic -> Void, name:Dynamic) {
 		if (!listeners.exists(name.string())) return;
 		listeners[name.string()].remove(listener);
 	}
 
-	public static function deregister_all() {
+	public static function unlisten_all() {
 		for (key in listeners.keys()) listeners.set(key, []);
 	}
 
