@@ -72,6 +72,14 @@ abstract Vec2(Array<Float>)
 		return v;
 	}
 
+	public var radians (get, set):Float;
+	function get_radians() return Math.atan2(y, x);
+	function set_radians(v:Float)
+	{
+		set(length * v.cos(), length * v.sin());
+		return v;
+	}
+
 	// These functions modify the vector in place!
 	public inline function copy_from(v:Vec2):Vec2 return set(v.x, v.y);
 	public inline function normalize():Vec2 return set(x / length, y / length);
