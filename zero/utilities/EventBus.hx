@@ -7,11 +7,11 @@ using Std;
  * 
  * **Usage:**
  * 
- * - Assume `MyClass.listener = (data:Dynamic) -> trace(data.text)`
+ * - Assume `MyClass.listener = (?data:Dynamic) -> trace(data.text)`
  * - Register listener `EventBus.listen(MyClass.listener, 'hello');`
  * - Dispatch data `EventBus.dispatch('hello', { text: 'hello world' });` this will trace: `hello world`
- * - Deregister listener when done: `EventBus.deregister_listener(MyClass.listen, 'hello')`
- * - or deregister all listeners: `EventBus.deregister_all()`
+ * - Deregister listener when done: `EventBus.unlisten(MyClass.listen, 'hello')`
+ * - or deregister all listeners: `EventBus.unlisten_all()`
  */
 class EventBus
 {
