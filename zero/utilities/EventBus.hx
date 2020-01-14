@@ -18,23 +18,27 @@ class EventBus
 
 	static var listeners:Map<String, Array<?Dynamic -> Void>> = new Map();
 
-	public static function dispatch(name:Dynamic, ?data:Dynamic) {
-		if (!listeners.exists(name.string())) return;
-		for (listener in listeners[name.string()]) if (listener != null) listener(data);
+	public static function dispatch(name:String, ?data:Dynamic) {
+		if (!listeners.exists(name)) return;
+		for (listener in listeners[name]) if (listener != null) listener(data);
 	}
 
-	public static function listen(listener:?Dynamic -> Void, name:Dynamic) {
-		if (!listeners.exists(name.string())) listeners.set(name.string(), []);
-		listeners[name.string()].push(listener);
+	public static function listen(?listener:?Dynamic -> Void, name:String) {
+		if (!listeners.exists(name)) listeners.set(name, []);
+		listeners[name].push(listener);
 	}
 
-	public static function unlisten(listener:?Dynamic -> Void, name:Dynamic) {
-		if (!listeners.exists(name.string())) return;
-		listeners[name.string()].remove(listener);
+	public static function unlisten(listener:?Dynamic -> Void, name:String) {
+		if (!listeners.exists(name)) return;
+		listeners[name].remove(listener);
 	}
 
 	public static function unlisten_all() {
 		for (key in listeners.keys()) listeners.set(key, []);
+	}
+
+	public static function unlisten_signal(name:String) {
+		listeners.remove(name);
 	}
 
 }
