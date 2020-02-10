@@ -24,14 +24,14 @@ abstract Vec2(Array<Float>)
 	static function zero(n:Float):Float return n.abs() <= epsilon ? 0 : n;
 	
 	// Array creation/access
-	@:from static function from_array_float(input:Array<Float>) return new Vec2(input[0], input[1]);
-	@:from static function from_array_int(input:Array<Int>) return new Vec2(input[0], input[1]);
+	@:from static function from_array_float(input:Array<Float>) return Vec2.get(input[0], input[1]);
+	@:from static function from_array_int(input:Array<Int>) return Vec2.get(input[0], input[1]);
 	@:arrayAccess function arr_set(n:Int, v:Float) n < 0 || n > 1 ? return : this[n] = v;
 	@:arrayAccess function arr_get(n:Int):Float return this[n.min(1).max(0).floor()];
 
 	// Pooling
 	static var pool:Array<Vec2> = [];
-	public static function get(x:Float = 0, y:Float = 0):Vec2 return pool.length > 0 ? pool.shift().set(x, y) : new Vec2(x, y);
+	public static function get(x:Float = 0, y:Float = 0):Vec2 return pool != null && pool.length > 0 ? pool.shift().set(x, y) : new Vec2(x, y);
 	public inline function put()
 	{
 		pool.push(this);
