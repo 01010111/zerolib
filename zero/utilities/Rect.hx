@@ -82,6 +82,7 @@ abstract Rect(Vec4)
 	public inline function contains_point(vec2:Vec2) return top <= vec2.y && bottom >= vec2.y && left <= vec2.x && right >= vec2.x;
 	public inline function is_empty():Bool return width == 0 || height == 0;
 	public inline function set_position(v:Vec2):Rect return set(v.x, v.y, width, height);
+	public inline function equals(v:Rect):Bool return this.x == v.x && this.y == v.y && width == v.width && height == v.height;
 	public inline function intersection(v:Rect):Rect
 	{
 		var x0 = left.max(v.left);

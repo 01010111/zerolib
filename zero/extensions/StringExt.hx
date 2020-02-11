@@ -52,4 +52,13 @@ class StringExt
 		return string.substr(string.length.min(string.length - length).get_random().to_int(), length);
 	}
 
+	/**
+	 * Returns an object parsed from JSON
+	 * @param string 
+	 * @return Dynamic
+	 */
+	public static inline function parse_json(string:String):Dynamic {
+		return haxe.Json.parse(string);
+	}
+
 }

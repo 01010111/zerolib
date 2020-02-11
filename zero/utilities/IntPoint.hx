@@ -53,7 +53,7 @@ abstract IntPoint(Array<Int>)
 	public inline function copy():IntPoint return IntPoint.get(x, y);
 	public inline function equals(p:IntPoint):Bool return x == p.x && y == p.y;
 	public inline function distance(p:IntPoint):Float return (p - this).length;
-	public inline function toString():String return 'x: $x | y: $y | length: $length | angle: $angle';
+	public inline function toString():String return 'x: $x | y: $y';
 
 	// Operator Overloads
 	@:op(A + B) static function add(v1:IntPoint, v2:IntPoint):IntPoint return IntPoint.get(v1.x + v2.x, v1.y + v2.y);

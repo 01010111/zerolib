@@ -3,6 +3,7 @@ package zero.extensions;
 import zero.utilities.IntPoint;
 
 using zero.extensions.FloatExt;
+using zero.extensions.ArrayExt;
 using Math;
 
 /**
@@ -221,98 +222,27 @@ class ArrayExt
 	}
 
 	/**
-	 * Runs A* algorithm over given array
-	 * @param array input array
-	 * @param options
-	 * @return Array<IntPoint>
+	 * Checks to see if two arrays are equal
+	 * @param a1 
+	 * @param a2
+	 * @return Bool
 	 */
-	public static function a_star(array:Array<Array<Int>>, options:AStarOptions):Array<IntPoint>
+	public static function equals(a1:Array<Dynamic>, a2:Array<Dynamic>):Bool
 	{
-		var heuristic = options.heuristic == null ? (i) -> 0 : options.heuristic;
-		inline function distance(p1:{ x:Int, y:Int }, p2:{ x:Int, y:Int }):Float return ((p1.x - p2.x).abs().pow(2) + (p1.y - p2.y).abs().pow(2)).sqrt();
-		inline function pos_equal(p1:{ x:Int, y:Int }, p2:{ x:Int, y:Int }) return p1.x == p2.x && p1.y == p2.y;
-		inline function pos_to_string(p:{ x:Int, y:Int }):String return 'x: ${p.x} | y: ${p.y}';
-		inline function check_passable(x:Int, y:Int) return y >= 0 && y < array.length && x >= 0 && x < array[y].length && options.passable.indexOf(array[y][x]) >= 0;
-		inline function get_node(pos:{ x:Int, y:Int}, ?parent:AStarNode):AStarNode {
-			var out:AStarNode = {
-				pos: pos,
-				g_cost: distance(pos, options.start),
-				h_cost: distance(pos, options.end) + heuristic(array[pos.y][pos.x]),
-				f_cost: 0,
-				parent: parent,
-			};
-			out.f_cost = out.g_cost + out.h_cost;
-			return out;
-		}
-
-		var start_node = get_node(options.start);
-		var open:Map<String, AStarNode> = new Map();
-		var closed:Map<String, AStarNode> = new Map();
-		open.set(pos_to_string(start_node.pos), start_node);
-
-		inline function get_neighbors(node:AStarNode):Array<AStarNode> {
-			var out = [];
-			if (check_passable(node.pos.x, node.pos.y - 1)) out.push(get_node({ x: node.pos.x, y: node.pos.y - 1 }, node));
-			if (check_passable(node.pos.x, node.pos.y + 1)) out.push(get_node({ x: node.pos.x, y: node.pos.y + 1 }, node));
-			if (check_passable(node.pos.x - 1, node.pos.y)) out.push(get_node({ x: node.pos.x - 1, y: node.pos.y }, node));
-			if (check_passable(node.pos.x + 1, node.pos.y)) out.push(get_node({ x: node.pos.x + 1, y: node.pos.y }, node));
-			if (!options.diagonal) return out;
-			if (check_passable(node.pos.x - 1, node.pos.y - 1)) out.push(get_node({ x: node.pos.x - 1, y: node.pos.y - 1 }, node));
-			if (check_passable(node.pos.x + 1, node.pos.y - 1)) out.push(get_node({ x: node.pos.x + 1, y: node.pos.y - 1 }, node));
-			if (check_passable(node.pos.x - 1, node.pos.y + 1)) out.push(get_node({ x: node.pos.x - 1, y: node.pos.y + 1 }, node));
-			if (check_passable(node.pos.x + 1, node.pos.y + 1)) out.push(get_node({ x: node.pos.x + 1, y: node.pos.y + 1 }, node));
-			return out;
-		}
-
-		var i = 0;
-		var current:AStarNode = null;
-		while (true) {
-			var o_nodes = [for (node in open) node];
-			if (o_nodes.length == 0) break;
-			o_nodes.sort((n1:AStarNode, n2:AStarNode) -> {
-				if (n1.f_cost < n2.f_cost) return -1;
-				if (n2.f_cost < n1.f_cost) return 1;
-				if (n1.h_cost < n2.h_cost) return -1;
-				if (n2.h_cost < n1.h_cost) return 1;
-				return 0;
-			});
-			current = o_nodes.shift();
-			open.remove(pos_to_string(current.pos));
-			closed.set(pos_to_string(current.pos), current);
-			if (pos_equal(current.pos, options.end)) break;
-			var neighbors = get_neighbors(current);
-			for (node in neighbors) {
-				var key = pos_to_string(node.pos);
-				if (closed.exists(key)) continue;
-				if (open.exists(key) && open[key].f_cost < node.f_cost) continue;
-				open.set(pos_to_string(node.pos), node);
-			}
-		}
-
-		var out = [];
-		if (!pos_equal(current.pos, options.end)) return [];
-		while (current.parent != null) {
-			out.unshift (IntPoint.get(current.pos.x, current.pos.y));
-			current = current.parent;
-		}
-		return out;
+		if (a1.length != a2.length) return false;
+		for (i in 0...a1.length) if (a1[i] != a2[i]) return false;
+		return true;
 	}
 
+	/**
+	 * Remove duplicates from given array and return the array
+	 * @param arr 
+	 * @return Array<T>
+	 */
+	public static function remove_duplicates<T>(arr:Array<T>):Array<T> {
+		var unique = [];
+		for (item in arr) if (!unique.contains(item)) unique.push(item);
+		return arr = unique;
+	}
 
-}
-
-private typedef AStarOptions = {
-	start: { x:Int, y:Int },
-	end: { x:Int, y:Int },
-	passable: Array<Int>,
-	diagonal: Bool,
-	?heuristic: Int -> Float,
-}
-
-private typedef AStarNode = {
-	pos: { x:Int, y:Int },
-	g_cost:Float,
-	h_cost:Float,
-	f_cost:Float,
-	?parent:AStarNode,
 }

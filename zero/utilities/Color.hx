@@ -159,6 +159,7 @@ abstract Color(Vec4)
 	inline function min_color():Float return Math.min(red, Math.min(green, blue));
 
 	public inline function to_hex():Int return ((alpha * 255).round() & 0xFF) << 24 | ((red * 255).round() & 0xFF) << 16 | ((green * 255).round() & 0xFF) << 8 | ((blue * 255).round() & 0xFF);
+	public inline function to_hex_24():Int return ((red * 255).round() & 0xFF) << 16 | ((green * 255).round() & 0xFF) << 8 | ((blue * 255).round() & 0xFF);
 	public inline function from_int32(color:Int) return set(((color >> 16) & 0xff) / 255, ((color >> 8) & 0xff) / 255, (color & 0xff) / 255, ((color >> 24) & 0xff) / 255);
 	public inline function equals(color:Color) return red == color.red && green == color.green && blue == color.blue && alpha == color.alpha;
 	public function toString():String return 'r: $red | g: $green | b: $blue | a: $alpha | #${to_hex().hex()}';
@@ -199,6 +200,33 @@ abstract Color(Vec4)
 	@:op(A % B) static function mod(v1:Color, v2:Color):Color return Color.get(v1.x % v2.x, v1.y % v2.y, v1.z % v2.z, v1.w % v2.w);
 	@:op(A % B) static function mod_f(v:Color, n:Float):Color return Color.get(v.x % n, v.y % n, v.z % n, v.w % n);
 
+	@:dox(hide) public var rrr (get, never):Vec3; private function get_rrr() return Vec3.get(red, red, red);
+	@:dox(hide) public var rrg (get, never):Vec3; private function get_rrg() return Vec3.get(red, red, green);
+	@:dox(hide) public var rrb (get, never):Vec3; private function get_rrb() return Vec3.get(red, red, blue);
+	@:dox(hide) public var rgr (get, never):Vec3; private function get_rgr() return Vec3.get(red, green, red);
+	@:dox(hide) public var rgg (get, never):Vec3; private function get_rgg() return Vec3.get(red, green, green);
+	@:dox(hide) public var rgb (get, never):Vec3; private function get_rgb() return Vec3.get(red, green, blue);
+	@:dox(hide) public var rbr (get, never):Vec3; private function get_rbr() return Vec3.get(red, blue, red);
+	@:dox(hide) public var rbg (get, never):Vec3; private function get_rbg() return Vec3.get(red, blue, green);
+	@:dox(hide) public var rbb (get, never):Vec3; private function get_rbb() return Vec3.get(red, blue, blue);
+	@:dox(hide) public var grr (get, never):Vec3; private function get_grr() return Vec3.get(green, red, red);
+	@:dox(hide) public var grg (get, never):Vec3; private function get_grg() return Vec3.get(green, red, green);
+	@:dox(hide) public var grb (get, never):Vec3; private function get_grb() return Vec3.get(green, red, blue);
+	@:dox(hide) public var ggr (get, never):Vec3; private function get_ggr() return Vec3.get(green, green, red);
+	@:dox(hide) public var ggg (get, never):Vec3; private function get_ggg() return Vec3.get(green, green, green);
+	@:dox(hide) public var ggb (get, never):Vec3; private function get_ggb() return Vec3.get(green, green, blue);
+	@:dox(hide) public var gbr (get, never):Vec3; private function get_gbr() return Vec3.get(green, blue, red);
+	@:dox(hide) public var gbg (get, never):Vec3; private function get_gbg() return Vec3.get(green, blue, green);
+	@:dox(hide) public var gbb (get, never):Vec3; private function get_gbb() return Vec3.get(green, blue, blue);
+	@:dox(hide) public var brr (get, never):Vec3; private function get_brr() return Vec3.get(blue, red, red);
+	@:dox(hide) public var brg (get, never):Vec3; private function get_brg() return Vec3.get(blue, red, green);
+	@:dox(hide) public var brb (get, never):Vec3; private function get_brb() return Vec3.get(blue, red, blue);
+	@:dox(hide) public var bgr (get, never):Vec3; private function get_bgr() return Vec3.get(blue, green, red);
+	@:dox(hide) public var bgg (get, never):Vec3; private function get_bgg() return Vec3.get(blue, green, green);
+	@:dox(hide) public var bgb (get, never):Vec3; private function get_bgb() return Vec3.get(blue, green, blue);
+	@:dox(hide) public var bbr (get, never):Vec3; private function get_bbr() return Vec3.get(blue, blue, red);
+	@:dox(hide) public var bbg (get, never):Vec3; private function get_bbg() return Vec3.get(blue, blue, green);
+	@:dox(hide) public var bbb (get, never):Vec3; private function get_bbb() return Vec3.get(blue, blue, blue);
 	@:dox(hide) public var rrrr (get, never):Color; private function get_rrrr() return Color.get(red, red, red, red);
 	@:dox(hide) public var rrrg (get, never):Color; private function get_rrrg() return Color.get(red, red, red, green);
 	@:dox(hide) public var rrrb (get, never):Color; private function get_rrrb() return Color.get(red, red, red,blue);

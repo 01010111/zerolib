@@ -4,7 +4,7 @@ using haxe.Json;
 using zero.utilities.OgmoUtils;
 
 /**
- * Docs coming soon :)
+ * A group of Utility functions for working with OGMO files (level .json and project .ogmo files) in haxe
  */
 class OgmoUtils
 {
@@ -49,7 +49,7 @@ class OgmoUtils
 	 * @param name 
 	 * @return TileLayer
 	 */
-	public static function get_grid_layer(data:LevelData, name:String):TileLayer
+	public static function get_grid_layer(data:LevelData, name:String):GridLayer
 	{
 		for (layer in data.layers) if (layer.name == name) return cast layer;
 		return null;

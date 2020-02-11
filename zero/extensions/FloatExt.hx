@@ -132,7 +132,23 @@ class FloatExt
 	 *  @param max overrides input number for the maximum number in the desired range (input number is ignored)
 	 *  @return Float
 	 */
-	public static inline function get_random(def_max:Float, min:Float = 0, ?max:Float):Float return min + Math.random() * ((max == null ? def_max : max) - min);
+	public static inline function get_random(def_max:Float, min:Float = 0, ?max:Float, iterations:Int = 1):Float {
+		return min + Math.random() * ((max == null ? def_max : max) - min);
+	}
+
+	/**
+	 *  gets a random normal distributed number from a range of numbers. ex. 10.get_random_gaussian(0, 5) = a number between 0 and 10
+	 *  @param max input value is the maximum number in the desired range
+	 *  @param min the minimum number in the desired range
+	 * @param iterations the higher this number the more likely the average of the min and max values will be chosen
+	 * @return Float
+	 */
+	public static inline function get_random_gaussian(max:Float, min:Float = 0, iterations:Int = 2):Float {
+		var r = 0.0;
+		for (i in 0...iterations) r += Math.random();
+		r /= iterations;
+		return min + r * (max - min);
+	}
 
 	/**
 	 *  returns the sign (-1, 0, 1) of a number
