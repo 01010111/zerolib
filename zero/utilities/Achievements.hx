@@ -26,13 +26,13 @@ class Achievements
 
 	public static function set_callback(fn:String -> Void) callback = fn;
 
-	public static function get_achievement(name:Dynamic) {
-		if (!data.exists(name.string())) return trace('Achievement does not exist!');
-		if (data[name.string()]) return;
-		data.set(name.string(), true);
-		callback(name.string());
+	public static function get_achievement(name:String) {
+		if (!data.exists(name)) return trace('Achievement does not exist!');
+		if (data[name]) return;
+		data.set(name, true);
+		callback(name);
 	}
 
-	public static function listen(name:Dynamic) ((?_) -> get_achievement(name.string())).register_listener(name.string());
+	public static function listen(name:String) ((?_) -> get_achievement(name.string())).listen(name);
 
 }
