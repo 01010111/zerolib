@@ -34,7 +34,7 @@ abstract Vec2(Array<Float>)
 	public static function get(x:Float = 0, y:Float = 0):Vec2 return pool != null && pool.length > 0 ? pool.shift().set(x, y) : new Vec2(x, y);
 	public inline function put()
 	{
-		pool.push(this);
+		pool.push(cast this);
 		this = null;
 	}
 
@@ -64,19 +64,21 @@ abstract Vec2(Array<Float>)
 	}
 
 	public var angle (get, set):Float;
-	function get_angle() return ((Math.atan2(y, x) * (180 / Math.PI)) % 360 + 360) % 360;
-	function set_angle(v:Float)
+	inline function get_angle() return ((Math.atan2(y, x) * (180 / Math.PI)) % 360 + 360) % 360;
+	inline function set_angle(v:Float)
 	{
 		v *= (Math.PI / 180);
-		set(length * v.cos(), length * v.sin());
+		var len = length;
+		set(len * v.cos(), len * v.sin());
 		return v;
 	}
 
 	public var radians (get, set):Float;
-	function get_radians() return Math.atan2(y, x);
-	function set_radians(v:Float)
+	inline function get_radians() return Math.atan2(y, x);
+	inline function set_radians(v:Float)
 	{
-		set(length * v.cos(), length * v.sin());
+		var len = length;
+		set(len * v.cos(), len * v.sin());
 		return v;
 	}
 
