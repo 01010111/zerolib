@@ -28,20 +28,20 @@ abstract IntPoint(Array<Int>)
 		this = null;
 	}
 
-	function new(x:Int = 0, y:Int = 0) this = [x, y];
+	inline function new(x:Int = 0, y:Int = 0) this = [x, y];
 	public inline function set(x:Int = 0, y:Int = 0) {
 		this[0] = x;
 		this[1] = y;
-		return this;
+		return cast this;
 	}
 
 	public var x(get, set):Int;
-	function get_x() return this[0];
-	function set_x(v) return this[0] = v;
+	inline function get_x() return this[0];
+	inline function set_x(v) return this[0] = v;
 
 	public var y(get, set):Int;
-	function get_y() return this[1];
-	function set_y(v) return this[1] = v;
+	inline function get_y() return this[1];
+	inline function set_y(v) return this[1] = v;
 
 	public var length(get, never):Float;
 	inline function get_length() return (x*x + y*y).sqrt();

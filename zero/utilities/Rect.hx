@@ -32,41 +32,41 @@ abstract Rect(Vec4)
 	@:arrayAccess function arr_get(n:Int):Float return this[n.min(3).max(0).floor()];
 
 	public var width (get, set):Float;
-	function get_width() return this.z;
-	function set_width(v) return this.z = v;
+	inline function get_width() return this.z;
+	inline function set_width(v) return this.z = v;
 
 	public var height (get, set):Float;
-	function get_height() return this.w;
-	function set_height(v) return this.w = v;
+	inline function get_height() return this.w;
+	inline function set_height(v) return this.w = v;
 
 	public var top (get, set):Float;
-	function get_top() return this.y;
-	function set_top(v) return this.y = v;
+	inline function get_top() return this.y;
+	inline function set_top(v) return this.y = v;
 
 	public var left (get, set):Float;
-	function get_left() return this.x;
-	function set_left(v) return this.x = v;
+	inline function get_left() return this.x;
+	inline function set_left(v) return this.x = v;
 
 	public var bottom (get, set):Float;
-	function get_bottom() return this.y + height;
-	function set_bottom(v:Float)
+	inline function get_bottom() return this.y + height;
+	inline function set_bottom(v:Float)
 	{
 		height = v - this.y;
 		return v;
 	}
 
 	public var right (get, set):Float;
-	function get_right() return this.x + width;
-	function set_right(v:Float)
+	inline function get_right() return this.x + width;
+	inline function set_right(v:Float)
 	{
 		width = v - this.x;
 		return v;
 	}
 
 	public var midpoint (get, never):Vec2;
-	function get_midpoint() return Vec2.get(this.x + width/2, this.y + height/2);
+	inline function get_midpoint() return Vec2.get(this.x + width/2, this.y + height/2);
 
-	function new(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0) this = [x, y, z, w];
+	inline function new(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0) this = [x, y, z, w];
 	public inline function set(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0):Rect
 	{
 		this[0] = zero(x);

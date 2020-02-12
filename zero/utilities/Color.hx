@@ -67,86 +67,86 @@ abstract Color(Vec4)
 	@:arrayAccess function arr_get(n:Int):Float return this[n.min(3).max(0).floor()];
 
 	public var red (get, set):Float;
-	function get_red() return this.x;
-	function set_red(v:Float) return this.x = v.max(0).min(1);
+	inline function get_red() return this.x;
+	inline function set_red(v:Float) return this.x = v.max(0).min(1);
 
 	public var green (get, set):Float;
-	function get_green() return this.y;
-	function set_green(v:Float) return this.y = v.max(0).min(1);
+	inline function get_green() return this.y;
+	inline function set_green(v:Float) return this.y = v.max(0).min(1);
 
 	public var blue (get, set):Float;
-	function get_blue() return this.z;
-	function set_blue(v:Float) return this.z = v.max(0).min(1);
+	inline function get_blue() return this.z;
+	inline function set_blue(v:Float) return this.z = v.max(0).min(1);
 
 	public var alpha (get, set):Float;
-	function get_alpha() return this.w;
-	function set_alpha(v:Float) return this.w = v.max(0).min(1);
+	inline function get_alpha() return this.w;
+	inline function set_alpha(v:Float) return this.w = v.max(0).min(1);
 
 	public var red_int (get, set):Int;
-	function get_red_int() return (this.x * 255).round();
-	function set_red_int(v)
+	inline function get_red_int() return (this.x * 255).round();
+	inline function set_red_int(v)
 	{
 		this.x = v/255;
 		return v;
 	}
 
 	public var green_int (get, set):Int;
-	function get_green_int() return (this.y * 255).round();
-	function set_green_int(v)
+	inline function get_green_int() return (this.y * 255).round();
+	inline function set_green_int(v)
 	{
 		this.y = v/255;
 		return v;
 	}
 
 	public var blue_int (get, set):Int;
-	function get_blue_int() return (this.z * 255).round();
-	function set_blue_int(v)
+	inline function get_blue_int() return (this.z * 255).round();
+	inline function set_blue_int(v)
 	{
 		this.z = v/255;
 		return v;
 	}
 
 	public var alpha_int (get, set):Int;
-	function get_alpha_int() return (this.w * 255).round();
-	function set_alpha_int(v)
+	inline function get_alpha_int() return (this.w * 255).round();
+	inline function set_alpha_int(v)
 	{
 		this.w = v/255;
 		return v;
 	}
 
 	public var hue (get, set):Float;
-	function get_hue() return (Math.atan2(Math.sqrt(3) * (green - blue), 2 * red - green - blue) != 0) ? ((180 / Math.PI * Math.atan2(Math.sqrt(3) * (green - blue), 2 * red - green - blue)) + 360) % 360 : 0;
-	function set_hue(hue:Float)
+	inline function get_hue() return (Math.atan2(Math.sqrt(3) * (green - blue), 2 * red - green - blue) != 0) ? ((180 / Math.PI * Math.atan2(Math.sqrt(3) * (green - blue), 2 * red - green - blue)) + 360) % 360 : 0;
+	inline function set_hue(hue:Float)
 	{
 		set_HSL(hue, saturation, lightness);
 		return hue;
 	}
 
 	public var saturation(get, set):Float;
-	function get_saturation() return (max_color() - min_color()) / brightness;
-	function set_saturation(saturation)
+	inline function get_saturation() return (max_color() - min_color()) / brightness;
+	inline function set_saturation(saturation)
 	{
 		set_HSL(hue, saturation, lightness);
 		return saturation;
 	}
 
 	public var lightness(get, set):Float;
-	function get_lightness() return (max_color() + min_color()) / 2;
-	function set_lightness(lightness)
+	inline function get_lightness() return (max_color() + min_color()) / 2;
+	inline function set_lightness(lightness)
 	{
 		set_HSL(hue, saturation, lightness);
 		return lightness;
 	}
 
 	public var brightness(get, set):Float;
-	function get_brightness() return max_color();
-	function set_brightness(brightness)
+	inline function get_brightness() return max_color();
+	inline function set_brightness(brightness)
 	{
 		set_HSV(hue, saturation, brightness);
 		return brightness;
 	}
 
-	function new(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0) this = [x, y, z, w];
+	inline function new(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0) this = [x, y, z, w];
 	public inline function set(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0):Color
 	{
 		this[0] = zero(x);

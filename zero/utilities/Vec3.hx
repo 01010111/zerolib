@@ -33,26 +33,26 @@ abstract Vec3(Array<Float>)
 		this = null;
 	}
 
-	function new(x:Float = 0, y:Float = 0, z:Float = 0) this = [x, y, z];
+	inline function new(x:Float = 0, y:Float = 0, z:Float = 0) this = [x, y, z];
 	public inline function set(x:Float = 0, y:Float = 0, z:Float = 0):Vec3
 	{
 		this[0] = zero(x);
 		this[1] = zero(y);
 		this[2] = zero(z);
-		return this;
+		return cast this;
 	}
 
 	public var x (get, set):Float;
-	function get_x() return this[0];
-	function set_x(v) return this[0] = v;
+	inline function get_x() return this[0];
+	inline function set_x(v) return this[0] = v;
 
 	public var y (get, set):Float;
-	function get_y() return this[1];
-	function set_y(v) return this[1] = v;
+	inline function get_y() return this[1];
+	inline function set_y(v) return this[1] = v;
 
 	public var z (get, set):Float;
-	function get_z() return this[2];
-	function set_z(v) return this[2] = v;
+	inline function get_z() return this[2];
+	inline function set_z(v) return this[2] = v;
 
 	public var length (get, set):Float;
 	inline function get_length() return (x*x + y*y + z*z).sqrt();

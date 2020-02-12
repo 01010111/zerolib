@@ -33,31 +33,31 @@ abstract Vec4(Array<Float>)
 		this = null;
 	}
 
-	function new(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0) this = [x, y, z, w];
+	inline function new(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0) this = [x, y, z, w];
 	public inline function set(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0):Vec4
 	{
 		this[0] = zero(x);
 		this[1] = zero(y);
 		this[2] = zero(z);
 		this[3] = zero(w);
-		return this;
+		return cast this;
 	}
 
 	public var x (get, set):Float;
-	function get_x() return this[0];
-	function set_x(v) return this[0] = v;
+	inline function get_x() return this[0];
+	inline function set_x(v) return this[0] = v;
 
 	public var y (get, set):Float;
-	function get_y() return this[1];
-	function set_y(v) return this[1] = v;
+	inline function get_y() return this[1];
+	inline function set_y(v) return this[1] = v;
 
 	public var z (get, set):Float;
-	function get_z() return this[2];
-	function set_z(v) return this[2] = v;
+	inline function get_z() return this[2];
+	inline function set_z(v) return this[2] = v;
 
 	public var w (get, set):Float;
-	function get_w() return this[3];
-	function set_w(v) return this[3] = v;
+	inline function get_w() return this[3];
+	inline function set_w(v) return this[3] = v;
 
 	// These functions modify the vector in place!
 	public inline function copy_from(v:Vec4):Vec4 return set(v.x, v.y, v.z, v.w);
