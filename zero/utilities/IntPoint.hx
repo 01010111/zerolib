@@ -15,13 +15,13 @@ abstract IntPoint(Array<Int>)
 {
 	
 	// Array creation/access
-	@:from static function from_array_int(input:Array<Int>) return new IntPoint(input[0], input[1]);
+	@:from static function from_array_int(input:Array<Int>) return IntPoint.get(input[0], input[1]);
 	@:arrayAccess function arr_set(n:Int, v:Int) n < 0 || n > 1 ? return : this[n] = v;
 	@:arrayAccess function arr_get(n:Int):Int return this[n.min(1).max(0).floor()];
 
 	// Pooling
 	static var pool:Array<IntPoint> = [];
-	public static function get(x:Int = 0, y:Int = 0):IntPoint return pool.length > 0 ? pool.shift().set(x, y) : new IntPoint(x, y);
+	public static function get(x:Int = 0, y:Int = 0):IntPoint return pool != null && pool.length > 0 ? pool.shift().set(x, y) : new IntPoint(x, y);
 	public inline function put()
 	{
 		pool.push(this);

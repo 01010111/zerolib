@@ -54,15 +54,15 @@ abstract Color(Vec4)
 	static function zero(n:Float):Float return n.abs() <= epsilon ? 0 : n;
 
 	static var pool:Array<Color> = [];
-	public static function get(red:Float = 0, green:Float = 0, blue:Float = 0, alpha:Float = 1):Color return pool.length > 0 ? pool.shift().set(red, green, blue, alpha) : new Color(red, green, blue, alpha);
+	public static function get(red:Float = 0, green:Float = 0, blue:Float = 0, alpha:Float = 1):Color return pool != null && pool.length > 0 ? pool.shift().set(red, green, blue, alpha) : new Color(red, green, blue, alpha);
 	public inline function put()
 	{
 		pool.push(cast this);
 		this = null;
 	}
 
-	@:from static function from_array_float(input:Array<Float>) return new Color(input[0], input[1], input[2], input[3]);
-	@:from static function from_array_int(input:Array<Int>) return new Color(input[0], input[1], input[2], input[3]);
+	@:from static function from_array_float(input:Array<Float>) return Color.get(input[0], input[1], input[2], input[3]);
+	@:from static function from_array_int(input:Array<Int>) return Color.get(input[0], input[1], input[2], input[3]);
 	@:arrayAccess function arr_set(n:Int, v:Float) n < 0 || n > 3 ? return : this[n] = v;
 	@:arrayAccess function arr_get(n:Int):Float return this[n.min(3).max(0).floor()];
 

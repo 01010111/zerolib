@@ -19,15 +19,15 @@ abstract Rect(Vec4)
 	static function zero(n:Float):Float return n.abs() <= epsilon ? 0 : n;
 
 	static var pool:Array<Rect> = [];
-	public static function get(x:Float = 0, y:Float = 0, width:Float = 0, height:Float = 0):Rect return pool.length > 0 ? pool.shift().set(x, y, width, height) : new Rect(x, y, width, height);
+	public static function get(x:Float = 0, y:Float = 0, width:Float = 0, height:Float = 0):Rect return pool != null && pool.length > 0 ? pool.shift().set(x, y, width, height) : new Rect(x, y, width, height);
 	public inline function put()
 	{
 		pool.push(cast this);
 		this = null;
 	}
 
-	@:from static function from_array_float(input:Array<Float>) return new Rect(input[0], input[1], input[2], input[3]);
-	@:from static function from_array_int(input:Array<Int>) return new Rect(input[0], input[1], input[2], input[3]);
+	@:from static function from_array_float(input:Array<Float>) return Rect.get(input[0], input[1], input[2], input[3]);
+	@:from static function from_array_int(input:Array<Int>) return Rect.get(input[0], input[1], input[2], input[3]);
 	@:arrayAccess function arr_set(n:Int, v:Float) n < 0 || n > 3 ? return : this[n] = v;
 	@:arrayAccess function arr_get(n:Int):Float return this[n.min(3).max(0).floor()];
 

@@ -19,14 +19,14 @@ abstract Vec4(Array<Float>)
 	static function zero(n:Float):Float return n.abs() <= epsilon ? 0 : n;
 	
 	// Array creation/access
-	@:from static function from_array_float(input:Array<Float>) return new Vec4(input[0], input[1], input[2], input[3]);
-	@:from static function from_array_int(input:Array<Int>) return new Vec4(input[0], input[1], input[2], input[3]);
+	@:from static function from_array_float(input:Array<Float>) return Vec4.get(input[0], input[1], input[2], input[3]);
+	@:from static function from_array_int(input:Array<Int>) return Vec4.get(input[0], input[1], input[2], input[3]);
 	@:arrayAccess function arr_set(n:Int, v:Float) n < 0 || n > 3 ? return : this[n] = v;
 	@:arrayAccess function arr_get(n:Int):Float return this[n.min(3).max(0).floor()];
 
 	// Pooling
 	static var pool:Array<Vec4> = [];
-	public static function get(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0):Vec4 return pool.length > 0 ? pool.shift().set(x, y, z, w) : new Vec4(x, y, z, w);
+	public static function get(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0):Vec4 return pool != null && pool.length > 0 ? pool.shift().set(x, y, z, w) : new Vec4(x, y, z, w);
 	public inline function put()
 	{
 		pool.push(this);
