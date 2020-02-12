@@ -29,7 +29,7 @@ abstract Vec3(Array<Float>)
 	public static function get(x:Float = 0, y:Float = 0, z:Float = 0):Vec3 return pool != null && pool.length > 0 ? pool.shift().set(x, y, z) : new Vec3(x, y, z);
 	public inline function put()
 	{
-		pool.push(this);
+		pool.push(cast this);
 		this = null;
 	}
 

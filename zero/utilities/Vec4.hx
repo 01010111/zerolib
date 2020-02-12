@@ -29,7 +29,7 @@ abstract Vec4(Array<Float>)
 	public static function get(x:Float = 0, y:Float = 0, z:Float = 0, w:Float = 0):Vec4 return pool != null && pool.length > 0 ? pool.shift().set(x, y, z, w) : new Vec4(x, y, z, w);
 	public inline function put()
 	{
-		pool.push(this);
+		pool.push(cast this);
 		this = null;
 	}
 

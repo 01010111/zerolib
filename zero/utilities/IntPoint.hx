@@ -24,7 +24,7 @@ abstract IntPoint(Array<Int>)
 	public static function get(x:Int = 0, y:Int = 0):IntPoint return pool != null && pool.length > 0 ? pool.shift().set(x, y) : new IntPoint(x, y);
 	public inline function put()
 	{
-		pool.push(this);
+		pool.push(cast this);
 		this = null;
 	}
 
