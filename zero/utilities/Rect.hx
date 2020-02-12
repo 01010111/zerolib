@@ -76,7 +76,7 @@ abstract Rect(Vec4)
 		return cast this;
 	}
 
-	public function toString():String return 'x: ${this.x} | y: ${this.y} | width: $width | height: $height';
+	public inline function toString():String return 'x: ${this.x} | y: ${this.y} | width: $width | height: $height';
 
 	public inline function area():Float return width * height;
 	public inline function contains_point(vec2:Vec2) return top <= vec2.y && bottom >= vec2.y && left <= vec2.x && right >= vec2.x;
