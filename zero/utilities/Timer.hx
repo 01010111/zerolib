@@ -43,6 +43,7 @@ class Timer {
 	function new() {}
 
 	public static function cancel_all() for (timer in timers) timer.cancel();
+	public function reset() elapsed = 0;
 	public function cancel() if (timers.remove(this)) pool.push(this);
 	public function pause() paused = true;
 	public function unpause() paused = false;
