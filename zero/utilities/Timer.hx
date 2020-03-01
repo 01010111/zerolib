@@ -31,6 +31,9 @@ class Timer {
 
 	public static function update(dt:Float) for (timer in timers) timer.run(dt);
 
+	public var active(get, never):Bool;
+	function get_active() return timers.indexOf(this) >= 0;
+
 	var time:Float;
 	var elapsed:Float;
 	var fn:Void -> Void;
