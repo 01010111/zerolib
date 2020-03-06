@@ -58,7 +58,7 @@ class StringExt
 	 * @return Dynamic
 	 */
 	public static inline function parse_json(string:String):Dynamic {
-		return haxe.Json.parse(string);
+		return haxe.Json.parse([for (line in string.split('\n')) line.split('//')[0]].join('\n'));
 	}
 
 }
