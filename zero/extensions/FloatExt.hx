@@ -197,4 +197,9 @@ class FloatExt
 	 */
 	public static inline function vector_from_angle(a:Float, len:Float):Vec2 return Vec2.get(a.deg_to_rad().cos() * len, a.deg_to_rad().sin() * len);
 
+	/**
+	 * Rand like they do in GLSL
+	 */
+	public static inline function rand(n:Float) return (n.sin() * 43758.5453123) % 1.0;
+
 }
