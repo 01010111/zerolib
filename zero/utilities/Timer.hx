@@ -47,6 +47,7 @@ class Timer {
 	public function cancel() if (timers.remove(this)) pool.push(this);
 	public function pause() paused = true;
 	public function unpause() paused = false;
+	public function get_remaining() return time - elapsed;
 
 	function run(dt:Float) {
 		if (paused) return;
@@ -59,6 +60,6 @@ class Timer {
 		cancel();
 	}
 
-	public function toString():String return('time left: ${time - elapsed}');
+	public function toString():String return('time left: ${get_remaining()}');
 
 }
