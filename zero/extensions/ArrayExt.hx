@@ -245,4 +245,11 @@ class ArrayExt
 		return arr = unique;
 	}
 
+	public static function chunk<T>(arr:Array<Array<T>>, x:Int, y:Int, w:Int, h:Int):Array<Array<T>> {
+		if (arr.length < y + h || arr[0].length < x + w || x < 0 || y < 0) return [];
+		var out = [for (j in 0...h) []];
+		for (j in 0...h) for (i in 0...w) out[j][i] = arr[y + j][x + i];
+		return out;
+	}
+
 }
