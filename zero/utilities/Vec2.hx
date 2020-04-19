@@ -89,10 +89,12 @@ abstract Vec2(Array<Float>)
 
 	public inline function copy():Vec2 return Vec2.get(x, y);
 	public inline function equals(v:Vec2):Bool return x == v.x && y == v.y;
+	public inline function in_circle(c:Vec2, r:Float):Bool return this.distance(c) < r;
 	public inline function dot(v:Vec2):Float return zero(x * v.x + y * v.y);
 	public inline function cross(v:Vec2):Float return zero(x * v.y - y * v.x);
 	public inline function facing(v:Vec2):Float return zero(x / length * v.x / v.length + y / length * v.y / v.length);
 	public inline function distance(v:Vec2):Float return (v - this).length;
+	public inline function rad_between(v:Vec2):Float return Math.atan2(v.y - y, v.x - x);
 	public inline function toString():String return 'x: $x | y: $y | length: $length | angle: $angle';
 
 	// Operator Overloads
