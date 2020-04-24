@@ -89,7 +89,7 @@ abstract Vec2(Array<Float>)
 
 	public inline function copy():Vec2 return Vec2.get(x, y);
 	public inline function equals(v:Vec2):Bool return x == v.x && y == v.y;
-	public inline function in_circle(c:Vec2, r:Float):Bool return this.distance(c) < r;
+	public inline function in_circle(c:Vec2, r:Float):Bool return distance(c) < r;
 	public inline function dot(v:Vec2):Float return zero(x * v.x + y * v.y);
 	public inline function cross(v:Vec2):Float return zero(x * v.y - y * v.x);
 	public inline function facing(v:Vec2):Float return zero(x / length * v.x / v.length + y / length * v.y / v.length);
