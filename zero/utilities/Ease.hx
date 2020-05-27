@@ -1,4 +1,4 @@
-package util;
+package zero.utilities;
 
 class Ease {
 	static var PI2:Float = Math.PI / 2;

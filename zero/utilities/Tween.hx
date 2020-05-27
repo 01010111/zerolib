@@ -197,7 +197,6 @@ class Tween {
 		if (data == null) return;
 		var eased_period = data.ease(period);
 		for (field => property in data.properties) {
-			var is_int = Reflect.field(data.target, field).is(Int);
 			var val = eased_period.map(0, 1, property.start, property.end);
 			Reflect.setProperty(data.target, field, val);
 		}
