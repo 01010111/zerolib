@@ -190,7 +190,7 @@ class AStar {
 		return out;
 	}
 	
-	static function los(p1:IntPoint, p2:IntPoint, map:Array<Array<Int>>, passable:Array<Int>):Bool {
+	public static function los(p1:IntPoint, p2:IntPoint, map:Array<Array<Int>>, passable:Array<Int>):Bool {
 		var d = p2 - p1;
 		var s:IntPoint = [ (p1.x < p2.x) ? 1 : -1, (p1.y < p2.y) ? 1 : -1 ];
 		var next = p1 + 0;
