@@ -45,7 +45,7 @@ class ArrayExt
 	 *  @param array input array
 	 *  @return	Dynamic
 	 */
-	public static inline function get_random(array:Array<Dynamic>):Dynamic return array[array.length.get_random().to_int()];
+	public static inline function get_random<T>(array:Array<T>):T return array[array.length.get_random().to_int()];
 
    	/**
    	 *  shuffles an array in place and returns it
