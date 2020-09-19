@@ -1,6 +1,7 @@
 package zero.utilities;
 
 using Math;
+using Std;
 using zero.extensions.FloatExt;
 
 class Tween {
@@ -48,7 +49,15 @@ class Tween {
 	 */
 	public function prop(properties:Dynamic) {
 		for (field in Reflect.fields(properties)) {
-			var start = Reflect.field(data.target, field);
+			var start = Reflect.getProperty(data.target, field);
+			if (data.target.isOfType(Array)) {
+				switch field {
+					case 'x', 'r' : start = data.target[0];
+					case 'y', 'g' : start = data.target[1];
+					case 'z', 'b', 'width' : start = data.target[2];
+					case 'w', 'a', 'height' : start = data.target[3];
+				}
+			}
 			data.properties.set(field, {
 				start: start == null ? 0 : start,
 				end: Reflect.field(properties, field),
@@ -179,8 +188,8 @@ class Tween {
 	}
 
 	function complete() {
-		data.on_complete();
 		apply();
+		data.on_complete();
 		switch data.type {
 			case SINGLE_SHOT_FORWARDS | SINGLE_SHOT_BACKWARDS: destroy();
 			case LOOP_FORWARDS | LOOP_BACKWARDS | PING_PONG: reset();
@@ -198,7 +207,15 @@ class Tween {
 		var eased_period = data.ease(period);
 		for (field => property in data.properties) {
 			var val = eased_period.map(0, 1, property.start, property.end);
-			Reflect.setProperty(data.target, field, val);
+			if (data.target.isOfType(Array)) {
+				switch field {
+					case 'x', 'r' : data.target[0] = val;
+					case 'y', 'g' : data.target[1] = val;
+					case 'z', 'b', 'width' : data.target[2] = val;
+					case 'w', 'a', 'height' : data.target[3] = val;
+				}
+			}
+			else Reflect.setProperty(data.target, field, val);
 		}
 	}
 
