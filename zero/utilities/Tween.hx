@@ -4,7 +4,30 @@ using Math;
 using Std;
 using zero.extensions.FloatExt;
 
-class Tween {
+/**
+ * A utility for interpolating between numbers over time
+ * 
+ * **Usage**
+ * 
+ * - Import into your project. `import zero.utilities.Tween;`
+
+ */
+ /**
+	 A utility for interpolating between numbers over time
+
+	 **Usage**
+	 
+	 Before any tweens can be active, make sure you're updating the tween manager in your project with the time from the last frame (delta time):
+	 ```haxe
+		Tween.update(delta_time);
+	 ```
+
+	 Then you can create a tween by passing the object with the variable to tween, and then any other settings. For instance, this will move an object's position to x: 50, y: 100 in 2 seconds:
+	 ```haxe
+	 	Tween.get(my_object).prop({ x: 50, y: 100 }).duration(2);
+	 ```
+ **/
+ class Tween {
 			
 	static var active_tweens:Array<Tween> = [];
 	static var pool:Array<Tween> = [];

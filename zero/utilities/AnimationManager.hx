@@ -4,6 +4,32 @@ import zero.utilities.Tween;
 
 using Math;
 
+/**
+	An animation manager utility, framework agnostic. Dependent on `zero.utilities.Tween` so make sure somewhere in your project you're updating `Tween.update()`!
+	
+	**Usage:**
+	
+	```haxe
+	class AnimatedSprite {
+		var animation:AnimationManager;
+		var frames:Array<Graphic>;
+
+		public function new() {
+			animation = new AnimationManager({ on_frame_change: enter_frame });
+			animation.add({
+				name: 'walk',
+				frames: [0,1,2,3],
+				duration: 0.5,
+			});
+			animation.play('walk');
+		}
+
+		function enter_frame(index:Int) {
+			graphic = frames[index]; // dependent on engine/framework!
+		}
+	}
+	```
+**/
 class AnimationManager {
 
 	public var current:AnimationData;

@@ -1,5 +1,8 @@
 package zero.utilities;
 
+/**
+	A handy anchor enum for use in positioning things
+**/
 enum Anchor {
 	TOP_LEFT;
 	TOP_CENTER;

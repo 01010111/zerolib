@@ -1,5 +1,8 @@
 package zero.utilities;
 
+/**
+	A collection of easing functions, taken from HaxeFlixel's `FlxEase`
+**/
 class Ease {
 	static var PI2:Float = Math.PI / 2;
 	static var EL:Float = 2 * Math.PI / .45;
