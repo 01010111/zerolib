@@ -30,6 +30,6 @@ Extensions are a neat language feature of Haxe. They can add functionality to pr
 Learn more about using Extensions [here](https://github.com/01010111/zerolib/wiki/Extensions)!
 
 ### .utilities
-A handful of utilities like vectors, a pseudo-random number generator, a tiny ECS implementation, and more!
+A handful of utilities like vectors, a tweening library, a A* haxe implementation, and more!
 
 **[Browse the API](http://01010111.com/zerolib/)**
