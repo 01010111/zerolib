@@ -345,6 +345,7 @@ typedef DecalData = {
 	?scaleX:Float,
 	?scaleY:Float,
 	?rotation:Float,
+	?values:Dynamic
 }
 
 // endregion
