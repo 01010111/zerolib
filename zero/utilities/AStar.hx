@@ -98,6 +98,9 @@ class AStar {
 		return [];
 	}
 
+	/**
+		Print out a visual of where the path nodes lie on a map
+	**/
 	public static function print(map:Array<Array<Int>>, path:Array<IntPoint>, passable:Array<Int>) {
 		var node_markers = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ';
 		var arr = [for (row in map) [for (i in row) passable.indexOf(i) >= 0 ? ' ' : '⬛' ]];
@@ -190,6 +193,9 @@ class AStar {
 		return out;
 	}
 	
+	/**
+		Check line of sight, note that the passable array here may be different than the passable array for `get_path()` in case you want objects that you can see through but not walk through (i.e. glass, tables, etc)!
+	**/
 	public static function los(p1:IntPoint, p2:IntPoint, map:Array<Array<Int>>, passable:Array<Int>):Bool {
 		var d = p2 - p1;
 		var s:IntPoint = [ (p1.x < p2.x) ? 1 : -1, (p1.y < p2.y) ? 1 : -1 ];

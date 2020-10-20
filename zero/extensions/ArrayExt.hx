@@ -20,37 +20,26 @@ class ArrayExt
 
 	/**
 	 *  Converts an array of strings to an array of itegers
-	 *  @param array input array
-	 *  @return Array<Int>
 	 */
 	public static inline function strings_to_ints(array:Array<String>):Array<Int> return [for (s in array) Std.parseInt(s)];
 
 	/**
 	 *  Checks whether or not an array contains a value or object
-	 *  @param array input array
-	 *  @param value value to check
-	 *  @return	Bool
 	 */
 	public static inline function contains(array:Array<Dynamic>, value:Dynamic):Bool return array.indexOf(value) >= 0;
 
 	/**
 	 * Returns the last element in an array
-	 * @param a	input array
-	 * @return <T>
 	 */
 	public static inline function last<T>(a:Array<T>):T return a[a.length - 1];
 
 	/**
 	 *  Returns a random element from an array
-	 *  @param array input array
-	 *  @return	Dynamic
 	 */
-	public static inline function get_random(array:Array<Dynamic>):Dynamic return array[array.length.get_random().to_int()];
+	public static inline function get_random<T>(array:Array<T>):T return array[array.length.get_random().to_int()];
 
    	/**
    	 *  shuffles an array in place and returns it
-   	 *  @param array input array
-   	 *  @return	Array<T>
    	 */
    	public static function shuffle<T>(array:Array<T>):Array<T>
 	{
@@ -67,9 +56,6 @@ class ArrayExt
 
 	/**
 	 *  Merges a second array (of the same type) into the first array
-	 *  @param a1 first array
-	 *  @param a2 second array
-	 *  @return Array<T>
 	 */
 	public static function merge<T>(a1:Array<T>, a2:Array<T>):Array<T>
 	{
@@ -79,16 +65,11 @@ class ArrayExt
 
 	/**
 	 * Flattens a 2D Array into a 1D Array
-	 * @param a	input array
-	 * @return Array<T>
 	 */
 	public static inline function flatten<T>(a:Array<Array<T>>):Array<T> return [for (row in a) for (e in row) e];
 
 	/**
 	 * Expands a 1D Array into a 2D Array
-	 * @param a	input array
-	 * @param row_width	how many values per row
-	 * @return Array<Array<T>>
 	 */
 	public static inline function expand<T>(a:Array<T>, row_width:Int):Array<Array<T>>
 	{
@@ -103,10 +84,6 @@ class ArrayExt
 
 	/**
 	 * Uses a flood-fill algorithm to change equal values contiguous to the input coordinates to a new value
-	 * @param array	input array
-	 * @param x x coordinate
-	 * @param y	y coordinate
-	 * @param value new value
 	 */
 	public static function flood_fill_2D(array:Array<Array<Dynamic>>, x:Int, y:Int, value:Dynamic)
 	{
@@ -128,9 +105,6 @@ class ArrayExt
 
 	/**
 	 * Uses a flood-fill algorithm to change equal values contiguous to the input position to a new value
-	 * @param array input array
-	 * @param pos index position	
-	 * @param value new value
 	 */
 	public static function flood_fill_1D(array:Array<Dynamic>, pos:Int, value:Dynamic)
 	{
@@ -150,11 +124,6 @@ class ArrayExt
 
 	/**
 	 * Uses a flood-fill type algorithm to generate a heat map from the coordinates
-	 * @param array input array
-	 * @param x x coordinate
-	 * @param y y coordinate
-	 * @param max_value max heat value, -1 will find the max value based on the minimum result
-	 * @return Array<Array<Int>>
 	 */
 	public static function heat_map(array:Array<Array<Dynamic>>, x:Int, y:Int, max_value:Int = -1):Array<Array<Int>>
 	{
@@ -185,10 +154,6 @@ class ArrayExt
 
 	/**
 	 * get a value from a 2D array with coordinates
-	 * @param array input array
-	 * @param x x coordinate
-	 * @param y y coordinate
-	 * @return Dynamic
 	 */
 	public static function get_xy(array:Array<Array<Dynamic>>, x:Int, y:Int):Dynamic
 	{
@@ -199,10 +164,6 @@ class ArrayExt
 
 	/**
 	 * set a value in a 2D array
-	 * @param array input array
-	 * @param x x coordinate
-	 * @param y y coordinate
-	 * @param value input value
 	 */
 	public static function set_xy(array:Array<Array<Dynamic>>, x:Int, y:Int, value:Dynamic)
 	{
@@ -213,8 +174,6 @@ class ArrayExt
 
 	/**
 	 * Return the value closest to the middle of the array
-	 * @param array input array
-	 * @return Dynamic
 	 */
 	public static function median(array:Array<Dynamic>):Dynamic
 	{
@@ -223,9 +182,6 @@ class ArrayExt
 
 	/**
 	 * Checks to see if two arrays are equal
-	 * @param a1 
-	 * @param a2
-	 * @return Bool
 	 */
 	public static function equals(a1:Array<Dynamic>, a2:Array<Dynamic>):Bool
 	{
@@ -236,8 +192,6 @@ class ArrayExt
 
 	/**
 	 * Remove duplicates from given array and return the array
-	 * @param arr 
-	 * @return Array<T>
 	 */
 	public static function remove_duplicates<T>(arr:Array<T>):Array<T> {
 		var unique = [];
@@ -245,6 +199,9 @@ class ArrayExt
 		return arr = unique;
 	}
 
+	/**
+	 * Returns a "chunk" of a 2D array from given coordinates, width and height
+	 */
 	public static function chunk<T>(arr:Array<Array<T>>, x:Int, y:Int, w:Int, h:Int):Array<Array<T>> {
 		if (arr.length < y + h || arr[0].length < x + w || x < 0 || y < 0) return [];
 		var out = [for (j in 0...h) []];
