@@ -248,7 +248,9 @@ typedef LayerData = {
 	?decals:Array<DecalData>,
 	?tileset:String,
 	?data:Array<Int>,
+	?tileFlags:Array<Int>,
 	?data2D:Array<Array<Int>>,
+	?tileFlags2D:Array<Array<Int>>,
 	?dataCSV:String,
 	?exportMode:Int,
 	?arrayMode:Int,
@@ -269,7 +271,9 @@ typedef TileLayer = {
 	exportMode:Int,
 	arrayMode:Int,
 	?data:Array<Int>,
+	?tileFlags:Array<Int>,
 	?data2D:Array<Array<Int>>,
+	?tileFlags2D:Array<Array<Int>>,
 	?dataCSV:String,
 }
 
@@ -345,7 +349,6 @@ typedef DecalData = {
 	?scaleX:Float,
 	?scaleY:Float,
 	?rotation:Float,
-	?values:Dynamic
 }
 
 // endregion
