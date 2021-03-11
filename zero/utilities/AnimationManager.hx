@@ -102,6 +102,11 @@ class AnimationManager {
 		return v;
 	}
 
+	public function get_period() {
+		if (tween == null || !tween.active) return 0.0;
+		else return tween.get_period();
+	}
+
 }
 
 typedef AnimationOptions = {
