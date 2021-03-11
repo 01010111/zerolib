@@ -55,7 +55,7 @@ using zero.extensions.FloatExt;
 	 * Tween.active determines whether to update a tween or not
 	 */
 	public var active:Bool = true;
-	var data:TweenData;
+	public var data:TweenData;
 	var period:Float;
 	var reverse:Bool;
 
@@ -81,16 +81,21 @@ using zero.extensions.FloatExt;
 					case 'w', 'a', 'height' : start = data.target[3];
 				}
 			}
-			data.properties.set(field, {
+			data.properties.push({
+				field: field,
 				start: start == null ? 0 : start,
-				end: Reflect.field(properties, field),
+				end: Reflect.field(properties, field)
 			});
 		}
 		return this;
 	}
 
 	public function from_to(field:String, from:Dynamic, to:Dynamic) {
-		data.properties.set(field, { start: from, end: to });
+		data.properties.push({
+			field: field,
+			start: from,
+			end: to
+		});
 		return this;
 	}
 
@@ -232,17 +237,17 @@ using zero.extensions.FloatExt;
 	function apply() {
 		if (data == null) return;
 		var eased_period = data.ease(period);
-		for (field => property in data.properties) {
+		for (property in data.properties) {
 			var val = eased_period.map(0, 1, property.start, property.end);
 			if (data.target.isOfType(Array)) {
-				switch field {
+				switch property.field {
 					case 'x', 'r' : data.target[0] = val;
 					case 'y', 'g' : data.target[1] = val;
 					case 'z', 'b', 'width' : data.target[2] = val;
 					case 'w', 'a', 'height' : data.target[3] = val;
 				}
 			}
-			else Reflect.setProperty(data.target, field, val);
+			else Reflect.setProperty(data.target, property.field, val);
 		}
 	}
 
@@ -251,7 +256,7 @@ using zero.extensions.FloatExt;
 typedef TweenData = {
 	target:Dynamic,
 	duration:Float,
-	properties:Map<String, TweenProperty>,
+	properties:Array<TweenProperty>,
 	ease:Float -> Float,
 	delay:Float,
 	delay_ref:Float,
@@ -260,6 +265,7 @@ typedef TweenData = {
 }
 
 typedef TweenProperty = {
+	field:String,
 	start:Dynamic,
 	end:Dynamic,
 }
