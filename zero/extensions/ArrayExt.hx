@@ -24,11 +24,6 @@ class ArrayExt
 	public static inline function strings_to_ints(array:Array<String>):Array<Int> return [for (s in array) Std.parseInt(s)];
 
 	/**
-	 *  Checks whether or not an array contains a value or object
-	 */
-	public static inline function contains(array:Array<Dynamic>, value:Dynamic):Bool return array.indexOf(value) >= 0;
-
-	/**
 	 * Returns the last element in an array
 	 */
 	public static inline function last<T>(a:Array<T>):T return a[a.length - 1];
@@ -195,7 +190,7 @@ class ArrayExt
 	 */
 	public static function remove_duplicates<T>(arr:Array<T>):Array<T> {
 		var unique = [];
-		for (item in arr) if (!unique.contains(item)) unique.push(item);
+		for (item in arr) if (unique.indexOf(item) < 0) unique.push(item);
 		return arr = unique;
 	}
 
