@@ -131,6 +131,10 @@ using zero.extensions.FloatExt;
 		return this;
 	}
 
+	public function get_period():Float {
+		return period;
+	}
+
 	/**
 	 * Sets the period or progress of a Tween (0-1)
 	 */
