@@ -139,4 +139,13 @@ class FloatExt
 	 */
 	public static inline function rand(n:Float) return (n.sin() * 43758.5453123) % 1.0;
 
+	public static inline function parse_time(n:Float):String {
+		var minutes = '${(n/60).floor()}';
+		var seconds = '${(n % 60).floor()}';
+		var milliseconds = '${((n % 1).normalize(3) * 100).floor()}';
+		while (seconds.length < 2) seconds = '0$seconds';
+		while (milliseconds.length < 3) milliseconds = '${milliseconds}0';
+		return '$minutes:$seconds.$milliseconds';
+	}
+
 }
