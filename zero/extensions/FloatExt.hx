@@ -139,6 +139,9 @@ class FloatExt
 	 */
 	public static inline function rand(n:Float) return (n.sin() * 43758.5453123) % 1.0;
 
+	/**
+	 *	input a float representing milliseconds, get a nice formatted string in M:SS.mmm format
+	**/
 	public static inline function parse_time(n:Float):String {
 		var minutes = '${(n/60).floor()}';
 		var seconds = '${(n % 60).floor()}';
@@ -146,6 +149,13 @@ class FloatExt
 		while (seconds.length < 2) seconds = '0$seconds';
 		while (milliseconds.length < 3) milliseconds = '${milliseconds}0';
 		return '$minutes:$seconds.$milliseconds';
+	}
+
+	/**
+	 *	inspired by dubya bush, returns a number close to the input but not quite
+	**/
+	public static inline function fuzzy(n:Float, ratio:Float = 0.5):Float {
+		return (n + n * ratio).get_random_gaussian(n - n * ratio);
 	}
 
 }
