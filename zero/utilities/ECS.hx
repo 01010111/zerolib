@@ -86,7 +86,10 @@ class ECS
 
 	public static function get_entity_data(entity:String):Map<String, Dynamic>
 	{
-		if (!ENTITIES.exists(entity)) return [ for (i in 0...error('Entity $entity does not exist!').length) {} ];
+		if (!ENTITIES.exists(entity)) {
+			error('Entity $entity does not exist!');
+			return [];
+		}
 		return [ for (name => data in COMPONENTS) if (data.exists(ENTITIES[entity])) name => data[ENTITIES[entity]] ];
 	}
 
