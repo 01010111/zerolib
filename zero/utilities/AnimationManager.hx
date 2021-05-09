@@ -57,6 +57,7 @@ class AnimationManager {
 		if (current != null && current.name == name && !force) return;
 		current = this.data[name];
 		animation_index = 0;
+		if (tween != null) tween.active = false;
 		tween = Tween.get(this).duration(current.duration).ease(current.ease).set_period(period).type(current.type).prop({ animation_index: current.frames.length - 1 });
 		if (current.on_complete != null) tween.on_complete(current.on_complete);
 	}
