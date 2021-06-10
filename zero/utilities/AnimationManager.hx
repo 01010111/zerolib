@@ -60,6 +60,7 @@ class AnimationManager {
 		if (tween != null) tween.active = false;
 		tween = Tween.get(this).duration(current.duration).ease(current.ease).set_period(period).type(current.type).prop({ animation_index: current.frames.length - 1 });
 		if (current.on_complete != null) tween.on_complete(current.on_complete);
+		on_frame_change(current.frames[0]);
 	}
 
 	function set_animation_index(n:Int) {
