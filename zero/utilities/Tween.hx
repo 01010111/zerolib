@@ -44,13 +44,14 @@ using zero.extensions.FloatExt;
 		 return tween;
 	}
 
-	public static function tween(target:Dynamic, duration:Float, properties:Dynamic, ?options:TweenOptions) {
+	public static function tween(target:Dynamic, duration:Float, properties:Dynamic, ?options:TweenOptions):Tween {
 		var t = Tween.get(target).duration(duration).prop(properties);
-		if (options == null) return;
+		if (options == null) return t;
 		if (options.delay != null) t.delay(options.delay);
 		if (options.ease != null) t.ease(options.ease);
 		if (options.type != null) t.type(options.type);
 		if (options.on_complete != null) t.on_complete(options.on_complete);
+		return t;
 	}
 	
 	/**
