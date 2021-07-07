@@ -154,6 +154,7 @@ class AStar {
 	}
 
 	static function remove_nodes_on_path(points:Array<IntPoint>, map:Array<Array<Int>>):Array<IntPoint> {
+		if (points.length < 3) return points;
 		var last = points.shift();
 		var next = points.shift();
 		var v = next - last;
@@ -171,6 +172,7 @@ class AStar {
 	}
 
 	static function los_simplify(points:Array<IntPoint>, map:Array<Array<Int>>, passable:Array<Int>):Array<IntPoint> {
+		if (points.length < 3) return points;
 		var last = points.shift();
 		var current = points.shift();
 		var next = points.shift();
@@ -220,6 +222,7 @@ class AStar {
 	}
 
 	static function los_nd_simplify(points:Array<IntPoint>, map:Array<Array<Int>>, passable:Array<Int>):Array<IntPoint> {
+		if (points.length < 3) return points;
 		var last = points.shift();
 		var current = points.shift();
 		var next = points.shift();
