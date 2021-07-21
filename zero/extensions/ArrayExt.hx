@@ -204,4 +204,11 @@ class ArrayExt
 		return out;
 	}
 
+	/**
+	 *	Fills a 2D array with a specific value
+	 */
+	public static function fill<T>(arr:Array<Array<T>>, v:T) {
+		for (j in 0...arr.length) for (i in 0...arr[j].length) arr[j][i] = v;
+	}
+
 }
