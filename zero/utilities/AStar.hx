@@ -201,7 +201,7 @@ class AStar {
 		var s:IntPoint = [ (p1.x < p2.x) ? 1 : -1, (p1.y < p2.y) ? 1 : -1 ];
 		var next = p1 + 0;
 		var dist:Float = d.length;
-		while (next.x != p2.x && next.y != p2.y)
+		while (next.x != p2.x || next.y != p2.y)
 		{
 			if (passable.indexOf(map[next.y][next.x]) == -1) {
 				d.put();
