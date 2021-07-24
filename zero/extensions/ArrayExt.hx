@@ -24,6 +24,11 @@ class ArrayExt
 	public static inline function strings_to_ints(array:Array<String>):Array<Int> return [for (s in array) Std.parseInt(s)];
 
 	/**
+	 *  Converts an array of strings to an array of itegers
+	 */
+	public static inline function strings2D_to_ints(array:Array<Array<String>>):Array<Array<Int>> return [for (row in array) [for (s in row) Std.parseInt(s)]];
+
+	 /**
 	 * Returns the last element in an array
 	 */
 	public static inline function last<T>(a:Array<T>):T return a[a.length - 1];
