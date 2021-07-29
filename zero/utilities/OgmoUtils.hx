@@ -1,5 +1,6 @@
 package zero.utilities;
 
+using Std;
 using haxe.Json;
 using zero.utilities.OgmoUtils;
 
@@ -136,6 +137,17 @@ class OgmoUtils
 	{
 		for (decal in layer.decals) fn(decal);
 	} // endregion
+
+	/**
+	 * Translate Ogmo's color format to a 32 bit Int
+	 * @param color 
+	 */
+	 public static function parse_color(color:String) {
+		if (color.indexOf('#') != 0) return 0xFF00FF00;
+		color = color.substr(1);
+		color = '0x' + color.substr(6, 2) + color.substr(0, 6);
+		return color.parseInt();
+	}
 
 }
 
