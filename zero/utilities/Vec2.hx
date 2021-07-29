@@ -1,6 +1,7 @@
 package zero.utilities;
 
 using Math;
+using zero.extensions.FloatExt;
 
 /**
  * A simple Vector class
@@ -95,6 +96,7 @@ abstract Vec2(Array<Float>)
 	public inline function facing(v:Vec2):Float return zero(x / length * v.x / v.length + y / length * v.y / v.length);
 	public inline function distance(v:Vec2):Float return (v - this).length;
 	public inline function rad_between(v:Vec2):Float return Math.atan2(v.y - y, v.x - x);
+	public inline function deg_between(v:Vec2):Float return Math.atan2(v.y - y, v.x - x).rad_to_deg();
 	public inline function toString():String return 'x: $x | y: $y | length: $length | angle: $angle';
 
 	// Operator Overloads
