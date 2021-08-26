@@ -48,4 +48,10 @@ class StringExt
 		return haxe.Json.parse([for (line in string.split('\n')) line.split('//')[0]].join('\n'));
 	}
 
+	public static inline function capitalize_first_letter(string:String):String {
+		var chars = string.split('');
+		chars[0].toUpperCase();
+		return chars.join('');
+	}
+
 }
