@@ -25,11 +25,13 @@ abstract Vec3(Array<Float>)
 	@:arrayAccess function arr_get(n:Int):Float return this[n.min(2).max(0).floor()];
 
 	// Pooling
-	static var pool:Array<Vec3> = [];
-	public static function get(x:Float = 0, y:Float = 0, z:Float = 0):Vec3 return pool != null && pool.length > 0 ? pool.shift().set(x, y, z) : new Vec3(x, y, z);
-	public inline function put()
-	{
-		pool.push(cast this);
+	public static var pool:Array<Vec3> = [];
+	public static function get(x:Float = 0, y:Float = 0, z:Float = 0):Vec3 {
+		if (pool != null && pool.length > 0) return pool.pop().set(x, y, z);
+		return new Vec3(x, y, z);
+	}
+	public inline function put() {
+		pool.push(this);
 		this = null;
 	}
 
