@@ -9,136 +9,107 @@ using zero.extensions.FloatExt;
  * **Usage:**
  * 
  * - Initialize using Vec2.get() `var vec = Vec2.get(0, 0);`
- * - Or with an array `var vec:Vec2 = [0, 1];`
  * - Recycle vectors when you're done with them: `my_vector.put()`
  */
-abstract Vec2(Array<Float>)
-{
+ abstract Vec2(Array<Float>) {
 
-	public static var UP (default, never):Vec2 = [0, -1];
-	public static var DOWN (default, never):Vec2 = [0, 1];
-	public static var LEFT (default, never):Vec2 = [-1, 0];
-	public static var RIGHT (default, never):Vec2 = [1, 0];
-
-	// Utility
-	static var epsilon:Float = 1e-8;
-	static function zero(n:Float):Float return n.abs() <= epsilon ? 0 : n;
-	
-	// Array creation/access
-	@:from static function from_array_float(input:Array<Float>) return Vec2.get(input[0], input[1]);
-	@:from static function from_array_int(input:Array<Int>) return Vec2.get(input[0], input[1]);
-	@:arrayAccess function arr_set(n:Int, v:Float) n < 0 || n > 1 ? return : this[n] = v;
-	@:arrayAccess function arr_get(n:Int):Float return this[n.min(1).max(0).floor()];
-
-	// Pooling
 	static var pool:Array<Vec2> = [];
-	public static function get(x:Float = 0, y:Float = 0):Vec2 return pool != null && pool.length > 0 ? pool.shift().set(x, y) : new Vec2(x, y);
-	public inline function put()
-	{
-		pool.push(cast this);
-		this = null;
+
+	public static var UP = Vec2.get(0, -1);
+	public static var DOWN = Vec2.get(0, 1);
+	public static var LEFT = Vec2.get(-1, 0);
+	public static var RIGHT = Vec2.get(1, 0);
+	public static var use_radians:Bool = false;
+
+	public static function get(x:Float = 0, y:Float = 0):Vec2 {
+		if (pool.length > 0) return pool.shift().set(x, y);
+		return new Vec2(x, y);
 	}
 
-	inline function new(x:Float = 0, y:Float = 0) this = [x, y];
-	public inline function set(x:Float = 0, y:Float = 0):Vec2
-	{
-		this[0] = zero(x);
-		this[1] = zero(y);
+	static function zero(v:Float) return Math.abs(v) <= 1e-8 ? 0 : v;
+	
+	public var radians(get, set):Float;
+	public var length(get, set):Float;
+
+	public var x(get, set):Float;
+	public var y(get, set):Float;
+	public var angle(get, set):Float;
+	public var degrees(get, set):Float;
+
+	public function new(x:Float, y:Float) {
+		this = [Math.atan2(y, x), Math.sqrt(x * x + y * y)];
+	}
+	
+	public function set(x:Float, y:Float):Vec2 {
+		length = Math.sqrt(x * x + y * y);
+		radians = Math.atan2(y, x);
 		return cast this;
 	}
 
-	public var x (get, set):Float;
-	inline function get_x() return this[0];
-	inline function set_x(v) return this[0] = v;
-
-	public var y (get, set):Float;
-	inline function get_y() return this[1];
-	inline function set_y(v) return this[1] = v;
-
-	public var length (get, set):Float;
-	inline function get_length() return (x*x + y*y).sqrt();
-	inline function set_length(v:Float)
-	{
-		normalize();
-		scale(v);
-		return v;
+	public function put() {
+		this[0] = null;
+		this[1] = null;
+		pool.push(cast this);
 	}
 
-	public var angle (get, set):Float;
-	inline function get_angle() return ((Math.atan2(y, x) * (180 / Math.PI)) % 360 + 360) % 360;
-	inline function set_angle(v:Float)
-	{
-		v *= (Math.PI / 180);
-		var len = length;
-		set(len * v.cos(), len * v.sin());
-		return v;
-	}
-
-	public var radians (get, set):Float;
-	inline function get_radians() return Math.atan2(y, x);
-	inline function set_radians(v:Float)
-	{
-		var len = length;
-		set(len * v.cos(), len * v.sin());
-		return v;
-	}
-
-	// These functions modify the vector in place!
-	public inline function copy_from(v:Vec2):Vec2 return set(v.x, v.y);
-	public inline function normalize():Vec2 return set(x / length, y / length);
-	public inline function scale(n:Float):Vec2 return set(x * n, y * n);
-
-	public inline function copy():Vec2 return Vec2.get(x, y);
-	public inline function equals(v:Vec2):Bool return x == v.x && y == v.y;
-	public inline function in_circle(c:Vec2, r:Float):Bool return distance(c) < r;
+	public inline function normalize() return set(x / length, y / length);
+	public inline function scale(scalar:Float) return set(x * scalar, y * scalar);
 	public inline function dot(v:Vec2):Float return zero(x * v.x + y * v.y);
 	public inline function cross(v:Vec2):Float return zero(x * v.y - y * v.x);
-	public inline function facing(v:Vec2):Float return zero(x / length * v.x / v.length + y / length * v.y / v.length);
-	public inline function distance(v:Vec2):Float return (v - this).length;
+	public inline function distance(v:Vec2):Float return Math.sqrt(Math.pow(x - v.x, 2) + Math.pow(y - v.y, 2));
 	public inline function rad_between(v:Vec2):Float return Math.atan2(v.y - y, v.x - x);
-	public inline function deg_between(v:Vec2):Float return Math.atan2(v.y - y, v.x - x).rad_to_deg();
-	public inline function toString():String return 'x: $x | y: $y | length: $length | angle: $angle';
+	public inline function deg_between(v:Vec2):Float return Math.atan2(v.y - y, v.x - x) * (180 / Math.PI);
+	public inline function angle_between(v:Vec2):Float return use_radians ? rad_between(v) : deg_between(v);
+	public inline function in_circle(cx:Float, cy:Float, cr:Float) return Math.sqrt(Math.pow(x - cx, 2) + Math.pow(y - cy, 2)) <= cr;
 
-	// Operator Overloads
-	@:op(A + B) static function add(v1:Vec2, v2:Vec2):Vec2 return Vec2.get(v1.x + v2.x, v1.y + v2.y);
-	@:op(A + B) static function add_f(v:Vec2, n:Float):Vec2 return Vec2.get(v.x + n, v.y + n);
-	@:op(A - B) static function subtract(v1:Vec2, v2:Vec2):Vec2 return Vec2.get(v1.x - v2.x, v1.y - v2.y);
-	@:op(A - B) static function subtract_f(v:Vec2, n:Float):Vec2 return Vec2.get(v.x - n, v.y - n);
-	@:op(A * B) static function multiply(v1:Vec2, v2:Vec2):Vec2 return Vec2.get(v1.x * v2.x, v1.y * v2.y);
-	@:op(A * B) static function multiply_f(v:Vec2, n:Float):Vec2 return Vec2.get(v.x * n, v.y * n);
-	@:op(A / B) static function divide(v1:Vec2, v2:Vec2):Vec2 return Vec2.get(v1.x / v2.x, v1.y / v2.y);
-	@:op(A / B) static function divide_f(v:Vec2, n:Float):Vec2 return Vec2.get(v.x / n, v.y / n);
-	@:op(A % B) static function mod(v1:Vec2, v2:Vec2):Vec2 return Vec2.get(v1.x % v2.x, v1.y % v2.y);
-	@:op(A % B) static function mod_f(v:Vec2, n:Float):Vec2 return Vec2.get(v.x % n, v.y % n);
+	public inline function copy_from(v:Vec2) return set(v.x, v.y);
+	public inline function copy():Vec2 return Vec2.get(x, y);
+	public inline function toString() return 'x:$x, y:$y, length:$length, angle:$angle';
 
-	// Swizzling
-	@:dox(hide) public var xx (get, never):Vec2; private function get_xx() return Vec2.get(x, x);
-	@:dox(hide) public var xy (get, never):Vec2; private function get_xy() return Vec2.get(x, y);
-	@:dox(hide) public var yx (get, never):Vec2; private function get_yx() return Vec2.get(y, x);
-	@:dox(hide) public var yy (get, never):Vec2; private function get_yy() return Vec2.get(y, y);
-	@:dox(hide) public var xxx (get, never):Vec3; private function get_xxx() return Vec3.get(x, x, x);
-	@:dox(hide) public var xxy (get, never):Vec3; private function get_xxy() return Vec3.get(x, x, y);
-	@:dox(hide) public var xyx (get, never):Vec3; private function get_xyx() return Vec3.get(x, y, x);
-	@:dox(hide) public var xyy (get, never):Vec3; private function get_xyy() return Vec3.get(x, y, y);
-	@:dox(hide) public var yxx (get, never):Vec3; private function get_yxx() return Vec3.get(y, x, x);
-	@:dox(hide) public var yxy (get, never):Vec3; private function get_yxy() return Vec3.get(y, x, y);
-	@:dox(hide) public var yyx (get, never):Vec3; private function get_yyx() return Vec3.get(y, y, x);
-	@:dox(hide) public var yyy (get, never):Vec3; private function get_yyy() return Vec3.get(y, y, y);
-	@:dox(hide) public var xxxx (get, never):Vec4; private function get_xxxx() return Vec4.get(x, x, x, x);
-	@:dox(hide) public var xxxy (get, never):Vec4; private function get_xxxy() return Vec4.get(x, x, x, y);
-	@:dox(hide) public var xxyx (get, never):Vec4; private function get_xxyx() return Vec4.get(x, x, y, x);
-	@:dox(hide) public var xxyy (get, never):Vec4; private function get_xxyy() return Vec4.get(x, x, y, y);
-	@:dox(hide) public var xyxx (get, never):Vec4; private function get_xyxx() return Vec4.get(x, y, x, x);
-	@:dox(hide) public var xyxy (get, never):Vec4; private function get_xyxy() return Vec4.get(x, y, x, y);
-	@:dox(hide) public var xyyx (get, never):Vec4; private function get_xyyx() return Vec4.get(x, y, y, x);
-	@:dox(hide) public var xyyy (get, never):Vec4; private function get_xyyy() return Vec4.get(x, y, y, y);
-	@:dox(hide) public var yxxx (get, never):Vec4; private function get_yxxx() return Vec4.get(y, x, x, x);
-	@:dox(hide) public var yxxy (get, never):Vec4; private function get_yxxy() return Vec4.get(y, x, x, y);
-	@:dox(hide) public var yxyx (get, never):Vec4; private function get_yxyx() return Vec4.get(y, x, y, x);
-	@:dox(hide) public var yxyy (get, never):Vec4; private function get_yxyy() return Vec4.get(y, x, y, y);
-	@:dox(hide) public var yyxx (get, never):Vec4; private function get_yyxx() return Vec4.get(y, y, x, x);
-	@:dox(hide) public var yyxy (get, never):Vec4; private function get_yyxy() return Vec4.get(y, y, x, y);
-	@:dox(hide) public var yyyx (get, never):Vec4; private function get_yyyx() return Vec4.get(y, y, y, x);
-	@:dox(hide) public var yyyy (get, never):Vec4; private function get_yyyy() return Vec4.get(y, y, y, y);
+	function get_radians() return this[0];
+	function get_length() return Math.abs(this[1]);
+	function get_x() return zero(length * Math.cos(radians));
+	function get_y() return zero(length * Math.sin(radians));
+	function get_angle() return use_radians ? radians : degrees;
+	function get_degrees() return radians * (180 / Math.PI);
+
+	function set_radians(v) return this[0] = v;
+	function set_length(v) {
+		if (v < 0.0) radians += Math.PI;
+		return this[1] = Math.abs(v);
+	}
+	
+	function set_x(v:Float) {
+		var y = get_y();
+		length = Math.sqrt(v * v + y * y);
+		radians = Math.atan2(y, v);
+		return v;
+	}
+	
+	function set_y(v:Float) {
+		var x = get_x();
+		length = Math.sqrt(x * x + v * v);
+		radians = Math.atan2(v, x);
+		return v;
+	}
+
+	function set_degrees(v:Float) {
+		radians = v * (Math.PI / 180);
+		return v;
+	}
+	
+	function set_angle(v:Float) {
+		radians = use_radians ? v : v * (Math.PI / 180);
+		return v;
+	}
+
+	@:op(A + B) static function add(v1:Vec2, v2:Vec2) return Vec2.get(v1.x + v2.x, v1.y + v2.y);
+	@:op(A - B) static function subtract(v1:Vec2, v2:Vec2) return Vec2.get(v1.x - v2.x, v1.y - v2.y);
+	@:op(A * B) static function dot_product(v1:Vec2, v2:Vec2) return v1.dot(v2);
+	@:op(A / B) static function cross_product(v1:Vec2, v2:Vec2) return v1.cross(v2);
+	@:op(A == B) static function is_equal(v1:Vec2, v2:Vec2) return v1.radians == v2.radians && v1.length == v2.length; 
+	
+	@:op(A + B) static function add_float(v1:Vec2, f:Float) return Vec2.get(v1.x + f, v1.y + f);
+	@:op(A - B) static function subtract_float(v1:Vec2, f:Float) return Vec2.get(v1.x - f, v1.y - f);
 
 }
