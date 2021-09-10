@@ -40,7 +40,7 @@ using zero.extensions.FloatExt;
 		this = [Math.atan2(y, x), Math.sqrt(x * x + y * y)];
 	}
 	
-	public function set(x:Float, y:Float):Vec2 {
+	public function set(x:Float = 0, y:Float = 0):Vec2 {
 		length = Math.sqrt(x * x + y * y);
 		radians = Math.atan2(y, x);
 		return cast this;
