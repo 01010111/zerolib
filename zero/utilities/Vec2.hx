@@ -80,6 +80,8 @@ using zero.extensions.FloatExt;
 	}
 	
 	function set_x(v:Float) {
+		if (this[2] == v) return v;
+		this[2] = v;
 		var y = get_y();
 		length = Math.sqrt(v * v + y * y);
 		radians = Math.atan2(y, v);
@@ -87,6 +89,8 @@ using zero.extensions.FloatExt;
 	}
 	
 	function set_y(v:Float) {
+		if (this[3] == v) return v;
+		this[3] = v;
 		var x = get_x();
 		length = Math.sqrt(x * x + v * v);
 		radians = Math.atan2(v, x);
