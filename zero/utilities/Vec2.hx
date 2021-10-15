@@ -111,5 +111,6 @@ using zero.extensions.FloatExt;
 	
 	@:op(A + B) static function add_float(v1:Vec2, f:Float) return Vec2.get(v1.x + f, v1.y + f);
 	@:op(A - B) static function subtract_float(v1:Vec2, f:Float) return Vec2.get(v1.x - f, v1.y - f);
-
+	@:op(A * B) static function multiply_float(v1:Vec2, f:Float) return Vec2.get(v1.x * f, v1.y * f);
+	@:op(A / B) static function divide_float(v1:Vec2, f:Float) return Vec2.get(v1.x / f, v1.y / f);
 }
