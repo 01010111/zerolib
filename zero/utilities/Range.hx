@@ -18,8 +18,6 @@ abstract Range(Vec2)
 	// Array creation/access
 	@:from static function from_array_float(input:Array<Float>) return new Range(input[0], input[1]);
 	@:from static function from_array_int(input:Array<Int>) return new Range(input[0], input[1]);
-	@:arrayAccess function arr_set(n:Int, v:Float) n < 0 || n > 1 ? return : this[n] = v;
-	@:arrayAccess function arr_get(n:Int):Float return this[n.min(1).max(0).floor()];
 
 	// Pooling
 	static var pool:Array<Range> = [];
@@ -30,25 +28,25 @@ abstract Range(Vec2)
 		this = null;
 	}
 
-	function new(min:Float = 0, max:Float = 1) this = [min, max];
+	function new(min:Float = 0, max:Float = 1) this = Vec2.get(min, max);
 	public inline function set(min:Float = 0, max:Float = 1):Range
 	{
-		this[0] = min;
-		this[1] = max;
+		this.x = min;
+		this.y = max;
 		return cast this;
 	}
 
 	public var min (get, set):Float;
-	function get_min() return this[0];
+	function get_min() return this.x;
 	function set_min(v) {
-		this[0] = v;
+		this.x = v;
 		return v;
 	}
 
 	public var max (get, set):Float;
-	function get_max() return this[1];
+	function get_max() return this.y;
 	function set_max(v) {
-		this[1] = v;
+		this.y = v;
 		return v;
 	}
 
