@@ -46,9 +46,8 @@ using zero.extensions.FloatExt;
 		return cast this;
 	}
 
-	public function put() {
-		this[0] = null;
-		this[1] = null;
+	public inline function put() {
+		this = [];
 		pool.push(cast this);
 	}
 
