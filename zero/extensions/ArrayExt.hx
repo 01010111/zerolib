@@ -216,4 +216,8 @@ class ArrayExt
 		for (j in 0...arr.length) for (i in 0...arr[j].length) arr[j][i] = v;
 	}
 
+	public static function push_multi<T>(arr:Array<T>, ...values:T) {
+		for (value in values) arr.push(value);
+	}
+
 }
