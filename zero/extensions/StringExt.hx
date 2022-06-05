@@ -54,4 +54,10 @@ class StringExt
 		return chars.join('');
 	}
 
+	public static inline function capitalize_first_letter_of_every_word(string:String):String {
+		var words = string.split(' ');
+		for (word in words) word = word.capitalize_first_letter();
+		return words.join(' ');
+	}
+
 }
