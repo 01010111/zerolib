@@ -2,6 +2,7 @@ package zero.extensions;
 
 using zero.extensions.ArrayExt;
 using zero.extensions.FloatExt;
+using zero.extensions.StringExt;
 using Math;
 
 /**
@@ -50,13 +51,13 @@ class StringExt
 
 	public static inline function capitalize_first_letter(string:String):String {
 		var chars = string.split('');
-		chars[0].toUpperCase();
+		chars[0] = chars[0].toUpperCase();
 		return chars.join('');
 	}
 
 	public static inline function capitalize_first_letter_of_every_word(string:String):String {
 		var words = string.split(' ');
-		for (word in words) word = word.capitalize_first_letter();
+		for (i in 0...words.length) words[i] = words[i].capitalize_first_letter();
 		return words.join(' ');
 	}
 
