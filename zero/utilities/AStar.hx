@@ -154,6 +154,7 @@ class AStar {
 	}
 
 	static function remove_nodes_on_path(points:Array<IntPoint>, map:Array<Array<Int>>):Array<IntPoint> {
+		if (points.length <= 1) return points;
 		var last = points.shift();
 		var next = points.shift();
 		var v = next - last;
