@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": ["game", "gamedev", "math", "utilities", "extensions"],
 	"description": "Zerolib is a framework agnostic library of extensions, utilities, and other helpful classes for making games!",
-	"version": "0.8.0",
-	"releasenote": "Added Tween, AnimationManager, and more!",
+	"version": "0.8.1",
+	"releasenote": "Fix StringExt",
 	"contributors": ["01010111", "austineast"],
 	"dependencies": {}
 }
